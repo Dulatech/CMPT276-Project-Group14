@@ -13,24 +13,24 @@ Jaspreet Singh - 301435873
 
 ## Project Overview
 
-## Name: CraveIt
+### Name: CraveIt
 
-## How is the problem currently solved?
+### How is the problem currently solved?
 The goal of our web application is to provide a centralized platform where one can rate, search,  reserve and save restaurants. The app is aimed at everyone but most likely will be utilized by youth. Many people currently use Yelp or Instagram. However, both sites require an account for additional services. Yelp requires an account and downloading the app in order to book a reservation. Instagram requires an account to see additional posts or contact the restaurant. CraveIt will exist as an all in one web application where creating an account is optional for those who would like to leave reviews or save future or past visits.
 Some other alternatives are Urbanspoon, OpenTable and Apple Maps. Urbanspoon is used by millions to find nearby restaurants with ratings and reviews by consumers and food critics. Features available are browsing menus and photos of items and booking a reservation using OpenTable’s system. Open table holds a large selection of restaurants where parking/pricing information is available and user reviews are shown as well. Apple Maps exist directly on every user's iPhones and will show nearby restaurants with ratings directly from google search. There is also a built-in GPS feature where one can see the directions from their current location.
 At the moment, a complete collection of all these features and services do not exist in a centralized location or platform. Our mission is to create one that is simple, modern, and easy to use for all. This will make it easy for all to read and leave reviews at local restaurants, book and cancel reservations, and create an account to bookmark potential visits.
  
  
-## How will this project make life better?
+### How will this project make life better?
 Our app will provide a seamless experience from the beginning of their reservation to its end with as few interactions as possible and  real-time reviews and recommendations from other customers, and an option to make their preferences known. Using our app with a user-friendly interface that can be used with ease on any device and that is simple to navigate will make life easier for both customers and staff. It provides all the nearby restaurant options to the users and online reservation will enable customers to reserve tables with ease and efficiency with the confirmation via email or SMS about their booking confirmation or cancellation. 
 
-## Target audience
+### Target audience
 The application is designed for everyone, but is targeted toward youth adults.
 
-## API 
+### API 
 Google Geo-Location
 
-## Similar Apps/inspiration
+### Similar Apps/inspiration
 Yelp, Urbanspoon
 
 ## Sample Stories
@@ -68,9 +68,7 @@ Additionally, users can block restaurants to never show them. To view again they
 
 This will all be done through a series of array lists.
  
- 
 ### Discover restaurants
-
 Have a page showing users recommended restaurants based on how frequent they visit similar restaurants and previous reviews. The app will track the number of visits of each restaurant and, together with the user’s reviews, will generate a list displaying how likely the user will enjoy another restaurant. The list, if possible, should be ordered and concise. It should not be an ordered list of every possible restaurant but just a top 15.
 
 This page (or on a new page) should also display new restaurants around the area. 
