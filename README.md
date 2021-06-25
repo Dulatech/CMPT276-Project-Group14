@@ -14,6 +14,7 @@ Jaspreet Singh - 301435873
 ## Project Overview
 
 ### Name: CraveIt
+CraveIt is a mobile application that seeks to enhance the user’s dining experience by providing an alternative way to make reservations via the web.
 
 ### How is the problem currently solved?
 The goal of our web application is to provide a centralized platform where one can rate, search,  reserve and save restaurants. The app is aimed at everyone but most likely will be utilized by youth. Many people currently use Yelp or Instagram. However, both sites require an account for additional services. Yelp requires an account and downloading the app in order to book a reservation. Instagram requires an account to see additional posts or contact the restaurant. CraveIt will exist as an all in one web application where creating an account is optional for those who would like to leave reviews or save future or past visits.
@@ -89,4 +90,6 @@ Hosted App: https://cmpt276-project-group14.herokuapp.com/
 
 ## Epics
 CraveIt is a mobile application that seeks to enhance the user’s dining experience by providing an alternative way to make reservations via the web. Users will be able to make add reservations, cancel reservations, update reservations, give reviews, delete reviews, and update reviews. Users of the app will be greeted with a notification indicating if their request was successful or not after submitting a request. In addition, the app will also show nearby restaurants and provide information on those restaurants. The creation of a user account is required to give reviews and book reservations.
-The features in paragraph one are features that we will be prioritizing for the app. The following features are additional features we are interested in implementing, but might not do so due to difficulty or time constraint. Additional features we are interested in implementing include: the option to sort restaurants, option to favourite a restaurant, and a friend system.
+
+The features mentioned are features we will be prioritizing for our app. The following features are additional features we are interested in implementing, but might not do so due to difficulty or time constraint. Those features include: the option to sort restaurants by categories, option to favourite a restaurant, a discover page, restaurant routing and a friend system.
+
