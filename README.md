@@ -89,7 +89,7 @@ Git Repo: https://github.com/Dulatech/CMPT276-Project-Group14
 Hosted App: https://cmpt276-project-group14.herokuapp.com/
 
 ## Epics
-CraveIt is a mobile application that seeks to enhance the user’s dining experience by providing an alternative way to make reservations via the web. Users will be able to make add reservations, cancel reservations, update reservations, give reviews, delete reviews, and update reviews. Users of the app will be greeted with a notification indicating if their request was successful or not after submitting a request. In addition, the app will also show nearby restaurants and provide information on those restaurants. The creation of a user account is required to give reviews and book reservations.
+The epics for our project includes a reservation system, review system, a filter option, a discover feature (for restaurants), and restaurant routing system.  Users will be able to add reservations, cancel reservations, update reservations, give reviews, delete reviews, and update reviews. Users of the app will be greeted with a notification indicating if their request was successful or not after submitting a request. In addition, the app will also show nearby restaurants and provide information on those restaurants. The creation of a user account is required to give reviews and book reservations.
 
 The features mentioned are features we will be prioritizing for our app. The following features are additional features we are interested in implementing, but might not do so due to difficulty or time constraint. Those features include: the option to sort restaurants by categories, option to favourite a restaurant, a discover page, restaurant routing and a friend system.
 
