@@ -23,10 +23,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.sql.DataSource;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,8 +42,8 @@ import java.util.Map;
 @SpringBootApplication
 public class Main {
 
-  @Value("${spring.datasource.url}")
-  private String dbUrl;
+  // @Value("${spring.datasource.url}")
+  // private String dbUrl;
 
   @Autowired
   private DataSource dataSource;
@@ -48,9 +52,71 @@ public class Main {
     SpringApplication.run(Main.class, args);
   }
 
+  
+
   @RequestMapping("/")
-  String index() {
-    return "index";
+  String index(Map<String, Object> model) {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
+
+      ArrayList<Users> output = new ArrayList<Users>();
+      while (rs.next()) {
+        
+        Integer id = rs.getInt("ID");
+        String uName = rs.getString("UserName");
+        String name = rs.getString("FullName");
+        String pass = rs.getString("Password");
+        String email = rs.getString("Email");
+        String phone = rs.getString("Phone");
+        String addr = rs.getString("Address");
+        String userType = rs.getString("UserType");
+        Users user = new Users();
+        user.setID(id);
+        user.setFullName(name);
+        user.setUserName(uName);
+        user.setPassword(pass);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setAddress(addr);
+        user.setUserType(userType);
+        output.add(user);
+      }
+
+      model.put("records", output);
+      return "index";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @RequestMapping("/adduser")
+  String getRectangleForm(Map<String, Object> model) {
+    Users user = new Users();
+    model.put("user", user);
+    return "adduser";
+  }
+
+  @PostMapping(
+    path = "/adduser",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleBrowserRectangleSubmit(Map<String, Object> model, Users user) throws Exception {
+    // Save the person data into the database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Users (ID serial, UserName varchar(50), Password varchar(50), FullName varchar(50), Email varchar(50), Phone varchar(11), Address varchar(255), UserType varchar(1))");
+      String sql = "INSERT INTO Users (UserName, Password, FullName, Email, Phone, Address, UserType) VALUES ('" + user.getUserName() + "','" + user.getPassword() 
+      + "','" + user.getFullName() + "','"  + user.getEmail() + "','" + user.getPhone() + "','"   + user.getAddress() + "','" + user.getUserType()  + "')";
+      stmt.executeUpdate(sql);
+      return "redirect:/";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
   }
 
   @RequestMapping("/db")
@@ -75,14 +141,21 @@ public class Main {
   }
 
   @Bean
-  public DataSource dataSource() throws SQLException {
-    if (dbUrl == null || dbUrl.isEmpty()) {
-      return new HikariDataSource();
-    } else {
+  public DataSource dataSource() throws URISyntaxException {
+    // if (dbUrl == null || dbUrl.isEmpty()) {
+    //   return new HikariDataSource();
+    // } else {
       HikariConfig config = new HikariConfig();
+      URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+      String username = dbUri.getUserInfo().split(":")[0];
+      String password = dbUri.getUserInfo().split(":")[1];
+      String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
       config.setJdbcUrl(dbUrl);
+      config.setUsername(username);
+      config.setPassword(password);
       return new HikariDataSource(config);
-    }
+    // }
   }
 
 }

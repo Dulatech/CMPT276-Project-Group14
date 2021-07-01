@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'adduser')}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New rectangle Form</title>
+  </head>
+  <body>
+    <div class="cont">
+      <form
+        action="#"
+        method="post"
+        th:action="@{/adduser}"
+        th:object="${user}"
+      >
+        <label>Email</label><br />
+        <input
+          required
+          type="text"
+          maxlength="50"
+          th:field="*{Email}"
+          placeholder="Email"
+        />
+        <br />
+        <label>Full Name</label><br />
+        <input
+          required
+          type="text"
+          maxlength="50"
+          th:field="*{FullName}"
+          placeholder="Full Name"
+        />
+        <br />
+        <label>Username</label><br />
+        <input
+          required
+          type="text"
+          maxlength="50"
+          th:field="*{UserName}"
+          placeholder="Username"
+        />
+        <br />
+        <label>Password</label><br />
+        <input
+          required
+          type="text"
+          maxlength="50"
+          th:field="*{Password}"
+          placeholder="Password"
+        />
+        <br />
+        <label>Phone</label><br />
+        <input
+          required
+          type="text"
+          maxlength="11"
+          th:field="*{Phone}"
+          placeholder="Phone"
+        />
+        <br />
+        <label>Address</label><br />
+        <input
+          required
+          type="text"
+          maxlength="255"
+          th:field="*{Address}"
+          placeholder="Address"
+        />
+        <br />
+        <label>User Type</label><br />
+        <select required th:field="*{UserType}" name="UserType" id="users">
+          <option value="C">Customer</option>
+          <option value="R">Restaurant Representative</option>
+          <option value="A">Admin</option>
+        </select>
+        <br />
+
+        <input class="blue-button" type="submit" value="Register" />
+      </form>
+    </div>
+  </body>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+</html>
