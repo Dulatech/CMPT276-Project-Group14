@@ -52,8 +52,6 @@ public class Main {
     SpringApplication.run(Main.class, args);
   }
 
-  
-
   @RequestMapping("/")
   String index(Map<String, Object> model) {
     try (Connection connection = dataSource.getConnection()) {
@@ -93,7 +91,7 @@ public class Main {
   }
 
   @RequestMapping("/adduser")
-  String getRectangleForm(Map<String, Object> model) {
+  String getloginForm(Map<String, Object> model) {
     Users user = new Users();
     model.put("user", user);
     return "adduser";
@@ -117,6 +115,49 @@ public class Main {
       return "error";
     }
 
+  }
+
+  @RequestMapping("/login")
+  String getRectangleForm(Map<String, Object> model) {
+    Users user = new Users();
+    model.put("user", user);
+    return "login";
+  }
+
+  @PostMapping(
+    path = "/login",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String userLogin(Map<String, Object> model, Users user) throws Exception {
+    // Check the user authentication in the database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String sql = "SELECT ID FROM Users WHERE UserName = '" + user.getUserName() + "' AND PASSWORD = '" + user.getPassword() + "'";
+      ResultSet rs = stmt.executeQuery(sql);
+      System.out.println(rs);
+      ArrayList<Users> d = new ArrayList<Users>();
+      Users output = new Users();
+      if(rs.next()==true){
+      output.setID(rs.getInt("ID"));
+      d.add(output);
+      return "redirect:/success";
+      }
+      else
+     return "redirect:/loginError";
+    } catch (Exception e) {
+      return "error";
+    }
+
+  }
+
+  @GetMapping("/success")
+    public String userSuccess(){
+        return "success";
+  }
+
+  @GetMapping("/loginError")
+    public String userError(){
+        return "loginError";
   }
 
   @RequestMapping("/db")
