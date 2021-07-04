@@ -134,3 +134,8 @@ input[type="number"]:focus {
 .red-button:hover {
   background-color: #721111;
 }
+
+/** for userView */ 
+.inline {
+    display:inline;
+}

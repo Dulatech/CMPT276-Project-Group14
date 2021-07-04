@@ -138,12 +138,87 @@ public class Main {
       ArrayList<Users> d = new ArrayList<Users>();
       Users output = new Users();
       if(rs.next()==true){
+      Integer id = rs.getInt("ID"); 
       output.setID(rs.getInt("ID"));
       d.add(output);
-      return "redirect:/success";
+      //can't use rs.getString for some reason 
+      return "redirect:/userView/" + id;
       }
       else
      return "redirect:/loginError";
+    } catch (Exception e) {
+      return "error";
+    }
+
+  }
+
+  //regular user view 
+  @RequestMapping("/userView/{id}")
+  public String regularUserView(Map<String, Object> model, @PathVariable String id) {
+    
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE id="+(Integer.parseInt(id))); 
+       
+      while (rs.next()) { //load info
+        String uName = rs.getString("UserName");
+        String name = rs.getString("FullName");
+        String pass = rs.getString("Password");
+        String email = rs.getString("Email");
+        String phone = rs.getString("Phone");
+        String addr = rs.getString("Address");
+        String userType = rs.getString("UserType");
+        model.put("id", id);
+        model.put("uName", uName);
+        model.put("name", name);
+        model.put("pass", pass);
+        model.put("email", email);
+        model.put("phone", phone);
+        model.put("addr", addr);
+        model.put("userType", userType);
+      } 
+      return "userView";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+  
+  //change info for regular user  a 
+  @RequestMapping("/changeInfo/{id}/{selector}")
+  public String HandleChangeInfo(Map<String, Object> model, @PathVariable String id, @PathVariable String selector) {
+    Users user = new Users();
+    model.put("id", id);
+    model.put("selector", selector);
+    model.put("user", user);
+    return "changeInfo";
+  }
+
+  @PostMapping(
+    path = "/changeInfo/{id}/{selector}",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+
+  )
+
+  public String updateUserInfo(Map<String, Object> model, @PathVariable String id, @PathVariable String selector, Users user) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      if (user.getFullName() != null) { //update name
+        String sql = "UPDATE Users SET FullName = '" + user.getFullName() + "' WHERE ID = '" + user.getID() + "'";
+        stmt.executeUpdate(sql);
+      } else if (user.getPassword() != null) { // update pass
+        String sql = "UPDATE Users SET Password = '" + user.getPassword() + "' WHERE ID = '" + user.getID() + "'";
+        stmt.executeUpdate(sql);
+      } else if (user.getEmail() != null) { //update email
+        String sql = "UPDATE Users SET Email = '" + user.getEmail() + "' WHERE ID = '" + user.getID() + "'";
+        stmt.executeUpdate(sql);
+      } else if (user.getAddress() != null) { //update address
+        String sql = "UPDATE Users SET Address = '" + user.getAddress() + "' WHERE ID = '" + user.getID() + "'";
+        stmt.executeUpdate(sql);
+      } else { //error
+        return "error";
+      }
+      return "redirect:/success";
     } catch (Exception e) {
       return "error";
     }
@@ -197,6 +272,6 @@ public class Main {
       config.setPassword(password);
       return new HikariDataSource(config);
     // }
-    //aaaa
   }
+
 }
