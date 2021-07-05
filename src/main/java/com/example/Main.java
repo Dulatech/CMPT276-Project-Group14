@@ -183,6 +183,43 @@ public class Main {
       return "error";
     }
   }
+<<<<<<< HEAD
+=======
+
+  // owner view
+  @RequestMapping("/ownerView/{id}")
+  public String ownerView(Map<String, Object> model, @PathVariable String id) {
+
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE id="+(Integer.parseInt(id)));
+
+      while (rs.next()) { //load info
+        String uName = rs.getString("UserName");
+        String name = rs.getString("FullName");
+        String pass = rs.getString("Password");
+        String email = rs.getString("Email");
+        String phone = rs.getString("Phone");
+        String addr = rs.getString("Address");
+        String userType = rs.getString("UserType");
+        model.put("id", id);
+        model.put("uName", uName);
+        model.put("name", name);
+        model.put("pass", pass);
+        model.put("email", email);
+        model.put("phone", phone);
+        model.put("addr", addr);
+        model.put("userType", userType);
+      } 
+      return "ownerView";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+      }
+  }
+
+  
+>>>>>>> 0fe05f219eb5d20c4bf5cc4c3a2cefbf8d3fc907
   
   //change info for regular user  a 
   @RequestMapping("/changeInfo/{id}/{selector}")
