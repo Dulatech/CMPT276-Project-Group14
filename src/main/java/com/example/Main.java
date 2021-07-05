@@ -185,10 +185,8 @@ public class Main {
   }
 
   // owner view
-  @RequestMapping("/userView/{id}")
-  public String ownerView(Map<String, Object> modal, @PathVariable String id) {
-
-    Map<String, Object> model;
+  @RequestMapping("/ownerView/{id}")
+  public String ownerView(Map<String, Object> model, @PathVariable String id) {
 
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -216,9 +214,9 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
       }
-    }
   }
-}
+
+  
   
   //change info for regular user  a 
   @RequestMapping("/changeInfo/{id}/{selector}")
