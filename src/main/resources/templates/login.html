@@ -18,6 +18,10 @@
       <input required type="password" th:field="*{Password}" placeholder="password" autocomplete="off"/><br />
       <input type="submit" value="Login" />
     </form>
+    <form  action="#"  method="get" th:action="@{/adduser}" th:object="${user}" >
+        <input type="submit" value="Sign UP" />
+      </form>
+    
   </body>
 </html>
 
