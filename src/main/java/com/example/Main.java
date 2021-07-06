@@ -38,7 +38,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
+
+import org.springframework.web.bind.annotation.SessionAttributes; 
+
 @Controller
+@SessionAttributes({"test"})
 @SpringBootApplication
 public class Main {
 
@@ -52,13 +56,22 @@ public class Main {
     SpringApplication.run(Main.class, args);
   }
 
+  
+  @ModelAttribute("test")
+  public String hello() {
+    return "";
+  }
+  
+
   @RequestMapping("/")
-  String index(Map<String, Object> model) {
+  String index(Map<String, Object> model, @ModelAttribute("test") String test) {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       
       ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
-
+      
+      System.out.println(test);
+      
       ArrayList<Users> output = new ArrayList<Users>();
       while (rs.next()) {
         
@@ -134,13 +147,16 @@ public class Main {
       Statement stmt = connection.createStatement();
       String sql = "SELECT ID FROM Users WHERE UserName = '" + user.getUserName() + "' AND PASSWORD = '" + user.getPassword() + "'";
       ResultSet rs = stmt.executeQuery(sql);
-      System.out.println(rs);
       ArrayList<Users> d = new ArrayList<Users>();
       Users output = new Users();
       if(rs.next()==true){
       Integer id = rs.getInt("ID"); 
+      
+      model.put("test",id);
       output.setID(rs.getInt("ID"));
       d.add(output);
+
+      
       //can't use rs.getString for some reason 
       return "redirect:/userView/" + id;
       }
@@ -177,14 +193,12 @@ public class Main {
         model.put("addr", addr);
         model.put("userType", userType);
       } 
-      return "userView";
+      return "userViewSetting";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
   }
-<<<<<<< HEAD
-=======
 
   // owner view
   @RequestMapping("/ownerView/{id}")
@@ -218,10 +232,7 @@ public class Main {
       }
   }
 
-  
->>>>>>> 0fe05f219eb5d20c4bf5cc4c3a2cefbf8d3fc907
-  
-  //change info for regular user  a 
+  //change info for regular user  
   @RequestMapping("/changeInfo/{id}/{selector}")
   public String HandleChangeInfo(Map<String, Object> model, @PathVariable String id, @PathVariable String selector) {
     Users user = new Users();

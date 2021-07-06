@@ -139,3 +139,21 @@ input[type="number"]:focus {
 .inline {
     display:inline;
 }
+
+#wrapper {
+  width: 90%;
+
+  margin: auto;
+}
+
+.userGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1em;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.name {
+  
+}
+

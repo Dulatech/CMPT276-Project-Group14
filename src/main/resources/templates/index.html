@@ -4,6 +4,7 @@
   th:replace="~{fragments/layout :: layout (~{::body},'index')}"
 >
   <body>
+    <p th:text="${test}"></p>
     <div class="cont">
       <div th:if="${#lists.isEmpty(records)}">
         <h3>There are no Users to show, please add a User.</h3>
