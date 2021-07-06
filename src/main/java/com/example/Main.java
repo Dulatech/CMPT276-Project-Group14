@@ -259,6 +259,19 @@ public class Main {
 
   }
 
+  @GetMapping("/user/delete/{pid}")
+  public String deleteUser(Map<String, Object> model, @PathVariable String pid) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("DELETE FROM Users WHERE ID =" + pid);
+      
+      return "redirect:/adminView";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   @GetMapping("/success")
     public String userSuccess(){
         return "success";

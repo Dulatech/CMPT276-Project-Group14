@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'index')}"
+>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User</title>
+</head>
+<body>
+    <div >
+        <table style="margin-top: 20px; margin-bottom: 10px">
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>User Type</th>
+            <th>Action</th>
+        </tr>
+            <tr th:each="record : ${records}">
+            <td>
+                <p th:text="${record.ID}"></p>
+            </td>
+            <td>
+                <p th:text="${record.FullName}"></p>
+            </td>
+            <td>
+                <p th:text="${record.UserName}"></p>
+            </td>
+            <td>
+                <p th:text="${record.Password}"></p>
+            </td>
+            <td>
+                <p th:text="${record.Email}"></p>
+            </td>
+            <td>
+                <p th:text="${record.Phone}"></p>
+            </td>
+            <td>
+                <p th:text="${record.Address}"></p>
+            </td>
+            <td>
+                <p th:text="${record.UserType}"></p>
+            </td>
+            <td>
+                <a th:href="@{/user/delete/{id}(id=${record.ID})}">Delete</a>
+            </td>
+        </tr>
+        </table>
+    </div>
+</body>
+</html>
