@@ -8,10 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New rectangle Form</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+    
   </head>
   <body>
     <div class="cont">
       <form
+        id="adduser-form"
         action="#"
         method="post"
         th:action="@{/adduser}"
@@ -20,19 +23,10 @@
         <label>Email</label><br />
         <input
           required
-          type="text"
+          type="email"
           maxlength="50"
           th:field="*{Email}"
           placeholder="Email"
-        />
-        <br />
-        <label>Full Name</label><br />
-        <input
-          required
-          type="text"
-          maxlength="50"
-          th:field="*{FullName}"
-          placeholder="Full Name"
         />
         <br />
         <label>Username</label><br />
@@ -47,10 +41,37 @@
         <label>Password</label><br />
         <input
           required
-          type="text"
+          id="password"
+          type="password"
+          minlength="8"
           maxlength="50"
           th:field="*{Password}"
           placeholder="Password"
+        />
+        <br />
+        <label>Confirm Password</label><br />
+        <input
+          required
+          id="confirmPassword"
+          type="password"
+          minlength="8"
+          maxlength="50"
+          placeholder="Confirm Password"
+        />
+        <br />
+        <div th:if="${error != null}">
+          <span class="error"  th:text="${error}"></span>
+       </div>
+        <span id="passwordError" class="error visually-hidden">Password does not match</span>
+        <hr />
+        
+        <label>Full Name</label><br />
+        <input
+          required
+          type="text"
+          maxlength="50"
+          th:field="*{FullName}"
+          placeholder="Full Name"
         />
         <br />
         <label>Phone</label><br />
@@ -79,9 +100,12 @@
         </select>
         <br />
 
-        <input class="blue-button" type="submit" value="Register" />
+        
       </form>
+      <button class="blue-button" id="submit-button">Register</button></form>
     </div>
+    <script src="/adduser.js"></script>
   </body>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+  
+  
 </html>
