@@ -65,6 +65,39 @@ input[type="text"]:focus {
   border: 3px solid #555;
 }
 
+input[type="password"] {
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+input[type="password"]:focus {
+  border: 3px solid #555;
+}
+
+input[type="email"] {
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+input[type="email"]:focus {
+  border: 3px solid #555;
+}
+
+.visually-hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.error {
+  color: #ca0f0f;
+}
+
 select {
   box-sizing: border-box;
   border: 3px solid #ccc;
@@ -135,9 +168,9 @@ input[type="number"]:focus {
   background-color: #721111;
 }
 
-/** for userView */ 
+/** for userView */
 .inline {
-    display:inline;
+  display: inline;
 }
 
 #wrapper {
