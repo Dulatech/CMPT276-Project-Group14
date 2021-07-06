@@ -105,11 +105,27 @@ public class Main {
     // Save the person data into the database
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
+
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE UserName = '" + user.getUserName() + "' OR Email = '" + user.getEmail() + "'");
+
+     int count =0;
+     while (rs.next()) {
+       count++;
+     }
+
+      if(count<=0)  {  
+      
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Users (ID serial, UserName varchar(50), Password varchar(50), FullName varchar(50), Email varchar(50), Phone varchar(11), Address varchar(255), UserType varchar(1))");
       String sql = "INSERT INTO Users (UserName, Password, FullName, Email, Phone, Address, UserType) VALUES ('" + user.getUserName() + "','" + user.getPassword() 
       + "','" + user.getFullName() + "','"  + user.getEmail() + "','" + user.getPhone() + "','"   + user.getAddress() + "','" + user.getUserType()  + "')";
       stmt.executeUpdate(sql);
-      return "redirect:/";
+      model.put("user", user);
+      return "login";
+      } else {
+        model.put("user", user);
+        model.put("error", "The Username or Email already exists");
+        return "adduser";
+      }
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
