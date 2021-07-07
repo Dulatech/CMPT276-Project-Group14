@@ -183,10 +183,10 @@ public class Main {
     }
 
   }
- 
-  //logout
+
   @RequestMapping("/logout")
   public String logout(Map<String, Object> model) {
+    
     model.put("test", "");
     return "redirect:/";
   }

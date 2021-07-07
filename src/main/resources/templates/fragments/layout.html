@@ -13,8 +13,8 @@
   <body>
     <ul>
       <li><a class="active" href="/">Home</a></li>
-      <li><a class="active" href="/login">Login</a></li>
-      <li><a class="active" href="/logout">Logout</a></li>
+      <li th:if="${test == ''}"><a class="active" href="/login">Login</a></li>
+      <li th:if="${test != ''}" ><a class="active" href="/logout">Logout</a></li>
     </ul>
     <div th:replace="${template}" />
 

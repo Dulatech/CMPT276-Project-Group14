@@ -1,15 +1,33 @@
-h1 {
-    color: red; 
+body {
+    margin: 0;
+    padding: 0;
 }
 
 .container {
+   
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    padding: 1em;
-    margin: 0em;
+    padding: 0;
+    margin: 0;
     width: 100%;
-    height: 100vh; 
+    min-height: 100vh;
+    caret-color: transparent;
+}
+
+/* image */
+.left {
+    grid-column: 1/3;
+    grid-row: 1/4;
+    overflow:hidden;
+}
+
+img {
+    /* couldn't get orientation maybe someone else try */ 
+   /* transform: rotate(90deg); */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* right side of login page */
@@ -24,43 +42,84 @@ h1 {
 .loginHeader {
     grid-column: 4;
     grid-row: 1;
-    font-size: 5em;
+    font-size: 5.5em;
     text-align: center;
     margin: auto;
-    color: #73B842; 
+    color: #73B842;
+    padding-top: 2.5em;
+    font-weight: bold;
+}
+
+/* icon */
+.logo {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.logo img {
+    margin-top: 4em;
+    margin-left: 6em;
 }
 
 /* form display */
-.right * {
-    margin-left: 3em;
-    margin-top: auto;
-    margin-bottom: auto;
-    
+.right div {
+    margin-left: 5em;
 }
 
 .right .field {
     width: 85%; 
-    outline: none;
-    border: 0;
-    border-bottom: 0.1em solid black;
+    border: none;
+    border-bottom: solid 0.1em black; 
+    caret-color: #73B842;
 }
 
-.register {
-    text-decoration: underline; 
-}
 .itemOne {
+    margin-top: 1em;
     grid-row: 1; 
 }
 
+.field:focus {
+    outline: 0;
+    border-color: #73B842;
+}
+
 .itemTwo {
+    margin-top: 1em;
     grid-row: 2;
 }
 
 .itemThree {
+    margin-top: 1em;
     grid-row: 3;
 }
 
 .itemFour {
+    margin-top: -1em;
     grid-row: 4;
 }
 
+.register {
+    color: #73B842;
+    text-decoration: underline;
+}
+
+.register:hover {
+    font-weight: bold;
+    color: #73B842;
+}
+
+.submitBtn {
+    background-color: #73B842;
+    border-color: #73B842;
+    color:white;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 2em;
+    padding-right: 2em;
+    border-radius: 0.4em;
+    font-weight: bold;
+}
+
+.submitBtn:hover {
+    opacity: 0.7; 
+}
