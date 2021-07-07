@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/userLayout :: layout (~{::body},'changeInfo')}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'updateUserInfo')}">
 
 <head>
     <meta charset="UTF-8" />
@@ -11,36 +11,32 @@
 <body>
     <div th:switch="${selector}">
         <!--change name-->
-        <form action="#" method="post" th:case="'1'" th:action="@{/changeInfo/{id}/{selector}}" th:object="${user}">
+        <form action="#" method="post" th:case="'FullName'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
             <label>New Name:</label><br />
             <input required type="text" th:field="*{FullName}" placeholder="FullName" autocomplete="off" /><br>
-            <input type="text" th:name="ID" th:id="ID" th:value="${id}" /><br>
-
             <input type="submit" value="Submit" />
         </form>
         <!--change pass-->
-        <form action="#" method="post" th:case="'2'" th:action="@{/changeInfo/{id}/{selector}}" th:object="${user}">
+        <form action="#" method="post" th:case="'UserName'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
             <label>New Password:</label><br />
             <input required type="text" th:field="*{Password}" placeholder="password" autocomplete="off" /><br />
-            <input type="text" th:name="ID" th:id="ID" th:value="${id}" /><br>
             <input type="submit" value="Submit" />
         </form>
         <!--change email-->
-        <form action="#" method="post" th:case="'3'" th:action="@{/changeInfo/{id}/{selector}}" th:object="${user}">
+        <form action="#" method="post" th:case="'Email'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
             <label>New Email:</label><br />
             <input required type="text" th:field="*{Email}" placeholder="email" autocomplete="off" /><br />
-            <input type="text" th:name="ID" th:id="ID" th:value="${id}" /><br>
             <input type="submit" value="Submit" />
         </form>
         <!--change address-->
-        <form action="#" method="post" th:case="'4'" th:action="@{/changeInfo/{id}/{selector}}" th:object="${user}">
+        <form action="#" method="post" th:case="'Address'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
             <label>New Address:</label><br />
             <input required type="text" th:field="*{Address}" placeholder="address" autocomplete="off" /><br />
-            <input type="text" th:name="ID" th:id="ID" th:value="${id}" /><br>
             <input type="submit" value="Submit" />
         </form>
     </div>
-
+   
+   
 </body>
 
 </html>
