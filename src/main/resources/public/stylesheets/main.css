@@ -55,38 +55,42 @@ label {
 
 input[type="text"] {
   box-sizing: border-box;
-  border: 3px solid #ccc;
+  border: none;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   outline: none;
+  margin-right: -326px;
+  width: 600px;
 }
 
 input[type="text"]:focus {
-  border: 3px solid #555;
+  border: none;
 }
 
 input[type="password"] {
   box-sizing: border-box;
-  border: 3px solid #ccc;
+  border: none;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   outline: none;
+  width: 600px;
 }
 
 input[type="password"]:focus {
-  border: 3px solid #555;
+  border: none;
 }
 
 input[type="email"] {
   box-sizing: border-box;
-  border: 3px solid #ccc;
+  border: none;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   outline: none;
+  width: 600px;
 }
 
 input[type="email"]:focus {
-  border: 3px solid #555;
+  border: none;
 }
 
 .visually-hidden {
@@ -105,7 +109,6 @@ select {
   transition: 0.5s;
   outline: none;
 }
-
 select:focus {
   border: 3px solid #555;
 }
@@ -135,20 +138,26 @@ input[type="number"]:focus {
 }
 
 .blue-button {
-  background-color: #4481db;
-  border: none;
-  color: white;
-  padding: 5px 0;
-  text-decoration: none;
+  background-color: #73B842;
+  border-color: #73B842;
+  color:white;
   margin-top: 10px;
   cursor: pointer;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   font-weight: bold;
   min-width: 190px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
+  border-radius: 0.4em;
+  text-align: center;
+  margin-left: 45%;
 }
+
 .blue-button:hover {
-  background-color: #3361a5;
+  background-color: #0f6e2b;
 }
 
 .red-button {
@@ -186,7 +195,50 @@ input[type="number"]:focus {
   grid-auto-rows: minmax(100px, auto);
 }
 
-.name {
-  
+
+.loginHeader {
+  grid-column: 4;
+  grid-row: 1;
+  /* font-size: 1em; */
+  text-align: center;
+  /* margin: auto; */
+  color: #73B842;
+  /* padding-top: 2.5em; */
+  font-weight: bold;
 }
 
+img{
+    height: 10%;
+    width: 10%;   
+}
+
+h1{
+  font-size: 850%;
+  margin-top: 0.5px;
+}
+
+
+.item1 {
+  grid-row: 1; 
+  border-bottom: solid 0.1em black;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+.item2 {
+  grid-row: 1; 
+  border-bottom: solid 0.1em black;
+  margin-left: 30%;
+  margin-right: -700px
+}
+
+.item3 {
+  grid-row: 1; 
+  border-bottom: solid 0.1em black;
+  margin-left: 50%;
+  margin-right: 30%;
+}
+
+.flex-container {
+    display: flex;
+}

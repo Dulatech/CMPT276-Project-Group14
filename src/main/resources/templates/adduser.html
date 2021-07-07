@@ -13,14 +13,18 @@
   </head>
   <body>
     <div class="cont">
-      <form
+      <div class="loginHeader">
+        <h1><img src="/images/logo_register.png" alt="logo" />Cravelt</h1>
+    </div>
+      <form 
         id="adduser-form"
         action="#"
         method="post"
         th:action="@{/adduser}"
         th:object="${user}"
       >
-        <label>Email</label><br />
+      <div class="item1">
+        <label class="email">Email</label><br />
         <input
           required
           type="email"
@@ -28,7 +32,9 @@
           th:field="*{Email}"
           placeholder="Email"
         />
+      </div>
         <br />
+        <div class="item1">
         <label>Username</label><br />
         <input
           required
@@ -37,7 +43,9 @@
           th:field="*{UserName}"
           placeholder="Username"
         />
+        </div>
         <br />
+        <div class="item1">
         <label>Password</label><br />
         <input
           required
@@ -48,7 +56,9 @@
           th:field="*{Password}"
           placeholder="Password"
         />
+      </div>
         <br />
+        <div class="item1">
         <label>Confirm Password</label><br />
         <input
           required
@@ -58,13 +68,14 @@
           maxlength="50"
           placeholder="Confirm Password"
         />
+      </div>
         <br />
         <div th:if="${error != null}">
           <span class="error"  th:text="${error}"></span>
        </div>
         <span id="passwordError" class="error visually-hidden">Password does not match</span>
-        <hr />
-        
+        <div class="flex-container">
+        <div class="item2">
         <label>Full Name</label><br />
         <input
           required
@@ -73,7 +84,9 @@
           th:field="*{FullName}"
           placeholder="Full Name"
         />
+      </div>
         <br />
+        <div class="item3">
         <label>Phone</label><br />
         <input
           required
@@ -82,7 +95,10 @@
           th:field="*{Phone}"
           placeholder="Phone"
         />
+      </div>
+        </div>
         <br />
+        <div class="item1">
         <label>Address</label><br />
         <input
           required
@@ -91,12 +107,15 @@
           th:field="*{Address}"
           placeholder="Address"
         />
+      </div>
         <br />
+        <div class="item1">
         <label>User Type</label><br />
         <select required th:field="*{UserType}" name="UserType" id="users">
           <option value="C">Customer</option>
           <option value="R">Restaurant Representative</option>
         </select>
+      </div>
         <br />
 
         
