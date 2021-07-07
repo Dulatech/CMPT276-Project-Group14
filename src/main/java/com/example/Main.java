@@ -42,7 +42,10 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.SessionAttributes; 
 
 @Controller
-@SessionAttributes({"test"})
+
+//session variables
+@SessionAttributes({"userID"})
+
 @SpringBootApplication
 public class Main {
 
@@ -56,15 +59,14 @@ public class Main {
     SpringApplication.run(Main.class, args);
   }
 
-  
-  @ModelAttribute("test")
-  public String hello() {
-    return "";
+  //initialize session variable
+  @ModelAttribute("userID")
+  public Integer hello() {
+    return -1;
   }
   
-
   @RequestMapping("/")
-  String index(Map<String, Object> model, @ModelAttribute("test") String test) {
+  String index(Map<String, Object> model, @ModelAttribute("userID") String test) {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       
@@ -161,39 +163,47 @@ public class Main {
     // Check the user authentication in the database
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      String sql = "SELECT ID FROM Users WHERE UserName = '" + user.getUserName() + "' AND PASSWORD = '" + user.getPassword() + "'";
+      String sql = "SELECT ID,UserType FROM Users WHERE UserName = '" + user.getUserName() + "' AND PASSWORD = '" + user.getPassword() + "'";
       ResultSet rs = stmt.executeQuery(sql);
       ArrayList<Users> d = new ArrayList<Users>();
       Users output = new Users();
-      if(rs.next()==true){
-      Integer id = rs.getInt("ID"); 
       
-      model.put("test",id);
+
+      if(rs.next()==true){
+
+      Integer id = rs.getInt("ID"); 
+      model.put("userID",id); // set session variable userID
       output.setID(rs.getInt("ID"));
       d.add(output);
 
-      
-      //can't use rs.getString for some reason 
-      return "redirect:/userView/" + id;
-      }
-      else
-     return "redirect:/loginError";
+      String userType = rs.getString("UserType");
+
+      switch(userType) {
+        case "A":
+          return "redirect:/user/delete/" + id; //couldn't get this to work -R
+        case "R":
+          return "redirect:/ownerView/" + id;
+        default:
+          return "redirect:/user=" + id;
+        }
+      } else {
+        return "redirect:/loginError";
+      } 
     } catch (Exception e) {
       return "error";
     }
-
   }
 
+  //logout 
   @RequestMapping("/logout")
   public String logout(Map<String, Object> model) {
-    
-    model.put("test", "");
+    model.put("userID", -1); 
     return "redirect:/";
   }
 
-  //regular user view 
-  @RequestMapping("/userView/{id}")
-  public String regularUserView(Map<String, Object> model, @PathVariable String id) {
+  //cuser default page
+  @RequestMapping("/user={id}")
+  public String cuserHome(Map<String, Object> model, @PathVariable String id) {
     
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -216,9 +226,82 @@ public class Main {
         model.put("addr", addr);
         model.put("userType", userType);
       } 
-      return "userViewSetting";
+      return "userHome";
     } catch (Exception e) {
       model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  //userInfo
+  @RequestMapping("/userInfo") 
+  public String cuserSetting(Map<String, Object> model, @ModelAttribute("userID") String id) {
+     
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE id=" + id); 
+       
+      while (rs.next()) { //load info
+        String uName = rs.getString("UserName");
+        String name = rs.getString("FullName");
+        String pass = rs.getString("Password");
+        String email = rs.getString("Email");
+        String phone = rs.getString("Phone");
+        String addr = rs.getString("Address");
+        String userType = rs.getString("UserType");
+        model.put("id", id);
+        model.put("uName", uName);
+        model.put("name", name);
+        model.put("pass", pass);
+        model.put("email", email);
+        model.put("phone", phone);
+        model.put("addr", addr);
+        model.put("userType", userType);
+      } 
+      return "userInfo";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  //update info for regular user  
+  @RequestMapping("/updateUserInfo/{selector}")
+  public String setupUpdateInfo(Map<String, Object> model, @PathVariable String selector) {
+    Users user = new Users();
+    System.out.println("hi" + selector);
+    model.put("selector", selector);
+    model.put("user", user);
+    return "updateUserInfo";
+  }
+
+  @PostMapping(
+    path = "/updateUserInfo/{selector}",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+
+  public String updateInfo(Map<String, Object> model, @PathVariable String selector, Users user, @ModelAttribute("userID") String id) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      //I have done it this way because selector doesn't get saved when we call PostMapping -Ricky
+      if (user.getFullName() != null) { //update name
+        String sql = "UPDATE Users SET FullName = '" + user.getFullName() + "' WHERE ID = '" + id + "'";
+        stmt.executeUpdate(sql);
+      } else if (user.getPassword() != null) { // update pass
+        String sql = "UPDATE Users SET Password = '" + user.getPassword() + "' WHERE ID = '" + id + "'";
+        stmt.executeUpdate(sql);
+      } else if (user.getEmail() != null) { //update email
+        String sql = "UPDATE Users SET Email = '" + user.getEmail() + "' WHERE ID = '" + id + "'";
+        stmt.executeUpdate(sql);
+      } else if (user.getAddress() != null) { //update address
+        String sql = "UPDATE Users SET Address = '" + user.getAddress() + "' WHERE ID = '" + id + "'";
+        stmt.executeUpdate(sql);
+      } else { //error
+        return "error";
+      }
+      
+      return "redirect:/success";
+    } catch (Exception e) {
       return "error";
     }
   }
@@ -253,46 +336,6 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
       }
-  }
-
-  //change info for regular user  
-  @RequestMapping("/changeInfo/{id}/{selector}")
-  public String HandleChangeInfo(Map<String, Object> model, @PathVariable String id, @PathVariable String selector) {
-    Users user = new Users();
-    model.put("id", id);
-    model.put("selector", selector);
-    model.put("user", user);
-    return "changeInfo";
-  }
-
-  @PostMapping(
-    path = "/changeInfo/{id}/{selector}",
-    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
-
-  )
-
-  public String updateUserInfo(Map<String, Object> model, @PathVariable String id, @PathVariable String selector, Users user) throws Exception {
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      if (user.getFullName() != null) { //update name
-        String sql = "UPDATE Users SET FullName = '" + user.getFullName() + "' WHERE ID = '" + user.getID() + "'";
-        stmt.executeUpdate(sql);
-      } else if (user.getPassword() != null) { // update pass
-        String sql = "UPDATE Users SET Password = '" + user.getPassword() + "' WHERE ID = '" + user.getID() + "'";
-        stmt.executeUpdate(sql);
-      } else if (user.getEmail() != null) { //update email
-        String sql = "UPDATE Users SET Email = '" + user.getEmail() + "' WHERE ID = '" + user.getID() + "'";
-        stmt.executeUpdate(sql);
-      } else if (user.getAddress() != null) { //update address
-        String sql = "UPDATE Users SET Address = '" + user.getAddress() + "' WHERE ID = '" + user.getID() + "'";
-        stmt.executeUpdate(sql);
-      } else { //error
-        return "error";
-      }
-      return "redirect:/success";
-    } catch (Exception e) {
-      return "error";
-    }
   }
 
   @GetMapping("/user/delete/{pid}")

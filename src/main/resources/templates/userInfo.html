@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'userViewSetting')}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'userInfo')}">
 
 <head>
     <meta charset="UTF-8" />
@@ -14,6 +14,7 @@
 
         <p>Welcome </p>
         <p th:text="${uName}"></p>
+        <p th:text="${userID}"></p>
 
         <p>My Info:</p>
         <div>
@@ -24,22 +25,22 @@
 
         <div>
             <p class="inline">Full name: </p>
-            <p class="inline" th:text="${name}"></p><a th:href="@{'/changeInfo/' + ${id} + '/1'}">Change full name</a>
+            <p class="inline" th:text="${name}"></p><a th:href="@{'/updateUserInfo/FullName'}">Change full name</a>
         </div>
 
         <div>
             <p class="inline">Password: </p>
-            <p class="inline" th:text="${pass}"></p><a th:href="@{'/changeInfo/' + ${id} + '/2'}">Change password</a>
+            <p class="inline" th:text="${pass}"></p><a th:href="@{'/updateUserInfo/UserName'}">Change password</a>
         </div>
 
         <div>
             <p class="inline">Email: </p>
-            <p class="inline" th:text="${email}"></p><a th:href="@{'/changeInfo/' + ${id} + '/3'}">Change email</a>
+            <p class="inline" th:text="${email}"></p><a th:href="@{'/updateUserInfo/Email'}">Change email</a>
         </div>
 
         <div>
             <p class="inline">Address: </p>
-            <p class="inline" th:text="${addr}"></p><a th:href="@{'/changeInfo/' + ${id} + '/4'}">Change address</a>
+            <p class="inline" th:text="${addr}"></p><a th:href="@{'/updateUserInfo/Address'}">Change address</a>
         </div>
 
         <div>

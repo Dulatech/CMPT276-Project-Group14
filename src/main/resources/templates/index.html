@@ -5,7 +5,7 @@
 >
   <body>
     <!-- delete after testing-->
-    <p th:text="${test}"></p>
+    <p th:if="${userID >= 0}" th:text="${userID}"></p>
 
     <div class="cont">
       <div th:if="${#lists.isEmpty(records)}">
