@@ -180,7 +180,7 @@ public class Main {
 
       switch(userType) {
         case "A":
-          return "redirect:/user/delete/" + id; //couldn't get this to work -R
+          return "redirect:/user/delete/" + id;
         case "R":
           return "redirect:/ownerView/" + id;
         default:
