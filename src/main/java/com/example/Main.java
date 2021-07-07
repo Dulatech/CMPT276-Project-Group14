@@ -160,7 +160,7 @@ public class Main {
     path = "/login",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String userLogin(Map<String, Object> model, Users user, HttpServletRequest request) throws Exception {
+  public String userLogin(Map<String, Object> model, Users user) throws Exception {
     // Check the user authentication in the database
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -173,7 +173,7 @@ public class Main {
       
       // int userId = (int) request.getSession().getAttribute("USER_LOGIN_ID");
       // if (userId == 0) request.getSession().setAttribute("USER_LOGIN_ID", id);
-      request.getSession().setAttribute("USER_LOGIN_ID", id);
+      // request.getSession().setAttribute("USER_LOGIN_ID", id);
 
       //model.put("test",id);
       //output.setID(rs.getInt("ID"));
@@ -297,8 +297,8 @@ public class Main {
 
   @GetMapping("/adminView")
   public String accessAdminPage(Map<String, Object> model, HttpSession session) {
-    int userId = (int) session.getAttribute("USER_LOGIN_ID");
-    model.put("userId", userId);
+    // int userId = (int) session.getAttribute("USER_LOGIN_ID");
+    // model.put("userId", userId);
 
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
