@@ -27,9 +27,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import javax.sql.DataSource;
 
 import java.net.URI;
@@ -166,18 +163,14 @@ public class Main {
       Statement stmt = connection.createStatement();
       String sql = "SELECT ID FROM Users WHERE UserName = '" + user.getUserName() + "' AND PASSWORD = '" + user.getPassword() + "'";
       ResultSet rs = stmt.executeQuery(sql);
-      //ArrayList<Users> d = new ArrayList<Users>();
-      //Users output = new Users();
+      ArrayList<Users> d = new ArrayList<Users>();
+      Users output = new Users();
       if(rs.next()==true){
       Integer id = rs.getInt("ID"); 
       
-      // int userId = (int) request.getSession().getAttribute("USER_LOGIN_ID");
-      // if (userId == 0) request.getSession().setAttribute("USER_LOGIN_ID", id);
-      // request.getSession().setAttribute("USER_LOGIN_ID", id);
-
-      //model.put("test",id);
-      //output.setID(rs.getInt("ID"));
-      //d.add(output);
+      model.put("test",id);
+      output.setID(rs.getInt("ID"));
+      d.add(output);
 
       
       //can't use rs.getString for some reason 
@@ -296,10 +289,7 @@ public class Main {
   }
 
   @GetMapping("/adminView")
-  public String accessAdminPage(Map<String, Object> model, HttpSession session) {
-    // int userId = (int) session.getAttribute("USER_LOGIN_ID");
-    // model.put("userId", userId);
-
+  public String accessAdminPage(Map<String, Object> model) {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       
