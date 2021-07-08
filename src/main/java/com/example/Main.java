@@ -180,7 +180,7 @@ public class Main {
 
       switch(userType) {
         case "A":
-          return "redirect:/user/delete/" + id;
+          return "redirect:/user/adminView"; 
         case "R":
           return "redirect:/ownerView/" + id;
         default:
@@ -336,6 +336,45 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
       }
+  }
+
+   @GetMapping("/adminView")
+  public String accessAdminPage(Map<String, Object> model) {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
+      
+      ArrayList<Users> output = new ArrayList<Users>();
+      while (rs.next()) {
+        Integer id = rs.getInt("ID");
+        String uName = rs.getString("UserName");
+        String name = rs.getString("FullName");
+        String pass = rs.getString("Password");
+        String email = rs.getString("Email");
+        String phone = rs.getString("Phone");
+        String addr = rs.getString("Address");
+        String userType = rs.getString("UserType");
+
+        Users user = new Users();
+        user.setID(id);
+        user.setFullName(name);
+        user.setUserName(uName);
+        user.setPassword(pass);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setAddress(addr);
+        user.setUserType(userType);
+        
+        output.add(user);
+      }
+
+      model.put("records", output);
+      return "adminView";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
   }
 
   @GetMapping("/user/delete/{pid}")
