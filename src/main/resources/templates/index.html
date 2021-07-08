@@ -6,6 +6,7 @@
   <body>
     <!-- delete after testing-->
     <p th:if="${userID >= 0}" th:text="${userID}"></p>
+    <p th:if="${userName != ''}" th:text="${userName}"></p>
 
     <div class="cont">
       <div th:if="${#lists.isEmpty(records)}">

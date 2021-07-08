@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
   xmlns:th="http://www.thymeleaf.org"
-  th:replace="~{fragments/layout :: layout (~{::body},'adduser')}"
+  th:replace="~{fragments/addUserLayout :: layout (~{::body},'adduser')}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -14,8 +14,9 @@
   <body>
     <div class="cont">
       <div class="loginHeader">
-        <h1><img src="/images/logo_register.png" alt="logo" />Cravelt</h1>
+        <img src="/images/logoAlt.png" alt="logo" />
     </div>
+    <div class="container">
       <form 
         id="adduser-form"
         action="#"
@@ -23,9 +24,11 @@
         th:action="@{/adduser}"
         th:object="${user}"
       >
-      <div class="item1">
+      
+      <div class="item">
         <label class="email">Email</label><br />
         <input
+        class="input-box"
           required
           type="email"
           maxlength="50"
@@ -33,10 +36,10 @@
           placeholder="Email"
         />
       </div>
-        <br />
-        <div class="item1">
+        <div class="item">
         <label>Username</label><br />
         <input
+        class="input-box"
           required
           type="text"
           maxlength="50"
@@ -44,10 +47,12 @@
           placeholder="Username"
         />
         </div>
-        <br />
-        <div class="item1">
+       
+   
+        <div class="item">
         <label>Password</label><br />
         <input
+        class="input-box"
           required
           id="password"
           type="password"
@@ -57,10 +62,10 @@
           placeholder="Password"
         />
       </div>
-        <br />
-        <div class="item1">
+        <div class="item">
         <label>Confirm Password</label><br />
         <input
+        class="input-box"
           required
           id="confirmPassword"
           type="password"
@@ -69,15 +74,12 @@
           placeholder="Confirm Password"
         />
       </div>
-        <br />
-        <div th:if="${error != null}">
-          <span class="error"  th:text="${error}"></span>
-       </div>
-        <span id="passwordError" class="error visually-hidden">Password does not match</span>
-        <div class="flex-container">
-        <div class="item2">
+    
+    <div class="inline-div">
+        <div class="select-item-right">
         <label>Full Name</label><br />
         <input
+        class="input-box"
           required
           type="text"
           maxlength="50"
@@ -85,10 +87,11 @@
           placeholder="Full Name"
         />
       </div>
-        <br />
-        <div class="item3">
+       
+        <div class="select-item">
         <label>Phone</label><br />
         <input
+        class="input-box"
           required
           type="text"
           maxlength="11"
@@ -96,11 +99,12 @@
           placeholder="Phone"
         />
       </div>
-        </div>
-        <br />
-        <div class="item1">
+    </div>
+   
+        <div class="item">
         <label>Address</label><br />
         <input
+        class="input-box"
           required
           type="text"
           maxlength="255"
@@ -108,19 +112,23 @@
           placeholder="Address"
         />
       </div>
-        <br />
-        <div class="item1">
+        <div class="select-item">
         <label>User Type</label><br />
-        <select required th:field="*{UserType}" name="UserType" id="users">
+        <select class="input-box" required th:field="*{UserType}" name="UserType" id="users">
           <option value="C">Customer</option>
           <option value="R">Restaurant Representative</option>
         </select>
       </div>
-        <br />
+ 
 
         
       </form>
+      <div th:if="${error != null}">
+        <span class="error"  th:text="${error}"></span>
+     </div>
+      <span id="passwordError" class="error visually-hidden">Password does not match</span>
       <button class="blue-button" id="submit-button">Register</button></form>
+    </div>
     </div>
     <script src="/adduser.js"></script>
   </body>

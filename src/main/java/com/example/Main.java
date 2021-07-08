@@ -44,7 +44,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 
 //session variables
-@SessionAttributes({"userID"})
+@SessionAttributes({"userID", "userName"})
+
 
 @SpringBootApplication
 public class Main {
@@ -64,9 +65,14 @@ public class Main {
   public Integer hello() {
     return -1;
   }
+
+  @ModelAttribute("userName")
+  public String helloUser() {
+    return "";
+  }
   
   @RequestMapping("/")
-  String index(Map<String, Object> model, @ModelAttribute("userID") String test) {
+  String index(Map<String, Object> model, @ModelAttribute("userID") String test, @ModelAttribute("userID") String userName) {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       
@@ -173,6 +179,7 @@ public class Main {
 
       Integer id = rs.getInt("ID"); 
       model.put("userID",id); // set session variable userID
+      model.put("userName",user.getUserName()); // set session variable userID
       output.setID(rs.getInt("ID"));
       d.add(output);
 
@@ -198,6 +205,7 @@ public class Main {
   @RequestMapping("/logout")
   public String logout(Map<String, Object> model) {
     model.put("userID", -1); 
+    model.put("userName", ""); 
     return "redirect:/";
   }
 
@@ -235,7 +243,7 @@ public class Main {
 
   //userInfo
   @RequestMapping("/userInfo") 
-  public String cuserSetting(Map<String, Object> model, @ModelAttribute("userID") String id) {
+  public String cuserSetting(Map<String, Object> model, @ModelAttribute("userID") String id, @ModelAttribute("userID") String userName) {
      
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -280,7 +288,7 @@ public class Main {
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
 
-  public String updateInfo(Map<String, Object> model, @PathVariable String selector, Users user, @ModelAttribute("userID") String id) throws Exception {
+  public String updateInfo(Map<String, Object> model, @PathVariable String selector, Users user, @ModelAttribute("userID") String id, @ModelAttribute("userID") String userName) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       //I have done it this way because selector doesn't get saved when we call PostMapping -Ricky
