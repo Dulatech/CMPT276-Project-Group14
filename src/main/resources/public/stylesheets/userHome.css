@@ -19,10 +19,20 @@ html, body {
 /** top portion */
 .top {
     grid-row: 1;
+<<<<<<< HEAD
     background-image: url("/images/landingPage.png");
     background-position: center;
     min-height: 300px;
+=======
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    overflow:hidden;
+    opacity: 0.5;
+    background-image: "landingPage.png";
+>>>>>>> 3adc2ee527b9a5d4a6331ffcb27506ad8e8a15ce
 }
+
 
 .searchBarContainer {
     display: grid;
@@ -146,6 +156,7 @@ input {
     border-radius: 25px;
   }
   
+
   img{
       height: 30px;
       width: 30px;
