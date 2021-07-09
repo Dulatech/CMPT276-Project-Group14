@@ -346,7 +346,8 @@ public class Main {
       }
   }
 
-   @GetMapping("/adminView")
+  //admin view 
+  @GetMapping("/adminView")
   public String accessAdminPage(Map<String, Object> model) {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();

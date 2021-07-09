@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'userHome')}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/userHomeLayout :: layout (~{::body},'userHome')}">
 
 <head>
     <meta charset="UTF-8" />
@@ -10,9 +10,33 @@
 
 <body>
     <p>Welcome </p>
-    <a href="#">Make Reservation</a>
+
+    <div class="container">
+        <div class="top">
+            <div class="searchBarContainer">
+                <div class="logo">
+                    <img src="/images/logoAlt.png" alt="logo">
+                </div>
+            
+                <div class="searchBar">
+                    <input type="text">
+                </div>
+                <div class="items">
+                    <a class="searchBarItems" href="#">Reservations</a>
+                    <a class="searchBarItems" href="#">Map</a>
+                    <a class="searchBarItems" href="#">Favorites</a>
+                    <a class="searchBarItems" href="#">Reviews</a>
+                    <a class="searchBarItems" href="#">Discover</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
     <a href="/userInfo">My Info</a>
-    
+
 </body>
 
 </html>
