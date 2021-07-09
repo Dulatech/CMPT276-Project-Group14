@@ -82,14 +82,13 @@ input {
 /* Review Boxes */
 
 div {
-	height: 400px;
+    height: 400px;
     width: 350px;
-    background-color: #9AC791;
+    background-color: #E7F7E1;
     padding: 50px;
     border: 5px white;
     margin: 50px;
 }
-
 
 /* Dropdown Button */
 .dropbtn {
