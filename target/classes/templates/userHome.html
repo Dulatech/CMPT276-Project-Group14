@@ -10,10 +10,12 @@
 
 <body>
     <p>Welcome </p>
-
-    <div class="container">
+    
+    <div  class="container">
         <div class="top">
+            
             <div class="searchBarContainer">
+                
                 <div class="logo">
                     <img src="/images/logoAlt.png" alt="logo">
                 </div>
@@ -21,16 +23,22 @@
                 <div class="searchBar">
                     <input type="text">
                 </div>
-                <div class="items">
+
+                
+                <div class="items" >
                     <a class="searchBarItems" href="#">Reservations</a>
                     <a class="searchBarItems" href="#">Map</a>
-                    <a class="searchBarItems" href="#">Favorites</a>
+                    <a class="searchBarItems" href="#" th:if="${userType == 'C'}" >Favorites</a>
                     <a class="searchBarItems" href="#">Reviews</a>
-                    <a class="searchBarItems" href="#">Discover</a>
+                    <a class="searchBarItems" href="#" th:if="${userType == 'C'}">Discover</a>
                 </div>
-
+            
             </div>
         </div>
+    </div>
+
+    
+
     </div>
 
 

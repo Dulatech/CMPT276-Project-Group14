@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 
 //session variables
-@SessionAttributes({"userID", "userName"})
+@SessionAttributes({"userID", "userName", "userType"})
 
 
 @SpringBootApplication
@@ -62,7 +62,7 @@ public class Main {
 
   //initialize session variable
   @ModelAttribute("userID")
-  public Integer hello() {
+  public Integer initializeUserID() {
     return -1;
   }
 
@@ -70,6 +70,8 @@ public class Main {
   public String helloUser() {
     return "";
   }
+
+ 
   
   @RequestMapping("/")
   String index(Map<String, Object> model, @ModelAttribute("userID") String test, @ModelAttribute("userID") String userName) {
@@ -178,13 +180,16 @@ public class Main {
       if(rs.next()==true){
 
       Integer id = rs.getInt("ID"); 
+    
       model.put("userID",id); // set session variable userID
       model.put("userName",user.getUserName()); // set session variable userID
+      model.put("userType", rs.getString("userType"));
       output.setID(rs.getInt("ID"));
       d.add(output);
-
+      
       String userType = rs.getString("UserType");
 
+      /** 
       switch(userType) {
         case "A":
           return "redirect:/user/adminView"; 
@@ -193,6 +198,11 @@ public class Main {
         default:
           return "redirect:/user=" + id;
         }
+        */
+      
+      return "redirect:/user=" + id;
+
+
       } else {
         return "redirect:/loginError";
       } 
@@ -211,7 +221,7 @@ public class Main {
 
   //cuser default page
   @RequestMapping("/user={id}")
-  public String cuserHome(Map<String, Object> model, @PathVariable String id) {
+  public String cuserHome(Map<String, Object> model, @PathVariable String id, @ModelAttribute("userType") String uType) {
     
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
