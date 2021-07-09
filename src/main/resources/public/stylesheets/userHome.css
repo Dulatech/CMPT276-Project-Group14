@@ -82,10 +82,10 @@ input {
 /* Review Boxes */
 
 .reviewBox {
-    height: 400px;
-    width: 350px;
+    height: 250px;
+    width: 150px;
     background-color: #E7F7E1;
-    padding: 50px;
+    padding: 25px 50px 25px 50px;
     border: 5px white;
     margin: 50px;
 }
