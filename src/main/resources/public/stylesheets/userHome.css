@@ -81,7 +81,7 @@ input {
 
 /* Review Boxes */
 
-div {
+.reviewBox {
     height: 400px;
     width: 350px;
     background-color: #E7F7E1;
