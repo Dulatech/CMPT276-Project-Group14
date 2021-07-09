@@ -46,7 +46,8 @@
         </div>
 
         <div class="middle">
-            <span>Welcome, </span><span th:text="${userName}"></span>
+            <a th:if="${userName == ''}" href="/login">Login</a>
+            <span th:if="${userName != ''}">Welcome, </span><span th:text="${userName}"></span>
         </div>
 
         <div class="bottom">

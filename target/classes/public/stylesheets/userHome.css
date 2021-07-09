@@ -19,6 +19,9 @@ html, body {
 /** top portion */
 .top {
     grid-row: 1;
+    background-image: url("/images/landingPage.png");
+    background-position: center;
+    min-height: 300px;
 }
 
 .searchBarContainer {
@@ -26,8 +29,8 @@ html, body {
     grid-template-rows: repeat(4, 1fr);
     margin: auto;
     margin-top: 4em;
-    border: 1px solid black;
-    border-radius: 10px;
+    background-color: white;
+    border-radius: 15px;
     width: 80%;
     position: center;
     min-height: 50%;
@@ -54,6 +57,18 @@ html, body {
     margin: auto;
 }
 
+.searchBarItems {
+    color: black; 
+    font-weight: bold;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+.searchBarItems:hover {
+    text-decoration: none;
+    color: black;
+}
+
 .items {
     grid-row: 4; 
     display: flex;
@@ -68,6 +83,7 @@ input {
 
 /* middle */ 
 .middle {
+    padding-top: 2em;
     grid-row: 2;
     padding-left: 2em;
 }
@@ -126,7 +142,8 @@ input {
     cursor: pointer;
     max-height: 200px;
     max-width: 130px;
-    
+    border: 2px solid white;
+    border-radius: 25px;
   }
   
   img{
@@ -144,6 +161,10 @@ input {
     float: right;
     display: flex;
     justify-content: flex-end;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 2em;
+   
   }
 
   /* Dropdown Content (Hidden by Default) */
