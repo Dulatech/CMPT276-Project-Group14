@@ -67,7 +67,12 @@ public class Main {
   }
 
   @ModelAttribute("userName")
-  public String helloUser() {
+  public String initializeUserName() {
+    return "";
+  }
+
+  @ModelAttribute("userType")
+  public String initializeUserType() {
     return "";
   }
 
@@ -216,12 +221,13 @@ public class Main {
   public String logout(Map<String, Object> model) {
     model.put("userID", -1); 
     model.put("userName", ""); 
+    model.put("userType", "");
     return "redirect:/";
   }
 
   //cuser default page
   @RequestMapping("/user={id}")
-  public String cuserHome(Map<String, Object> model, @PathVariable String id, @ModelAttribute("userType") String uType) {
+  public String cuserHome(Map<String, Object> model, @PathVariable String id, @ModelAttribute("userID") String userID, @ModelAttribute("userType") String userName) {
     
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
