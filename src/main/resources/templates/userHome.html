@@ -10,7 +10,14 @@
 
 <body>
     <p>Welcome </p>
-    
+    <div class="dropdown">
+        <input type="image" onclick="myFunction()" src="/images/userIcon.png" th:if="${userType == 'C'}" class="dropbtn" >
+        <input type="image" onclick="myFunction()" src="/images/ownerIcon.png" th:if="${userType == 'R'}" class="dropbtn" >
+        <div id="myDropdown" class="dropdown-content">
+          <a href="#">Edit Profile</a>
+          <a href="#">LogOut</a>
+        </div>
+      </div>
     <div  class="container">
         <div class="top">
             
@@ -60,7 +67,7 @@
 
 
     <a href="/userInfo">My Info</a>
-
+    <script src="/userHome.js"></script>
 </body>
 
 </html>
