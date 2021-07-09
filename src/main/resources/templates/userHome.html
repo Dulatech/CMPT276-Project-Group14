@@ -10,7 +10,14 @@
 
 <body>
     <p>Welcome </p>
-    
+    <div th:if="${userID >= 0}" class="dropdown">
+        <input type="image" onclick="myFunction()" src="/images/userIcon.png" th:if="${userType == 'C'}" class="dropbtn" >
+        <input type="image" onclick="myFunction()" src="/images/ownerIcon.png" th:if="${userType == 'R'}" class="dropbtn" >
+        <div id="myDropdown" class="dropdown-content">
+          <a href="/userInfo">Edit Profile</a>
+          <a href="/logout">LogOut</a>
+        </div>
+      </div>
     <div  class="container">
         <div class="top">
             
@@ -39,12 +46,28 @@
 
     
 
+    <div class="reviews">
+        <div class="userlogo">
+            <img src="/images/user_review.png">
+        </div>
+        John Doe
+        <div class="stars">
+            <img src="/images/5_stars.png">
+        </div>
+        <br>
+        <h1>
+            Restaurant Name
+        </h1>
+        <br>
+        <div class="placeholdertext">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porta consectetur semper. Suspendisse accumsan nec purus at rutrum. Curabitur convallis venenatis massa at euismod. Maecenas vestibulum ipsum vitae semper pellentesque. Aliquam at elit arcu. Aliquam semper eu nibh interdum varius. Phasellus luctus erat vitae enim sodales semper. Donec mollis sem velit, vel consequat dolor porttitor vel. Ut aliquet augue non egestas maximus.
+        </div>
     </div>
 
 
 
     <a href="/userInfo">My Info</a>
-
+    <script src="/userHome.js"></script>
 </body>
 
 </html>

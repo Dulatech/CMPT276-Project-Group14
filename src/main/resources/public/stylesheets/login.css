@@ -50,16 +50,7 @@ img {
     font-weight: bold;
 }
 
-/* icon */
-.logo {
-    grid-column: 3;
-    grid-row: 1;
-}
 
-.logo img {
-    margin-top: 4em;
-    margin-left: 6em;
-}
 
 /* form display */
 .right div {
