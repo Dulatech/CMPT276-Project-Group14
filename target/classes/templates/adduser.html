@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/addUserLayout :: layout (~{::body},'adduser')}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New rectangle Form</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+    
+  </head>
+  <body>
+    <div class="cont">
+      <div class="loginHeader">
+        <img src="/images/logoAlt.png" alt="logo" />
+    </div>
+    <div class="container">
+      <form 
+        id="adduser-form"
+        action="#"
+        method="post"
+        th:action="@{/adduser}"
+        th:object="${user}"
+      >
+      
+      <div class="item">
+        <label class="email">Email</label><br />
+        <input
+        class="input-box"
+          required
+          type="email"
+          maxlength="50"
+          th:field="*{Email}"
+          placeholder="Email"
+        />
+      </div>
+        <div class="item">
+        <label>Username</label><br />
+        <input
+        class="input-box"
+          required
+          type="text"
+          maxlength="50"
+          th:field="*{UserName}"
+          placeholder="Username"
+        />
+        </div>
+       
+   
+        <div class="item">
+        <label>Password</label><br />
+        <input
+        class="input-box"
+          required
+          id="password"
+          type="password"
+          minlength="8"
+          maxlength="50"
+          th:field="*{Password}"
+          placeholder="Password"
+        />
+      </div>
+        <div class="item">
+        <label>Confirm Password</label><br />
+        <input
+        class="input-box"
+          required
+          id="confirmPassword"
+          type="password"
+          minlength="8"
+          maxlength="50"
+          placeholder="Confirm Password"
+        />
+      </div>
+    
+    <div class="inline-div">
+        <div class="select-item-right">
+        <label>Full Name</label><br />
+        <input
+        class="input-box"
+          required
+          type="text"
+          maxlength="50"
+          th:field="*{FullName}"
+          placeholder="Full Name"
+        />
+      </div>
+       
+        <div class="select-item">
+        <label>Phone</label><br />
+        <input
+        class="input-box"
+          required
+          type="text"
+          maxlength="11"
+          th:field="*{Phone}"
+          placeholder="Phone"
+        />
+      </div>
+    </div>
+   
+        <div class="item">
+        <label>Address</label><br />
+        <input
+        class="input-box"
+          required
+          type="text"
+          maxlength="255"
+          th:field="*{Address}"
+          placeholder="Address"
+        />
+      </div>
+        <div class="select-item">
+        <label>User Type</label><br />
+        <select class="input-box" required th:field="*{UserType}" name="UserType" id="users">
+          <option value="C">Customer</option>
+          <option value="R">Restaurant Representative</option>
+        </select>
+      </div>
+ 
+
+        
+      </form>
+      <div th:if="${error != null}">
+        <span class="error"  th:text="${error}"></span>
+     </div>
+      <span id="passwordError" class="error visually-hidden">Password does not match</span>
+      <button class="blue-button" id="submit-button">Register</button></form>
+    </div>
+    </div>
+    <script src="/adduser.js"></script>
+  </body>
+  
+  
+</html>

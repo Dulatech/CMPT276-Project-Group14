@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'index')}"
+>
+  <body>
+    <!-- delete after testing-->
+    <p th:if="${userID >= 0}" th:text="${userID}"></p>
+    <p th:if="${userName != ''}" th:text="${userName}"></p>
+
+    <div class="cont">
+      <div th:if="${#lists.isEmpty(records)}">
+        <h3>There are no Users to show, please add a User.</h3>
+        <form action="#" method="get" th:action="@{/adduser}">
+          <input class="blue-button" type="submit" value="Register User" />
+        </form>
+      </div>
+      <div th:if="${not #lists.isEmpty(records)}">
+        <table style="margin-top: 20px; margin-bottom: 10px">
+          <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>User Type</th>
+          </tr>
+          <tr th:each="record : ${records}">
+            <td><p th:text="${record.ID}"></p></td>
+            <td>
+              <p th:text="${record.FullName}"></p>
+            </td>
+            <td>
+              <p th:text="${record.UserName}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Password}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Email}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Phone}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Address}"></p>
+            </td>
+            <td>
+              <p th:text="${record.UserType}"></p>
+            </td>
+          </tr>
+        </table>
+        <form action="#" method="get" th:action="@{/adduser}">
+          <input class="blue-button" type="submit" value="Register User" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

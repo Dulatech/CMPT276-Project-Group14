@@ -1,0 +1,120 @@
+table,
+td,
+th {
+  border: 2px solid #555;
+  padding: 2px 5px;
+  min-width: 80px;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+.color-text {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14pt;
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+  margin: 0 auto;
+}
+
+label {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.cont {
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 30px;
+}
+
+.visually-hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.blue-button {
+  background-color: #45a23a;
+  border-color: #45a23a;
+  color: white;
+  cursor: pointer;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  font-weight: bold;
+  min-width: 190px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
+  border-radius: 0.4em;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2vh;
+  margin-top: 4vh;
+}
+
+.blue-button:hover {
+  background-color: #0f6e2b;
+}
+
+.red-button {
+  background-color: #ca0f0f;
+  border: none;
+  color: white;
+  padding: 5px 0;
+  text-decoration: none;
+  margin-top: 10px;
+  cursor: pointer;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  font-weight: bold;
+  min-width: 190px;
+}
+.red-button:hover {
+  background-color: #721111;
+}
+
+/** for userView */
+.inline {
+  display: inline;
+}
+
+#wrapper {
+  width: 90%;
+
+  margin: auto;
+}
+
+.userGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1em;
+  grid-auto-rows: minmax(100px, auto);
+}

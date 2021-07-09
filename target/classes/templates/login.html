@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/loginLayout :: layout (~{::body},'login')}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login page</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="left">
+      <img src="/images/food.jpg" alt="Food" />
+    </div>
+
+    <div class="logo">
+      <img src="/images/logo.png" alt="logo" />
+    </div>
+
+    <h1 class="loginHeader">Cravelt</h1>
+
+
+    <form class="right" action="#" method="post" th:action="@{/login}" th:object="${user}">
+      <div class="itemOne">
+        <label>Username</label><br />
+        <input class="field" required type="text" th:field="*{UserName}" placeholder="Username" autocomplete="off" /><br />
+      </div>
+
+      <div class="itemTwo">
+        <label>Password</label><br />
+        <input class="field" required type="password" th:field="*{Password}" placeholder="password" autocomplete="off" /><br />
+      </div>
+
+      <div class="itemThree">
+        <a class="register" href="/adduser">Register</a>
+      </div>
+
+      <div class="itemFour">
+        <input class="submitBtn" type="submit" value="LOGIN" />
+      </div>
+
+    </form>
+
+    <!--
+      <form action="#" method="get" th:action="@{/adduser}" th:object="${user}">
+        <input type="submit" value="Sign UP" />
+      </form>
+    -->
+  </div>
+</body>
+
+</html>
