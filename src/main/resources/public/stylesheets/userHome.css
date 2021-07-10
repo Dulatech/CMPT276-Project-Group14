@@ -116,7 +116,7 @@ input {
 .reviewName {
     position: relative; 
     left: 10px; 
-    
+    top: 5px;
     font-size: 20px;
 }
 
