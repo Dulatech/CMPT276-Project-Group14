@@ -6,9 +6,6 @@ html, body {
 
 .container {
     display: grid;
-    /**
-    grid-template-rows: repeat(3, 1fr);
-    */
     grid-template-rows: 2fr 1fr 2fr;
     height: 100%;
     width: 100%;
@@ -135,11 +132,6 @@ input {
 
 /* Dropdown Button (the clickable image) */
 .dropbtn {
-    /* background-color: #3498DB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none; */
     cursor: pointer;
     max-height: 200px;
     max-width: 130px;
@@ -153,10 +145,6 @@ input {
       width: 30px;
   }
   /* Dropdown button on hover & focus */
-  /* .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-  }
-   */
   /* The container <div> - needed to position the dropdown content */
   .dropdown {
     position: relative;
