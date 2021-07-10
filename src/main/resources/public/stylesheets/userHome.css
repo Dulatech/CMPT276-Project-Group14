@@ -161,12 +161,12 @@ input {
   .dropdown {
     position: relative;
     float: right;
-    display: flex;
+    display: inline-block;
+    /* display: flex; */
     justify-content: flex-end;
     margin-left: 1em;
-    margin-right: 1em;
+    margin-right: 3em;
     margin-top: 2em;
-   
   }
 
   /* Dropdown Content (Hidden by Default) */
