@@ -1,4 +1,4 @@
-var id, target, options;
+var id, target, options, latitude, longitude;
 
 function geoTest() {
 
@@ -6,12 +6,13 @@ function geoTest() {
         console.log("not supported");
     } else {
         console.log("supported");
+        initMap();
         id = navigator.geolocation.watchPosition(success, error);
     }
 
     function success(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
 
         if (target.latitude === latitude && target.longitude === longitude) {
             console.log("Reached loc");
@@ -41,7 +42,7 @@ option = {
 
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: -34.397, lng: 150.644 },
+      center: { lat: 100, lng: 100 },
       zoom: 8,
     });
   }
