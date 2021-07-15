@@ -6,7 +6,7 @@ function geoTest() {
         console.log("not supported");
     } else {
         console.log("supported");
-        initMap();
+       // initMap();
         id = navigator.geolocation.watchPosition(success, error);
     }
 
