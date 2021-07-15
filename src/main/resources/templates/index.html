@@ -5,9 +5,18 @@
 >
   <body>
     <!-- delete after testing-->
+    <script src="/geolocation.js"></script>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+    
     <p th:if="${userID >= 0}" th:text="${userID}"></p>
     <p th:if="${userName != ''}" th:text="${userName}"></p>
 
+    <div id="map"></div>
+    <button onclick="geoTest()">Test Geo</button>
     <div class="cont">
       <div th:if="${#lists.isEmpty(records)}">
         <h3>There are no Users to show, please add a User.</h3>
