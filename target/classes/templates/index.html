@@ -14,16 +14,9 @@
     
     <p th:if="${userID >= 0}" th:text="${userID}"></p>
     <p th:if="${userName != ''}" th:text="${userName}"></p>
-<<<<<<< HEAD
-    
-    <div id="map" width="300" height="300"></div>
-  
-=======
-    <!--
-    <div id="map" width="300" height="300"></div>
-    -->
->>>>>>> fda482f3405e8748ff49cd7d9806a48f435cf1f0
 
+    <div id="map" ></div>
+====
     <button onclick="geoTest()">Test Geo</button>
     <div class="cont">
       <div th:if="${#lists.isEmpty(records)}">
