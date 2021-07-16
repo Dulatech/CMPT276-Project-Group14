@@ -509,11 +509,11 @@ public class Main {
   public String handleReservationSubmit(Map<String, Object> model, Reservations reservation, Users user, @ModelAttribute("userID") String id, @ModelAttribute("userID") String userName) throws Exception {
     // Save the person data into the database
     try (Connection connection = dataSource.getConnection()) {
-      Statement stm3t = connection.createStatement();
+      Statement stmt = connection.createStatement();
 
 
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reservations (ID serial,UserID numeric,RestaurantID numeric,FullName varchar(225), Time date,Phone varchar(255), TableType varchar(1))");
-       String sql = "INSERT INTO Reservations (UserID, RestaurantID, FullName, Time, Phone, TableType) VALUES ('" + user.getID() + 0 + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
+       String sql = "INSERT INTO Reservations (UserID, RestaurantID, FullName, Time, Phone, TableType) VALUES ('" + user.getID() + "','" + 0 + "','" + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
        stmt.executeUpdate(sql);
       // model.put("reservation", reservation);
       return "index";
