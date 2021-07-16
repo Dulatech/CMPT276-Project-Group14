@@ -460,6 +460,71 @@ public class Main {
         return "loginError";
   }
 
+
+  @RequestMapping("/addrestaurant")
+  String getRestaurantForm(Map<String, Object> model) {
+    Restaurants restaurant = new Restaurants();
+    model.put("restaurant", restaurant);
+    return "addrestaurant";
+  }
+
+  @PostMapping(
+    path = "/addrestaurant",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleRestaurantSubmit(Map<String, Object> model, Restaurants restaurant) throws Exception {
+    // Save the person data into the database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+
+    
+      
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Restaurants (ID serial, OwnerID numeric, Name varchar(50), Cuisine varchar(50), Email varchar(50), Phone varchar(255), Address varchar(255), SingleTables  numeric, DoubleTables  numeric, FourPersonTables numeric, PartyTables numeric)");
+      // String sql = "INSERT INTO Restaurant (UserName, Password, FullName, Email, Phone, Address, UserType) VALUES ('" + user.getUserName() + "','" + user.getPassword() 
+      // + "','" + user.getFullName() + "','"  + user.getEmail() + "','" + user.getPhone() + "','"   + user.getAddress() + "','" + user.getUserType()  + "')";
+      // stmt.executeUpdate(sql);
+      // model.put("restaurant", restaurant);
+      return "index";
+      
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
+  }
+
+  @RequestMapping("/addreservation")
+  String getReservationForm(Map<String, Object> model) {
+    Reservations reservation = new Reservations();
+    model.put("reservation", reservation);
+    return "addreservation";
+  }
+
+  @PostMapping(
+    path = "/addreservation",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleReservationSubmit(Map<String, Object> model, Reservations reservation) throws Exception {
+    // Save the person data into the database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+
+    
+      
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reservation (ID serial,UserID numeric,RestaurantID numeric,Time date,Phone varchar(255),Address varchar(255),TableType  varchar(1))");
+      // String sql = "INSERT INTO Restaurant (UserName, Password, FullName, Email, Phone, Address, UserType) VALUES ('" + user.getUserName() + "','" + user.getPassword() 
+      // + "','" + user.getFullName() + "','"  + user.getEmail() + "','" + user.getPhone() + "','"   + user.getAddress() + "','" + user.getUserType()  + "')";
+      // stmt.executeUpdate(sql);
+      // model.put("reservation", reservation);
+      return "index";
+      
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
+  }
+
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
     try (Connection connection = dataSource.getConnection()) {
