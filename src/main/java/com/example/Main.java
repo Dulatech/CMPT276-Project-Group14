@@ -506,17 +506,15 @@ public class Main {
     path = "/addreservation",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String handleReservationSubmit(Map<String, Object> model, Reservations reservation) throws Exception {
+  public String handleReservationSubmit(Map<String, Object> model, Reservations reservation, Users user, @ModelAttribute("userID") String id, @ModelAttribute("userID") String userName) throws Exception {
     // Save the person data into the database
     try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
+      Statement stm3t = connection.createStatement();
 
-    
-      
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reservations (ID serial,UserID numeric,RestaurantID numeric,Time date,Phone varchar(255), TableType varchar(1))");
-      // String sql = "INSERT INTO Restaurant (UserName, Password, FullName, Email, Phone, Address, UserType) VALUES ('" + user.getUserName() + "','" + user.getPassword() 
-      // + "','" + user.getFullName() + "','"  + user.getEmail() + "','" + user.getPhone() + "','"   + user.getAddress() + "','" + user.getUserType()  + "')";
-      // stmt.executeUpdate(sql);
+
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reservations (ID serial,UserID numeric,RestaurantID numeric,FullName varchar(225), Time date,Phone varchar(255), TableType varchar(1))");
+       String sql = "INSERT INTO Restaurant (UserID, RestaurantID, FullName, Time, Phone, TableType) VALUES ('" + user.getID() + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
+       stmt.executeUpdate(sql);
       // model.put("reservation", reservation);
       return "index";
       
