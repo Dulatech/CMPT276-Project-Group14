@@ -118,3 +118,8 @@ label {
   gap: 1em;
   grid-auto-rows: minmax(100px, auto);
 }
+
+#map {
+  height: 500px;
+  width: 500px;
+}
