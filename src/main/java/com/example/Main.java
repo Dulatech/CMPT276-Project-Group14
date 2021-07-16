@@ -82,7 +82,9 @@ public class Main {
   String index(Map<String, Object> model, @ModelAttribute("userID") String test, @ModelAttribute("userID") String userName) {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      
+
+   
+
       ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
       
       System.out.println(test);
@@ -511,7 +513,7 @@ public class Main {
 
     
       
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reservation (ID serial,UserID numeric,RestaurantID numeric,Time date,Phone varchar(255),Address varchar(255),TableType  varchar(1))");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reservations (ID serial,UserID numeric,RestaurantID numeric,Time date,Phone varchar(255), TableType varchar(1))");
       // String sql = "INSERT INTO Restaurant (UserName, Password, FullName, Email, Phone, Address, UserType) VALUES ('" + user.getUserName() + "','" + user.getPassword() 
       // + "','" + user.getFullName() + "','"  + user.getEmail() + "','" + user.getPhone() + "','"   + user.getAddress() + "','" + user.getUserType()  + "')";
       // stmt.executeUpdate(sql);
