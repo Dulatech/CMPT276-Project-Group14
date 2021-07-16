@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New rectangle Form</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
-    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   </head>
   <body>
     <div class="cont">
@@ -129,8 +129,12 @@
       <span id="passwordError" class="error visually-hidden">Password does not match</span>
       <button class="blue-button" id="submit-button">Register</button></form>
     </div>
+    <div id="map"></div>
     </div>
     <script src="/adduser.js"></script>
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&libraries=places&callback=initMap">
+</script>
   </body>
   
   
