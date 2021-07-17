@@ -7,12 +7,27 @@ const option = {
     maximumAge: 0
 };
 
+//style for map
+const mapStyle = {
+    hide: [
+        {
+            featureType: "poi",
+            stylers: [{ visibility: "off" }],
+        },
+        {
+            featureType: "transit",
+            elementType: "labels.icon",
+            stylers: [{ visibility: "off" }],
+        },
+    ]
+};
+
 document.addEventListener("DOMContentLoaded", function () {
     if (!navigator.geolocation) {
         console.log("not supported");
     } else {
         console.log("supported");
-     // id = navigator.geolocation.watchPosition(success, error, option); //update position, will probably use this in final version
+        // id = navigator.geolocation.watchPosition(success, error, option); //update position, will probably use this in final version
         id = navigator.geolocation.getCurrentPosition(success, error);
     }
 
@@ -42,11 +57,15 @@ document.addEventListener("DOMContentLoaded", function () {
     function initMap() {
         // get user location
         const userLocation = { lat: latitude, lng: longitude };
+
         // center map on user 
         map = new google.maps.Map(document.getElementById("map"), {
             zoom: 15, //zoom level for street 
             center: userLocation,
         });
+
+        //hide extra markers from google map api
+        map.setOptions({ styles: mapStyle["hide"] })
 
         //search nearby restaurants 
         var request = {
@@ -69,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         //sub function for adding markers
         function addRestaurantMarker(place) {
-           // var placeLoc = place.geometry.location;
+            // var placeLoc = place.geometry.location;
             var marker = new google.maps.Marker({
                 map: map,
                 position: place.geometry.location,
@@ -84,6 +103,9 @@ document.addEventListener("DOMContentLoaded", function () {
             icon: "https://img.icons8.com/ios-filled/50/000000/men-age-group-4.png"
         });
     }
+
+
+
 });
 
 
