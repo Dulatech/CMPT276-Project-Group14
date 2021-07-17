@@ -1,5 +1,6 @@
 var id, target, options, latitude, longitude, map;
 
+// not working atm 
 const option = {
     enableHighAccuracy: true,
     timeout: 60 * 1000, //refresh every 60s 
@@ -11,30 +12,33 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("not supported");
     } else {
         console.log("supported");
-     //   id = navigator.geolocation.watchPosition(success, error, option);
+     // id = navigator.geolocation.watchPosition(success, error, option); //update position, will probably use this in final version
         id = navigator.geolocation.getCurrentPosition(success, error);
     }
 
+    //success for getting position in geolocation 
     function success(position) {
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
         var accuracy = position.coords.accuracy;
-        initMap();
+        initMap(); //if successful create the map 
+
+        /** 
         if (target.latitude === latitude && target.longitude === longitude) {
             console.log("Reached loc");
         }
-
+        */
         console.log("lat " + latitude);
         console.log("long " + longitude);
         console.log("acc " + accuracy);
     }
 
-
+    //error in getting position for geolocation 
     function error() {
         console.log("fail to retrieve location");
     }
 
-
+    //function for creating the map
     function initMap() {
         // get user location
         const userLocation = { lat: latitude, lng: longitude };

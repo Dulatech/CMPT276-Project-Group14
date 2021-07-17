@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'map')}">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login page</title>
+    
+</head>
+
+<body>
+
+    <script src="/geolocation.js"></script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&callback=initMap&libraries=places&v=weekly"
+        async>
+    </script>
+    <h1>CraveIt</h1>
+    <div id="map" width="300" height="300"></div>
+</body>
+
+</html>

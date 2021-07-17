@@ -452,6 +452,12 @@ public class Main {
     }
   }
 
+  //map
+  @GetMapping("/map") 
+    public String getMap() {
+      return "map";
+    }
+
   @GetMapping("/success")
     public String userSuccess(){
         return "success";
