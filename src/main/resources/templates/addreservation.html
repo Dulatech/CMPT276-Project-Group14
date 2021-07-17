@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/addUserLayout :: layout (~{::body},'addreservation')}">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="cont">
+    <div class="loginHeader">
+      <img src="/images/logoAlt.png" alt="logo" />
+  </div>
+  <div class="container">
+    <form  id="addreservation-form" action="#" method="post" th:action="@{/addreservation}" th:object="${reservation}" >
+    
+    <div class="item">
+      <label class="restaurant">Restaurant</label><br />
+      <input
+      class="input-box"
+        required
+        type="text"
+        maxlength="50"
+        th:field="*{Restaurant}"
+        placeholder="Restaurant"
+      />
+    </div>
+      <div class="item">
+      <label>Full Name</label><br />
+      <input
+      class="input-box"
+        required
+        type="text"
+        maxlength="50"
+        th:field="*{FullName}"
+        placeholder="Full Name"
+      />
+      </div>
+     
+ 
+      <div class="item">
+      <label>Number of Guests</label><br />
+      <input
+      class="input-box"
+        required
+        id="NumberofGuests"
+        type="text"
+        minlength="1"
+        maxlength="3"
+        th:field="*{NumberofGuests}"
+        placeholder="Number of Guests"
+      />
+    </div>
+      <div class="item">
+      <label>Time</label><br />
+      <input type="datetime-local" required th:field="*{Time}" name="Time" id="time">
+    </div>
+     
+      <div class="select-item">
+      <label>Phone</label><br />
+      <input
+      class="input-box"
+        required
+        type="text"
+        maxlength="11"
+        th:field="*{Phone}"
+        placeholder="Phone"
+      />
+    </div>
+      <div class="select-item">
+      <label>Table Type</label><br />
+      <select class="input-box" required th:field="*{TableType}" name="TableType" id="table">
+        <option value="S">SingleTables</option>
+        <option value="D">DoubleTables</option>
+        <option value="F">FourPersonTables</option>
+        <option value="P">PartyTables</option>
+      </select>
+    </div>
+    <button class="blue-button" id="submit-button">Create Reservation</button>
+  </form>
+  </div>
+  </div>
+</body>
+</html>
