@@ -4,19 +4,20 @@
   th:replace="~{fragments/layout :: layout (~{::body},'index')}"
 >
   <body>
-    <!-- delete after testing-->
+    <!-- delete after testing src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&callback=initMap&libraries=places&v=weekly"-->
     <script src="/geolocation.js"></script>
 
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&callback=initMap&libraries=&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&callback=initMap&libraries=places&v=weekly"
       async
     ></script>
     
     <p th:if="${userID >= 0}" th:text="${userID}"></p>
     <p th:if="${userName != ''}" th:text="${userName}"></p>
+    
+    <div id="map" width="300" height="300"></div>
+  
 
-    <div id="map" ></div>
-====
     <button onclick="geoTest()">Test Geo</button>
     <div class="cont">
       <div th:if="${#lists.isEmpty(records)}">

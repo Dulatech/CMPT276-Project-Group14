@@ -1,64 +1,98 @@
-var id, target, options, latitude, longitude;
+var id, target, options, latitude, longitude, map;
 
-function geoTest() {
+const option = {
+    enableHighAccuracy: true,
+    timeout: 60 * 1000, //refresh every 60s 
+    maximumAge: 0
+};
 
+document.addEventListener("DOMContentLoaded", function () {
     if (!navigator.geolocation) {
         console.log("not supported");
     } else {
         console.log("supported");
-       // initMap();
-        id = navigator.geolocation.watchPosition(success, error);
+     //   id = navigator.geolocation.watchPosition(success, error, option);
+        id = navigator.geolocation.getCurrentPosition(success, error);
     }
 
     function success(position) {
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
-
+        var accuracy = position.coords.accuracy;
+        initMap();
         if (target.latitude === latitude && target.longitude === longitude) {
             console.log("Reached loc");
         }
-        
-        console.log(latitude);
-        console.log(longitude);
+
+        console.log("lat " + latitude);
+        console.log("long " + longitude);
+        console.log("acc " + accuracy);
     }
+
 
     function error() {
         console.log("fail to retrieve location");
     }
 
-}
+
+    function initMap() {
+        // get user location
+        const userLocation = { lat: latitude, lng: longitude };
+        // center map on user 
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15, //zoom level for street 
+            center: userLocation,
+        });
+
+        //search nearby restaurants 
+        var request = {
+            location: userLocation,
+            radius: 5000,
+            types: ['restaurant']
+        }
+
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, callback);
+
+        //add markers to map
+        function callback(results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    addRestaurantMarker(results[i]);
+                }
+            }
+        }
+
+        //sub function for adding markers
+        function addRestaurantMarker(place) {
+           // var placeLoc = place.geometry.location;
+            var marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location,
+                icon: "https://img.icons8.com/color/48/000000/restaurant-.png"
+            })
+        }
+
+        // user location marker
+        const marker = new google.maps.Marker({
+            position: userLocation,
+            map: map,
+            icon: "https://img.icons8.com/ios-filled/50/000000/men-age-group-4.png"
+        });
+    }
+});
+
 
 target = {
     latitude: 52.520007,
     longitude: 13.404954
 };
 
-option = {
-    enableHighAccuracy: false,
-    timeout: 4000,
-    maximumAge: 0
-};
-
-/** 
+// this is needed, dont delete
 function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 100, lng: 100 },
-      zoom: 8,
-    });
-  }
-  */
 
-  function initMap() {
-    // The location of Uluru
-    const uluru = { lat: -25.344, lng: 131.036 };
-    // The map, centered at Uluru
-    const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 4,
-      center: uluru,
-    });
-    // The marker, positioned at Uluru
-    const marker = new google.maps.Marker({
-      position: uluru,
-      map: map,
-    });
-  }
+}
+
+
+
+
