@@ -87,9 +87,11 @@ public class Main {
 
       ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
       
+      
       System.out.println(test);
       
       ArrayList<Users> output = new ArrayList<Users>();
+      ArrayList<Restaurants> output2 = new ArrayList<Restaurants>();
       while (rs.next()) {
         
         Integer id = rs.getInt("ID");
@@ -112,7 +114,38 @@ public class Main {
         output.add(user);
       }
 
+      ResultSet rs2 = stmt.executeQuery("SELECT * FROM Restaurants");
+
+      while (rs2.next()) {
+        
+        Integer id = rs2.getInt("ID");
+        Integer ownerID = rs2.getInt("OwnerID");
+        String name = rs2.getString("Name");
+        String cus = rs2.getString("Cuisine");
+        String email = rs2.getString("Email");
+        String phone = rs2.getString("Phone");
+        String addr = rs2.getString("Address");
+        Integer single = rs2.getInt("SingleTables");
+        Integer duo = rs2.getInt("DoubleTables");
+        Integer quad = rs2.getInt("FourPersonTables");
+        Integer party = rs2.getInt("PartyTables");
+        Restaurants restaurant = new Restaurants();
+        restaurant.setID(id);
+        restaurant.setOwnerID(ownerID);
+        restaurant.setName(name);
+        restaurant.setCuisine(cus);
+        restaurant.setEmail(email);
+        restaurant.setPhone(phone);
+        restaurant.setAddress(addr);
+        restaurant.setSingleTables(single);
+        restaurant.setDoubleTables(duo);
+        restaurant.setFourPersonTables(quad);
+        restaurant.setPartyTables(party);
+        output2.add(restaurant);
+      }
+
       model.put("records", output);
+      model.put("records2", output2);
       return "index";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -480,7 +513,7 @@ public class Main {
     path = "/addrestaurant",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String handleRestaurantSubmit(Map<String, Object> model, Restaurants restaurant) throws Exception {
+  public String handleRestaurantSubmit(Map<String, Object> model, Restaurants restaurant,  @ModelAttribute("userID") int userID) throws Exception {
     // Save the person data into the database
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -488,11 +521,11 @@ public class Main {
     
       
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Restaurants (ID serial, OwnerID numeric, Name varchar(50), Cuisine varchar(50), Email varchar(50), Phone varchar(255), Address varchar(255), SingleTables  numeric, DoubleTables  numeric, FourPersonTables numeric, PartyTables numeric)");
-      // String sql = "INSERT INTO Restaurant (UserName, Password, FullName, Email, Phone, Address, UserType) VALUES ('" + user.getUserName() + "','" + user.getPassword() 
-      // + "','" + user.getFullName() + "','"  + user.getEmail() + "','" + user.getPhone() + "','"   + user.getAddress() + "','" + user.getUserType()  + "')";
-      // stmt.executeUpdate(sql);
-      // model.put("restaurant", restaurant);
-      return "index";
+      String sql = "INSERT INTO Restaurants (OwnerID, Name, Cuisine, Email, Phone, Address, SingleTables, DoubleTables, FourPersonTables, PartyTables) VALUES (" + userID + ",'" + restaurant.getName() 
+      + "','" + restaurant.getCuisine() + "','"  + restaurant.getEmail() + "','" + restaurant.getPhone() + "','"   + restaurant.getAddress() + "'," + restaurant.getSingleTables() + "," +  restaurant.getDoubleTables() + "," +  restaurant.getFourPersonTables() + "," +  restaurant.getPartyTables() + ")";
+      stmt.executeUpdate(sql);
+      model.put("restaurant", restaurant);
+      return "redirect:/user=" + userID;
       
     } catch (Exception e) {
       model.put("message", e.getMessage());

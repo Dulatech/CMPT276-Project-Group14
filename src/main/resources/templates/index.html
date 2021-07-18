@@ -63,6 +63,58 @@
             </td>
           </tr>
         </table>
+        <div th:if="${#lists.isEmpty(records2)}">
+          <h3>There are no Restaurants to show.</h3>
+        </div>
+        <div th:if="${not #lists.isEmpty(records2)}">
+          <table style="margin-top: 20px; margin-bottom: 10px">
+            <tr>
+              <th>ID</th>
+              <th>Owner ID</th>
+              <th>Name</th>
+              <th>Cuisine</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Single Tables</th>
+              <th>Double Tables</th>
+              <th>Four Person Tables</th>
+              <th>Party  Tables</th>
+            </tr>
+            <tr th:each="record : ${records2}">
+              <td><p th:text="${record.ID}"></p></td>
+              <td>
+                <p th:text="${record.OwnerID}"></p>
+              </td>
+              <td>
+                <p th:text="${record.Name}"></p>
+              </td>
+              <td>
+                <p th:text="${record.Cuisine}"></p>
+              </td>
+              <td>
+                <p th:text="${record.Email}"></p>
+              </td>
+              <td>
+                <p th:text="${record.Phone}"></p>
+              </td>
+              <td>
+                <p th:text="${record.Address}"></p>
+              </td>
+              <td>
+                <p th:text="${record.SingleTables}"></p>
+              </td>
+              <td>
+                <p th:text="${record.DoubleTables}"></p>
+              </td>
+              <td>
+                <p th:text="${record.FourPersonTables}"></p>
+              </td>
+              <td>
+                <p th:text="${record.PartyTables}"></p>
+              </td>
+            </tr>
+          </table>
         <form action="#" method="get" th:action="@{/adduser}">
           <input class="blue-button" type="submit" value="Register User" />
         </form>

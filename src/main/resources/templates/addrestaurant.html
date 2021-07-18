@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/addUserLayout :: layout (~{::body},'addrestaurant')}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New rectangle Form</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+    
+  </head>
+  <body>
+    <div class="cont">
+      <div class="addrestaurant">
+        <img src="/images/logoAlt.png" alt="logo" />
+    </div>
+    <div class="container">
+      <form 
+        id="addrestaurant-form"
+        action="#"
+        method="post"
+        th:action="@{/addrestaurant}"
+        th:object="${restaurant}"
+      >
+      <div class="item">
+        <label>Business Name</label><br />
+        <input
+        class="input-box"
+          required
+          type="text"
+          maxlength="50"
+          th:field="*{Name}"
+          placeholder="Business Name"
+        />
+        </div>
+
+        <div class="item">
+            <label>Cuisine</label><br />
+            <input
+            class="input-box"
+              required
+              type="text"
+              maxlength="50"
+              th:field="*{Cuisine}"
+              placeholder="Cuisine"
+            />
+            </div>
+      <div class="item">
+        <label class="email">Email</label><br />
+        <input
+        class="input-box"
+          required
+          type="email"
+          maxlength="50"
+          th:field="*{Email}"
+          placeholder="Email"
+        />
+      </div>
+        
+       
+   
+        <div class="item">
+        <label>Phone</label><br />
+        <input
+        class="input-box"
+          required
+          type="text"
+          maxlength="11"
+          th:field="*{Phone}"
+          placeholder="Phone"
+        />
+      </div>
+      <div class="item">
+        <label>Address</label><br />
+        <input
+        class="input-box"
+          required
+          type="text"
+          id="searchTextField"
+          maxlength="255"
+          th:field="*{Address}"
+          placeholder="Address"
+        />
+      </div>
+        <div class="item">
+        <label>Single Tables</label><br />
+        <input
+        class="input-box"
+          required
+          type="number"
+          th:field="*{SingleTables}"
+          placeholder="Single Tables"
+        />
+      </div>
+
+      <div class="item">
+        <label>Double Tables</label><br />
+        <input
+        class="input-box"
+          required
+          type="number"
+          th:field="*{DoubleTables}"
+          placeholder="Double Tables"
+        />
+      </div>
+
+      <div class="item">
+        <label>Four Person Tables</label><br />
+        <input
+        class="input-box"
+          required
+          type="number"
+          th:field="*{FourPersonTables}"
+          placeholder="Four Person Tables"
+        />
+      </div>
+      <div class="item">
+        <label>Party Tables (4+)</label><br />
+        <input
+        class="input-box"
+          required
+          type="number"
+          th:field="*{PartyTables}"
+          placeholder="Party Tables (4+)"
+        />
+      </div>
+      </form>
+      
+      <button class="blue-button" id="submit-button">Create Restaurant</button></form>
+    </div>
+    </div>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&libraries=places"></script>
+    <script src="/addrestaurant.js"></script>
+
+  </body>
+  
+  
+</html>
