@@ -450,41 +450,6 @@ public class Main {
     }
   }
 
-  @GetMapping("/user/clone/{pid}")
-  public String cloneUser(Map<String, Object> model, @PathVariable String pid) throws Exception {
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE id=" + pid); 
-
-      if (rs.next() == true) {
-        String uName = rs.getString("UserName");
-        String name = rs.getString("FullName");
-        String pass = rs.getString("Password");
-        String email = rs.getString("Email");
-        String phone = rs.getString("Phone");
-        String addr = rs.getString("Address");
-        String userType = rs.getString("UserType");
-
-        Users user = new Users();
-        user.setFullName(name);
-        user.setUserName(uName);
-        user.setPassword(pass);
-        user.setEmail(email);
-        user.setPhone(phone);
-        user.setAddress(addr);
-        user.setUserType(userType);
-        
-        String sql = "INSERT INTO Users (UserName, Password, FullName, Email, Phone, Address, UserType) VALUES ('" + user.getUserName() + "','" + user.getPassword() 
-        + "','" + user.getFullName() + "','"  + user.getEmail() + "','" + user.getPhone() + "','"   + user.getAddress() + "','" + user.getUserType()  + "')";
-        stmt.executeUpdate(sql);
-      }
-      return "redirect:/adminView";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-  }
-
   //map
   @GetMapping("/map") 
     public String getMap() {
@@ -545,7 +510,7 @@ public class Main {
     path = "/addreservation",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String handleReservationSubmit(Map<String, Object> model, Reservations reservation, Users user, @ModelAttribute("userID") int id, @ModelAttribute("userID") String userName) throws Exception {
+  public String handleReservationSubmit(Map<String, Object> model, Reservations reservation, @ModelAttribute("userID") int id, @ModelAttribute("userID") String userName) throws Exception {
     // Save the person data into the database
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
