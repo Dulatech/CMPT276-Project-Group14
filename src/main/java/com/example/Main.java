@@ -92,6 +92,7 @@ public class Main {
       
       ArrayList<Users> output = new ArrayList<Users>();
       ArrayList<Restaurants> output2 = new ArrayList<Restaurants>();
+      ArrayList<Reservations> output3 = new ArrayList<Reservations>();
       while (rs.next()) {
         
         Integer id = rs.getInt("ID");
