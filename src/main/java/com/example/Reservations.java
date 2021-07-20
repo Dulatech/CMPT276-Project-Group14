@@ -1,4 +1,5 @@
 package com.example;
+import java.util.Date;
 
 public class Reservations {
     private Integer id;
@@ -6,7 +7,7 @@ public class Reservations {
     private String Restaurant;
     private Integer NumberofGuests;
     private String Phone;
-    private String Time;
+    private Date Time;
     private String TableType;
    
 
@@ -30,7 +31,7 @@ public class Reservations {
         return this.NumberofGuests;
     }
 
-    public String getTime(){
+    public Date getTime(){
         return this.Time;
     }
 
@@ -54,7 +55,7 @@ public class Reservations {
          this.NumberofGuests = NumberofGuests;
     }
 
-    public void setTime(String Time){
+    public void setTime(Date Time){
          this.Time = Time;
     }
 
