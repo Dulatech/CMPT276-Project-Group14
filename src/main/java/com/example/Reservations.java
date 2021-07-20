@@ -1,5 +1,6 @@
 package com.example;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Reservations {
     private Integer id;
@@ -8,6 +9,7 @@ public class Reservations {
     private Integer NumberofGuests;
     private String Phone;
     private String Time;
+    private Date date;
     private String TableType;
    
 
@@ -35,6 +37,10 @@ public class Reservations {
         return this.Time;
     }
 
+    public String getDate(){
+        return this.date.toString();
+    }
+
     public String getTableType(){
         return this.TableType;
     }
@@ -58,6 +64,11 @@ public class Reservations {
     public void setTime(String Time){
          this.Time = Time;
     }
+
+    public void setDate() throws Exception {
+        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm");
+        date = format.parse(Time);
+   }
 
     public void setTableType(String TableType){
          this.TableType = TableType;
