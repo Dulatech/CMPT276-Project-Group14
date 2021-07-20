@@ -144,8 +144,29 @@ public class Main {
         output2.add(restaurant);
       }
 
+      ResultSet rs3 = stmt.executeQuery("SELECT * FROM Reservations1");
+
+      while (rs3.next()) {
+        
+        Integer id = rs3.getInt("ID");
+        Integer userId = rs3.getInt("UserID");
+        Integer restId = rs3.getInt("RestaurantID");
+        String name = rs3.getString("FullName");
+        String time = rs3.getString("Time");
+        String phone = rs3.getString("Phone");
+        String tabletype = rs3.getString("TableType");
+        Reservations reservation = new Reservations();
+        reservation.setID(id);
+        reservation.setFullName(name);
+        reservation.setTime(time);
+        reservation.setTableType(tabletype);
+        reservation.setPhone(phone);
+        output3.add(reservation);
+      }
+
       model.put("records", output);
       model.put("records2", output2);
+      model.put("records3", output3);
       return "index";
     } catch (Exception e) {
       model.put("message", e.getMessage());
