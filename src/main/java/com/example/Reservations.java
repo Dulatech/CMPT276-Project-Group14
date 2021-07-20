@@ -7,7 +7,7 @@ public class Reservations {
     private String Restaurant;
     private Integer NumberofGuests;
     private String Phone;
-    private Date Time;
+    private String Time;
     private String TableType;
    
 
@@ -31,7 +31,7 @@ public class Reservations {
         return this.NumberofGuests;
     }
 
-    public Date getTime(){
+    public String getTime(){
         return this.Time;
     }
 
@@ -55,7 +55,7 @@ public class Reservations {
          this.NumberofGuests = NumberofGuests;
     }
 
-    public void setTime(Date Time){
+    public void setTime(String Time){
          this.Time = Time;
     }
 
