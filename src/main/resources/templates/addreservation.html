@@ -23,6 +23,7 @@
         maxlength="50"
         th:field="*{Restaurant}"
         placeholder="Restaurant"
+        autocomplete="off"
       />
     </div>
       <div class="item">
@@ -34,6 +35,7 @@
         maxlength="50"
         th:field="*{FullName}"
         placeholder="Full Name"
+        autocomplete="off"
       />
       </div>
      
@@ -49,6 +51,7 @@
         maxlength="3"
         th:field="*{NumberofGuests}"
         placeholder="Number of Guests"
+        autocomplete="off"
       />
     </div>
       <div class="item">
@@ -62,9 +65,11 @@
       class="input-box"
         required
         type="text"
+        minlength="10"
         maxlength="11"
         th:field="*{Phone}"
         placeholder="Phone"
+        autocomplete="off"
       />
     </div>
       <div class="select-item">
