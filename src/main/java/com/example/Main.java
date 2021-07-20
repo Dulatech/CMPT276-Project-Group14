@@ -160,7 +160,6 @@ public class Main {
         reservation.setID(id);
         reservation.setFullName(name);
         reservation.setTime(time);
-        reservation.setDate();
         reservation.setTableType(tabletype);
         reservation.setPhone(phone);
         output3.add(reservation);
