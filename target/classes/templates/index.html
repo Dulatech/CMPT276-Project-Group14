@@ -115,10 +115,47 @@
               </td>
             </tr>
           </table>
-        <form action="#" method="get" th:action="@{/adduser}">
-          <input class="blue-button" type="submit" value="Register User" />
-        </form>
       </div>
+      <div th:if="${#lists.isEmpty(records3)}">
+        <h3>There are no Reservations to show.</h3>
+      </div>
+      <div th:if="${not #lists.isEmpty(records3)}">
+        <table style="margin-top: 20px; margin-bottom: 10px">
+          <tr>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Rest ID</th>
+            <th>Name</th>
+            <th>Time</th>
+            <th>Phone</th>
+            <th>tabletype</th>
+          </tr>
+          <tr th:each="record : ${records3}">
+            <td><p th:text="${record.ID}"></p></td>
+            <td>
+              <p th:text="${record.UserID}"></p>
+            </td>
+            <td>
+              <p th:text="${record.RestaurantID}"></p>
+            </td>
+            <td>
+              <p th:text="${record.FullName}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Time}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Phone}"></p>
+            </td>
+            <td>
+              <p th:text="${record.TableType}"></p>
+            </td>
+          </tr>
+        </table>
+      <form action="#" method="get" th:action="@{/adduser}">
+        <input class="blue-button" type="submit" value="Register User" />
+      </form>
+    </div>
     </div>
   </body>
 </html>

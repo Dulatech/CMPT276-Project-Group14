@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 
 public class Reservations {
     private Integer id;
+    private Integer UserId;
+    private Integer RestaurantID;
     private String FullName;
     private String Restaurant;
     private Integer NumberofGuests;
@@ -15,6 +17,14 @@ public class Reservations {
 
     public Integer getID(){
         return this.id;
+    }
+
+    public Integer getUserID(){
+        return this.UserId;
+    }
+
+    public Integer getRestaurantID(){
+        return this.RestaurantID;
     }
 
     public String getRestaurant(){
@@ -47,6 +57,14 @@ public class Reservations {
     
     public void setID(Integer id){
          this.id = id;
+    }
+
+    public void setUserID(Integer id){
+        this.UserId = id;
+   }
+
+   public void setRestaurantID(Integer id){
+        this.RestaurantID = id;
     }
 
     public void setRestaurant(String Restaurant){
