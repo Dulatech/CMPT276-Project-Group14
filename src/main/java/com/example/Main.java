@@ -83,7 +83,10 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
 
+      
+
       ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
+      
       
       
       System.out.println(test);
@@ -121,9 +124,12 @@ public class Main {
         Integer ownerID = rs2.getInt("OwnerID");
         String name = rs2.getString("Name");
         String cus = rs2.getString("Cuisine");
+        String desc = rs2.getString("Description");
         String email = rs2.getString("Email");
         String phone = rs2.getString("Phone");
         String addr = rs2.getString("Address");
+        String st = rs2.getString("StartTime");
+        String et = rs2.getString("EndTime");
         Integer single = rs2.getInt("SingleTables");
         Integer duo = rs2.getInt("DoubleTables");
         Integer quad = rs2.getInt("FourPersonTables");
@@ -133,9 +139,12 @@ public class Main {
         restaurant.setOwnerID(ownerID);
         restaurant.setName(name);
         restaurant.setCuisine(cus);
+        restaurant.setDescription(desc);
         restaurant.setEmail(email);
         restaurant.setPhone(phone);
         restaurant.setAddress(addr);
+        restaurant.setStartTime(st);
+        restaurant.setEndTime(et);
         restaurant.setSingleTables(single);
         restaurant.setDoubleTables(duo);
         restaurant.setFourPersonTables(quad);
@@ -542,9 +551,9 @@ public class Main {
 
     
       
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Restaurants (ID serial, OwnerID numeric, Name varchar(50), Cuisine varchar(50), Email varchar(50), Phone varchar(255), Address varchar(255), SingleTables  numeric, DoubleTables  numeric, FourPersonTables numeric, PartyTables numeric)");
-      String sql = "INSERT INTO Restaurants (OwnerID, Name, Cuisine, Email, Phone, Address, SingleTables, DoubleTables, FourPersonTables, PartyTables) VALUES (" + userID + ",'" + restaurant.getName() 
-      + "','" + restaurant.getCuisine() + "','"  + restaurant.getEmail() + "','" + restaurant.getPhone() + "','"   + restaurant.getAddress() + "'," + restaurant.getSingleTables() + "," +  restaurant.getDoubleTables() + "," +  restaurant.getFourPersonTables() + "," +  restaurant.getPartyTables() + ")";
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Restaurants (ID serial, OwnerID numeric, Name varchar(50), Description varchar(255), Cuisine varchar(50), Email varchar(50), Phone varchar(255), Address varchar(255), StartTime varchar(50), EndTime varchar(50), SingleTables  numeric, DoubleTables  numeric, FourPersonTables numeric, PartyTables numeric)");
+      String sql = "INSERT INTO Restaurants (OwnerID, Name, Cuisine, Description, StartTime, EndTime, Email, Phone, Address, SingleTables, DoubleTables, FourPersonTables, PartyTables) VALUES (" + userID + ",'" + restaurant.getName() 
+      + "','"  + restaurant.getCuisine() + "','"  + restaurant.getDescription() + "','"  + restaurant.getStartTime() + "','" + restaurant.getEndTime()  + "','"  + restaurant.getEmail() + "','" + restaurant.getPhone() + "','"   + restaurant.getAddress() + "'," + restaurant.getSingleTables() + "," +  restaurant.getDoubleTables() + "," +  restaurant.getFourPersonTables() + "," +  restaurant.getPartyTables() + ")";
       stmt.executeUpdate(sql);
       model.put("restaurant", restaurant);
       return "redirect:/user=" + userID;

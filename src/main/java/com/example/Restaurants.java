@@ -4,10 +4,13 @@ public class Restaurants {
     private Integer id;
     private Integer OwnerID;
     private String Name;
+    private String Description;
     private String Cuisine;
     private String Email;
     private String Phone;
     private String Address;
+    private String StartTime;
+    private String EndTime;
     private Integer SingleTables;
     private Integer DoubleTables;
     private Integer FourPersonTables;
@@ -25,6 +28,10 @@ public class Restaurants {
     public String getName(){
         return this.Name;
     }
+
+    public String getDescription(){
+        return this.Description;
+    }
     
     public String getCuisine(){
         return this.Cuisine;
@@ -40,6 +47,14 @@ public class Restaurants {
 
     public String getAddress(){
         return this.Address;
+    }
+
+    public String getEndTime(){
+        return this.EndTime;
+    }
+
+    public String getStartTime(){
+        return this.StartTime;
     }
 
     public Integer getSingleTables(){
@@ -70,6 +85,10 @@ public class Restaurants {
     public void setName(String Name){
          this.Name= Name;
     }
+
+    public void setDescription(String Description){
+        this.Description= Description;
+   }
     
     public void setCuisine(String Cuisine){
          this.Cuisine= Cuisine;
@@ -85,6 +104,14 @@ public class Restaurants {
 
     public void setAddress(String Address){
          this.Address= Address;
+    }
+
+    public void setEndTime(String EndTime){
+    this.EndTime =EndTime;
+    }
+
+    public void setStartTime(String StartTime){
+    this.StartTime = StartTime;
     }
 
     public void setSingleTables(Integer SingleTables){

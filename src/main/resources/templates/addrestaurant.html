@@ -47,6 +47,17 @@
               placeholder="Cuisine"
             />
             </div>
+            <div class="item">
+              <label>Description</label><br />
+              <input
+              class="input-box"
+                required
+                type="text"
+                maxlength="255"
+                th:field="*{Description}"
+                placeholder="Description"
+              />
+              </div>
       <div class="item">
         <label class="email">Email</label><br />
         <input
@@ -83,6 +94,27 @@
           th:field="*{Address}"
           placeholder="Address"
         />
+        <div class="item">
+          <label>Start Time</label><br />
+          <input
+          class="input-box"
+            required
+            type="time"
+            id="searchTextField"
+            maxlength="50"
+            th:field="*{StartTime}"
+          />
+        </div>
+          <div class="item">
+            <label>EndTime</label><br />
+            <input
+            class="input-box"
+              required
+              type="time"
+              id="searchTextField"
+              maxlength="50"
+              th:field="*{EndTime}"
+            />
       </div>
         <div class="item">
         <label>Single Tables</label><br />
