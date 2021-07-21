@@ -83,8 +83,6 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
 
-   
-
       ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
       
       
@@ -452,8 +450,43 @@ public class Main {
 
   //map
   @GetMapping("/map") 
-    public String getMap() {
-      return "map";
+    public String getMap(Map<String, Object> model) {
+      try (Connection connection = dataSource.getConnection()) {
+        Statement stmt = connection.createStatement();
+        ArrayList<Restaurants> output = new ArrayList<Restaurants>();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants");
+        while (rs.next()) {
+          Integer id = rs.getInt("ID");
+          Integer ownerID = rs.getInt("OwnerID");
+          String name = rs.getString("Name");
+          String cus = rs.getString("Cuisine");
+          String email = rs.getString("Email");
+          String phone = rs.getString("Phone");
+          String addr = rs.getString("Address");
+          Integer single = rs.getInt("SingleTables");
+          Integer duo = rs.getInt("DoubleTables");
+          Integer quad = rs.getInt("FourPersonTables");
+          Integer party = rs.getInt("PartyTables");
+          Restaurants restaurant = new Restaurants();
+          restaurant.setID(id);
+          restaurant.setOwnerID(ownerID);
+          restaurant.setName(name);
+          restaurant.setCuisine(cus);
+          restaurant.setEmail(email);
+          restaurant.setPhone(phone);
+          restaurant.setAddress(addr);
+          restaurant.setSingleTables(single);
+          restaurant.setDoubleTables(duo);
+          restaurant.setFourPersonTables(quad);
+          restaurant.setPartyTables(party);
+          output.add(restaurant);
+        }
+        model.put("restaurants", output);
+        return "map";
+      } catch (Exception e) {
+        model.put("message", e.getMessage());
+        return "error";
+      }
     }
 
   @GetMapping("/success")
