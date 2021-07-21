@@ -1,8 +1,4 @@
-
-
-
 var id, target, options, latitude, longitude, map, geocoder, restaurants, restaurantIndex = 0;
-
 
 // not working atm 
 const option = {
@@ -25,12 +21,6 @@ const mapStyle = {
         },
     ]
 };
-
-/** 
-        if (target.latitude === latitude && target.longitude === longitude) {
-            console.log("Reached loc");
-        }
-        */
 
 function storeRestaurants(r) {
     // var test = document.getElementById("r").innerHTML;
@@ -97,7 +87,6 @@ function createMap() {
 
 
 function markerFunctionality(marker) {
-   // restaurantIndex = restaurantIndex - 1;
     marker.addListener("click", () => {
         var i = parseInt(marker.getTitle());
         document.getElementById("name").innerHTML = restaurants[i].name;
@@ -107,8 +96,6 @@ function markerFunctionality(marker) {
         document.getElementById("link").innerHTML = "make a reservation";
         document.getElementById("link").href = "/addreservation";
     });
-    
-   
 }
 
 //geocoder messes up with indexes so global var that represents index is needed 
@@ -140,6 +127,14 @@ target = {
 function initMap() {
 
 }
+
+//tracking code
+/** 
+        if (target.latitude === latitude && target.longitude === longitude) {
+            console.log("Reached loc");
+        }
+*/
+
 
 
 
@@ -174,5 +169,4 @@ function addRestaurantMarker(place) {
     })
 
 }
-
 */
