@@ -1,17 +1,30 @@
 package com.example;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Reservations {
     private Integer id;
+    private Integer UserId;
+    private Integer RestaurantID;
     private String FullName;
     private String Restaurant;
     private Integer NumberofGuests;
     private String Phone;
     private String Time;
+    private Date date;
     private String TableType;
    
 
     public Integer getID(){
         return this.id;
+    }
+
+    public Integer getUserID(){
+        return this.UserId;
+    }
+
+    public Integer getRestaurantID(){
+        return this.RestaurantID;
     }
 
     public String getRestaurant(){
@@ -34,12 +47,24 @@ public class Reservations {
         return this.Time;
     }
 
+    public String getDate(){
+        return this.date.toString();
+    }
+
     public String getTableType(){
         return this.TableType;
     }
     
     public void setID(Integer id){
          this.id = id;
+    }
+
+    public void setUserID(Integer id){
+        this.UserId = id;
+   }
+
+   public void setRestaurantID(Integer id){
+        this.RestaurantID = id;
     }
 
     public void setRestaurant(String Restaurant){
@@ -57,6 +82,11 @@ public class Reservations {
     public void setTime(String Time){
          this.Time = Time;
     }
+
+    public void setDate() throws Exception {
+        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm");
+        date = format.parse(Time);
+   }
 
     public void setTableType(String TableType){
          this.TableType = TableType;
