@@ -104,6 +104,7 @@ function converUserLocationToReadableAddressSetup() {
                     locationString += userLocation[i];
                 }
                 document.getElementById("name").innerHTML = "Your position is " + locationString;
+                userMarkerInfoHelper();
             } else {
                 console.log("location unknown");
             }
@@ -122,9 +123,11 @@ function markerFunctionality(marker, option) {
             document.getElementById("phone").innerHTML = "Phone: " + restaurants[i].phone;
             document.getElementById("address").innerHTML = "Address " + restaurants[i].address;
             document.getElementById("link").innerHTML = "make a reservation";
-            document.getElementById("link").href = "/addreservation";
+            document.getElementById("link").href = "/addreservation/" + restaurants[i].id;
             document.getElementById("start").innerHTML = "Open from: " + restaurants[i].startTime;
             document.getElementById("end").innerHTML = "Close at: " + restaurants[i].endTime;
+            console.log(restaurants[i].id);
+            
         });
     } else {
         marker.addListener("click", () => {
@@ -133,16 +136,20 @@ function markerFunctionality(marker, option) {
                 locationString += userLocation[i];
             }
             document.getElementById("name").innerHTML = "Your position is " + locationString;
-            document.getElementById("cuisine").innerHTML = "";
-            document.getElementById("phone").innerHTML = "";
-            document.getElementById("address").innerHTML = "";
-            document.getElementById("link").innerHTML = "";
-            document.getElementById("link").href = "";
-            document.getElementById("description").innerHTML = "";
-            document.getElementById("start").innerHTML = "";
-            document.getElementById("end").innerHTML = "";
+            userMarkerInfoHelper();
         });
     }
+}
+
+function userMarkerInfoHelper() {
+    document.getElementById("cuisine").innerHTML = "";
+    document.getElementById("phone").innerHTML = "";
+    document.getElementById("address").innerHTML = "";
+    document.getElementById("link").innerHTML = "";
+    document.getElementById("link").href = "";
+    document.getElementById("description").innerHTML = "";
+    document.getElementById("start").innerHTML = "";
+    document.getElementById("end").innerHTML = "";
 }
 
 //geocoder messes up with indexes so global var that represents index is needed 
@@ -171,7 +178,8 @@ function geocodeAddress(address, option) {
                     markerFunctionality(userMarker, 1);
                 } else { //use same marker and change marker position
                     userLocation = results[0].geometry.location;
-                    convertUserLocationToReadableAddress();
+                    converUserLocationToReadableAddressSetup();
+                   // userMarkerInfoHelper();
                     userMarker.setPosition(userLocation);
                     markerFunctionality(userMarker, 1);
                 }

@@ -10,6 +10,7 @@
   .logo {
     grid-column: 1;
     margin-top: 1em;
+    padding-bottom: 20px;
   }
   
   ul {
@@ -61,12 +62,12 @@
 
   .markerInfo {
     grid-column: 1;
-    border: 5px solid green;
+    border: 10px solid #73B842;
     min-height: 100%;
   }
   
   .markerInfo a, p {
-    margin-left: 10px;
+    margin-left: 15px;
     margin-top: 5px;
     margin-bottom: 5px;
     padding:auto;

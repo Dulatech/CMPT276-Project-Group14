@@ -527,6 +527,7 @@ public class Main {
           Integer quad = rs.getInt("FourPersonTables");
           Integer party = rs.getInt("PartyTables");
           Restaurants restaurant = new Restaurants();
+          restaurant.setID(id);
           restaurant.setOwnerID(ownerID);
           restaurant.setName(name);
           restaurant.setCuisine(cus);
@@ -593,16 +594,18 @@ public class Main {
 
   }
 
+  
   @RequestMapping("/addreservation")
   String getReservationForm(Map<String, Object> model) {
     Reservations reservation = new Reservations();
     model.put("reservation", reservation);
     return "addreservation";
   }
-
+ 
   @RequestMapping("/addreservation/{pid}")
   public String getReservationFormWithRestID(Map<String, Object> model, @PathVariable String pid) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
+     
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants WHERE id=" + pid);
 
@@ -617,14 +620,13 @@ public class Main {
         reservation.setRestaurant(name);
       } 
       
-      
-      
       model.put("reservation", reservation);
       return "addreservation";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
+    
   }
 
   @PostMapping(
