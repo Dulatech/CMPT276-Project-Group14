@@ -66,7 +66,55 @@
         <a th:if="${userName == ''}" href="/login">Login</a>
         <span th:if="${userName != ''}">Welcome, </span
         ><span th:text="${userName}"></span>
+
+        <div th:if="${#lists.isEmpty(records3)}">
+          <h3>There are no Reservations to show.</h3>
+        </div>
+        <div th:if="${not #lists.isEmpty(records3)}">
+          
+          <table class="ReservationTable">
+            <tr>
+              <th>ID</th>
+              <th>User ID</th>
+              <th>Rest ID</th>
+              <th>Name</th>
+              <th>Time</th>
+              <th>Phone</th>
+              <th>tabletype</th>
+              <th>Cancel Reservation</th>
+            </tr>
+            <tbody>
+            <tr th:each="record : ${records3}">
+              <td><p th:text="${record.ID}"></p></td>
+              <td>
+                <p th:text="${record.UserID}"></p>
+              </td>
+              <td>
+                <p th:text="${record.RestaurantID}"></p>
+              </td>
+              <td>
+                <p th:text="${record.FullName}"></p>
+              </td>
+              <td>
+                <p th:text="${record.Time}"></p>
+              </td>
+              <td>
+                <p th:text="${record.Phone}"></p>
+              </td>
+              <td>
+                <p th:text="${record.TableType}"></p>
+              </td>
+              <td>
+                <a href="@{'/deleteReservation/ID'}">Cancel</a>
+              </td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+
       </div>
+
+      
 
       <div class="bottom">
         <div class="reviews">

@@ -222,3 +222,32 @@ h1 {
   
   /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
   .show {display:block;}
+
+
+  .ReservationTable thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.ReservationTable th,
+.ReservationTable td {
+    padding: 12px 15px;
+}
+
+.ReservationTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.ReservationTable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.ReservationTable tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.ReservationTable tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}

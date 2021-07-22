@@ -316,6 +316,29 @@ public class Main {
         model.put("addr", addr);
         model.put("userType", userType);
       } 
+      ArrayList<Reservations> output3 = new ArrayList<Reservations>();
+      ResultSet rs3 = stmt.executeQuery("SELECT * FROM Reservations1 WHERE UserID =" + userID);
+
+      while (rs3.next()) {
+        
+        Integer Rid = rs3.getInt("ID");
+        Integer userId = rs3.getInt("UserID");
+        Integer restaurantId = rs3.getInt("RestaurantID");
+        String name = rs3.getString("FullName");
+        String time = rs3.getString("Time");
+        String phone = rs3.getString("Phone");
+        String tabletype = rs3.getString("TableType");
+        Reservations reservation = new Reservations();
+        reservation.setID(Rid);
+        reservation.setUserID(userId);
+        reservation.setRestaurantID(restaurantId);
+        reservation.setFullName(name);
+        reservation.setTime(time);
+        reservation.setTableType(tabletype);
+        reservation.setPhone(phone);
+        output3.add(reservation);
+      }
+      model.put("records3", output3);
       return "userHome";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -588,16 +611,15 @@ public class Main {
       
 
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reservations1 (ID serial,UserID numeric,RestaurantID numeric,FullName varchar(225), Time varchar(225),Phone varchar(255), TableType varchar(1))");
-       String sql = "INSERT INTO Reservations1 (UserID, RestaurantID, FullName, Time, Phone, TableType) VALUES ('" + id + "','" + 1 + "','" + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
-       stmt.executeUpdate(sql);
+      String sql = "INSERT INTO Reservations1 (UserID, RestaurantID, FullName, Time, Phone, TableType) VALUES ('" + id + "','" + 1 + "','" + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
+      stmt.executeUpdate(sql);
       // model.put("reservation", reservation);
-      return "index";
+      return "redirect:/user=" + id;
       
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
-
   }
 
   @RequestMapping("/db")
