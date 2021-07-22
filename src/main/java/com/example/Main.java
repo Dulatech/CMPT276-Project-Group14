@@ -317,13 +317,13 @@ public class Main {
         model.put("userType", userType);
       } 
       ArrayList<Reservations> output3 = new ArrayList<Reservations>();
-      ResultSet rs3 = stmt.executeQuery("SELECT * FROM Reservations1 WHERE UserID =" + userID);
+      ResultSet rs3 = stmt.executeQuery("SELECT * FROM Reservations2 WHERE UserID =" + userID);
 
       while (rs3.next()) {
         
         Integer Rid = rs3.getInt("ID");
         Integer userId = rs3.getInt("UserID");
-        Integer restaurantId = rs3.getInt("RestaurantID");
+        String restaurant = rs3.getString("Restaurant");
         String name = rs3.getString("FullName");
         String time = rs3.getString("Time");
         String phone = rs3.getString("Phone");
@@ -331,7 +331,7 @@ public class Main {
         Reservations reservation = new Reservations();
         reservation.setID(Rid);
         reservation.setUserID(userId);
-        reservation.setRestaurantID(restaurantId);
+        reservation.setRestaurant(restaurant);
         reservation.setFullName(name);
         reservation.setTime(time);
         reservation.setTableType(tabletype);
@@ -600,6 +600,33 @@ public class Main {
     return "addreservation";
   }
 
+  @RequestMapping("/addreservation/{pid}")
+  public String getReservationFormWithRestID(Map<String, Object> model, @PathVariable String pid) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants WHERE id=" + pid);
+
+      Reservations reservation = new Reservations();
+      if(rs.next()==true) {
+        Integer id = rs.getInt("ID");
+        String name = rs.getString("Name");
+        model.put("id", id);
+        model.put("name", name);
+
+        reservation.setRestaurantID(id);
+        reservation.setRestaurant(name);
+      } 
+      
+      
+      
+      model.put("reservation", reservation);
+      return "addreservation";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   @PostMapping(
     path = "/addreservation",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
@@ -610,8 +637,8 @@ public class Main {
       Statement stmt = connection.createStatement();
       
 
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reservations1 (ID serial,UserID numeric,RestaurantID numeric,FullName varchar(225), Time varchar(225),Phone varchar(255), TableType varchar(1))");
-      String sql = "INSERT INTO Reservations1 (UserID, RestaurantID, FullName, Time, Phone, TableType) VALUES ('" + id + "','" + 1 + "','" + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reservations2 (ID serial,UserID numeric,Restaurant varchar(225),FullName varchar(225), Time varchar(225),Phone varchar(255), TableType varchar(1))");
+      String sql = "INSERT INTO Reservations2 (UserID, Restaurant, FullName, Time, Phone, TableType) VALUES ('" + id + "','" + reservation.getRestaurant() + "','" + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
       stmt.executeUpdate(sql);
       // model.put("reservation", reservation);
       return "redirect:/user=" + id;
@@ -621,6 +648,8 @@ public class Main {
       return "error";
     }
   }
+
+  
 
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
