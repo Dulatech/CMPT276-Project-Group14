@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html th:fragment="layout (template, menu)">
+  <head>
+    <title>CMPT 276 Project Group 14</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/map.css" />
+  </head>
+
+  <body>
+    <ul>
+      <li><a class="active" href="/">Home</a></li>
+      <li th:if="${userID == -1}"><a class="active" href="/login">Login</a></li>
+      <li th:if="${userID >= 0}" ><a class="active" href="/logout">Logout</a></li>
+    </ul>
+    <div th:replace="${template}" />
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  </body>
+</html>

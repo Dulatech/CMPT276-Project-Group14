@@ -1,6 +1,5 @@
-var id, target, options, latitude, longitude, map, geocoder, restaurants, restaurantIndex = 0;
+var id, target, options, latitude, longitude, map, geocoder, restaurants, restaurantIndex = 0, userMarker, userLocation;
 
-// not working atm 
 const option = {
     enableHighAccuracy: true,
     timeout: 60 * 1000, //refresh every 60s 
@@ -22,16 +21,17 @@ const mapStyle = {
     ]
 };
 
+//store restaurants to global variable 
 function storeRestaurants(r) {
-    // var test = document.getElementById("r").innerHTML;
     restaurants = r.slice();
     geoSetup();
 }
 
+//check if geolocation is supported. If supported, create map 
 function geoSetup() {
     //check if geolocation is supported
     if (!navigator.geolocation) {
-        alert("Your device does not support geolocation!");
+        alert("Your device does not support geolocation! This page will not work properly!");
     } else {
         // id = navigator.geolocation.watchPosition(success, error, option); //update position, will probably use this in final version
         id = navigator.geolocation.getCurrentPosition(success, error);
@@ -41,7 +41,6 @@ function geoSetup() {
     function success(position) {
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
-        var accuracy = position.coords.accuracy;
         createMap(); //if successful create the map 
     }
 
@@ -54,7 +53,7 @@ function geoSetup() {
 //function for creating the map
 function createMap() {
     // get user location
-    const userLocation = { lat: latitude, lng: longitude };
+    userLocation = { lat: latitude, lng: longitude };
 
     // center map on user 
     map = new google.maps.Map(document.getElementById("map"), {
@@ -65,58 +64,131 @@ function createMap() {
     //hide extra markers from google map api
     map.setOptions({ styles: mapStyle["hide"] })
 
-
     // geocoder
     geocoder = new google.maps.Geocoder();
 
     // populate restaurants if geocode address is valid 
     for (i = 0; i < restaurants.length; i++) {
-        geocodeAddress(restaurants[i].address);
-        
+        geocodeAddress(restaurants[i].address, 0);
     }
-    
-    // user location marker
-    new google.maps.Marker({
-        position: userLocation,
-        map: map,
-        icon: "https://img.icons8.com/ios-filled/50/000000/men-age-group-4.png"
-    });
 
+    // user location marker
+    //need to convert to string so we can call function 
+    userLocation = latitude + ", " + longitude + "";
+    geocodeAddress(userLocation, 1);
 }
 
+//convert to readable address 
+function convertUserLocationToReadableAddress() {
+    geocoder.geocode({ location: userLocation })
+        .then((response) => {
+            if (response.results[0]) {
+                userLocation = response.results[0].formatted_address;
+            } else {
+                console.log("location unknown");
+            }
+        })
+        .catch((e) => window.alert("Geocoder failed due to: " + e));
+}
 
+//this function fixes a weird bug and is used to initial info display
+//(userLocation has length of 0 unless we call this function)
+//only happens for the condition in creating user marker 
+function converUserLocationToReadableAddressSetup() {
+    geocoder.geocode({ location: userLocation })
+        .then((response) => {
+            if (response.results[0]) {
+                userLocation = response.results[0].formatted_address;
+                var locationString = "";
+                for (i = 0; i < userLocation.length; i++) {
+                    locationString += userLocation[i];
+                }
+                document.getElementById("name").innerHTML = "Your position is " + locationString;
+            } else {
+                console.log("location unknown");
+            }
+        })
+        .catch((e) => window.alert("Geocoder failed due to: " + e));
+}
 
-function markerFunctionality(marker) {
-    marker.addListener("click", () => {
-        var i = parseInt(marker.getTitle());
-        document.getElementById("name").innerHTML = restaurants[i].name;
-        document.getElementById("cuisine").innerHTML = restaurants[i].cuisine;
-        document.getElementById("phone").innerHTML = restaurants[i].phone;
-        document.getElementById("address").innerHTML = restaurants[i].address;
-        document.getElementById("link").innerHTML = "make a reservation";
-        document.getElementById("link").href = "/addreservation";
-    });
+//add functionality to marker 
+function markerFunctionality(marker, option) {
+    if (option == 0) {
+        marker.addListener("click", () => {
+            var i = parseInt(marker.getTitle());
+            document.getElementById("name").innerHTML = restaurants[i].name;
+            document.getElementById("description").innerHTML = restaurants[i].description;
+            document.getElementById("cuisine").innerHTML = "Cuisine: " + restaurants[i].cuisine;
+            document.getElementById("phone").innerHTML = "Phone: " + restaurants[i].phone;
+            document.getElementById("address").innerHTML = "Address " + restaurants[i].address;
+            document.getElementById("link").innerHTML = "make a reservation";
+            document.getElementById("link").href = "/addreservation";
+            document.getElementById("start").innerHTML = "Open from: " + restaurants[i].startTime;
+            document.getElementById("end").innerHTML = "Close at: " + restaurants[i].endTime;
+        });
+    } else {
+        marker.addListener("click", () => {
+            var locationString = "";
+            for (i = 0; i < userLocation.length; i++) {
+                locationString += userLocation[i];
+            }
+            document.getElementById("name").innerHTML = "Your position is " + locationString;
+            document.getElementById("cuisine").innerHTML = "";
+            document.getElementById("phone").innerHTML = "";
+            document.getElementById("address").innerHTML = "";
+            document.getElementById("link").innerHTML = "";
+            document.getElementById("link").href = "";
+            document.getElementById("description").innerHTML = "";
+            document.getElementById("start").innerHTML = "";
+            document.getElementById("end").innerHTML = "";
+        });
+    }
 }
 
 //geocoder messes up with indexes so global var that represents index is needed 
-function geocodeAddress(address) {
+function geocodeAddress(address, option) {
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == 'OK') {
             //if valid add the marker 
-            var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location,
-                icon: "https://img.icons8.com/color/48/000000/restaurant-.png",
-                Title: "" + restaurantIndex //convert to string 
-            });
-            restaurantIndex++;
-            markerFunctionality(marker); // add functionality for markers 
+            if (option == 0) { //restaurant 
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    icon: "https://img.icons8.com/color/48/000000/restaurant-.png",
+                    Title: "" + restaurantIndex //convert to string 
+                });
+                restaurantIndex++;
+                markerFunctionality(marker, 0); // add functionality for markers 
+            } else { //user markers 
+                if (userMarker == null) { //null marker 
+                    userLocation = results[0].geometry.location;
+                    converUserLocationToReadableAddressSetup();
+                    userMarker = new google.maps.Marker({
+                        position: userLocation,
+                        map: map,
+                        icon: "https://img.icons8.com/ios-filled/50/000000/men-age-group-4.png"
+                    });
+                    markerFunctionality(userMarker, 1);
+                } else { //use same marker and change marker position
+                    userLocation = results[0].geometry.location;
+                    convertUserLocationToReadableAddress();
+                    userMarker.setPosition(userLocation);
+                    markerFunctionality(userMarker, 1);
+                }
+            }
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }
     });
 }
 
+// user manual address input
+$(document).ready(function () {
+    $("#submit").click(function () {
+        var newPosition = $("#inputAddress").val();
+        geocodeAddress(newPosition, 1);
+    });
+});
 
 target = {
     latitude: 52.520007,
@@ -129,7 +201,7 @@ function initMap() {
 }
 
 //tracking code
-/** 
+/**
         if (target.latitude === latitude && target.longitude === longitude) {
             console.log("Reached loc");
         }
@@ -139,8 +211,8 @@ function initMap() {
 
 
 // code for searching nearby restaurnts 
-/**  // search nearby restaurant code 
-//search nearby restaurants 
+/**  // search nearby restaurant code
+//search nearby restaurants
 var request = {
     location: userLocation,
     radius: 5000,

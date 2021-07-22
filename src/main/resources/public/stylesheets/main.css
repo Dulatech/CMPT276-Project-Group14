@@ -102,10 +102,6 @@ label {
 }
 
 /** for userView */
-.inline {
-  display: inline;
-}
-
 #wrapper {
   width: 90%;
 
@@ -118,15 +114,3 @@ label {
   gap: 1em;
   grid-auto-rows: minmax(100px, auto);
 }
-
-#map {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 500px;
-  min-width: 500px;
-
-  height: 100%;
-  width: 100%;
-}
-
