@@ -651,6 +651,19 @@ public class Main {
     }
   }
 
+  @GetMapping("/deleteReservation/{pid}")
+  public String deleteReservation(Map<String, Object> model, @PathVariable int pid) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("DELETE FROM Reservations2 WHERE ID =" + pid);
+      
+      return "deleteReservation";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   
 
   @RequestMapping("/db")

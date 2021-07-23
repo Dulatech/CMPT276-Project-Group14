@@ -105,7 +105,9 @@
                 <p th:text="${record.TableType}"></p>
               </td>
               <td>
-                <a href="@{'/deleteReservation/ID'}">Cancel</a>
+                <form th:action="@{/deleteReservation/{id}(id=${record.ID})}">
+                  <input type="submit" value="Cancel" />
+                </form>
               </td>
             </tr>
           </tbody>
