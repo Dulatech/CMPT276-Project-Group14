@@ -1,4 +1,5 @@
 var id, target, options, latitude, longitude, map, geocoder, restaurants, restaurantIndex = 0, userMarker, userLocation;
+let markers = [];
 
 const option = {
     enableHighAccuracy: true,
@@ -68,9 +69,7 @@ function createMap() {
     geocoder = new google.maps.Geocoder();
 
     // populate restaurants if geocode address is valid 
-    for (i = 0; i < restaurants.length; i++) {
-        geocodeAddress(restaurants[i].address, 0);
-    }
+    populateRestaurants();
 
     // user location marker
     //need to convert to string so we can call function 
@@ -78,6 +77,12 @@ function createMap() {
     geocodeAddress(userLocation, 1);
 }
 
+//function to populate nearby restaurants 
+function populateRestaurants() {
+    for (i = 0; i < restaurants.length; i++) {
+        geocodeAddress(restaurants[i].address, 0);
+    }
+}
 //convert to readable address 
 function convertUserLocationToReadableAddress() {
     geocoder.geocode({ location: userLocation })
@@ -127,7 +132,7 @@ function markerFunctionality(marker, option) {
             document.getElementById("start").innerHTML = "Open from: " + restaurants[i].startTime;
             document.getElementById("end").innerHTML = "Close at: " + restaurants[i].endTime;
             console.log(restaurants[i].id);
-            
+
         });
     } else {
         marker.addListener("click", () => {
@@ -157,18 +162,28 @@ function geocodeAddress(address, option) {
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == 'OK') {
             //if valid add the marker 
-            if (option == 0) { //restaurant 
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location,
-                    icon: "https://img.icons8.com/color/48/000000/restaurant-.png",
-                    Title: "" + restaurantIndex //convert to string 
-                });
-                restaurantIndex++;
-                markerFunctionality(marker, 0); // add functionality for markers 
+            if (option == 0) { //restaurant
+                
+                var latDiff = Math.abs(Math.abs(latitude) - Math.abs(results[0].geometry.location.lat()));
+                var lngDiff = Math.abs(Math.abs(longitude) - Math.abs(results[0].geometry.location.lng()));
+                if (latDiff <= 0.1 && lngDiff <= 0.1) { 
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location,
+                        icon: "https://img.icons8.com/color/48/000000/restaurant-.png",
+                        Title: "" + restaurantIndex //convert to string 
+                    });
+                    restaurantIndex++;
+                    markerFunctionality(marker, 0); // add functionality for markers 
+                    markers.push(marker);
+                }
+               
             } else { //user markers 
                 if (userMarker == null) { //null marker 
+                    //update user coords 
                     userLocation = results[0].geometry.location;
+                    latitude = results[0].geometry.location.lat();
+                    longitude = results[0].geometry.location.lng();
                     converUserLocationToReadableAddressSetup();
                     userMarker = new google.maps.Marker({
                         position: userLocation,
@@ -178,16 +193,27 @@ function geocodeAddress(address, option) {
                     markerFunctionality(userMarker, 1);
                 } else { //use same marker and change marker position
                     userLocation = results[0].geometry.location;
+                    latitude = results[0].geometry.location.lat();
+                    longitude = results[0].geometry.location.lng();
                     converUserLocationToReadableAddressSetup();
-                   // userMarkerInfoHelper();
                     userMarker.setPosition(userLocation);
                     markerFunctionality(userMarker, 1);
+                    deleteMarkers(); // have to update nearby restaurants, delete all markers then repopulate based on user location
+                    populateRestaurants();
                 }
             }
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }
     });
+}
+
+//delete restaurant markers 
+function deleteMarkers() {
+    for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    markers = [];
 }
 
 // user manual address input
