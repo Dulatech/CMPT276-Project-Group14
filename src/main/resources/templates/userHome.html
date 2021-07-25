@@ -81,6 +81,7 @@
               <th>Time</th>
               <th>Phone</th>
               <th>tabletype</th>
+              <th>Edit</th>
               <th>Cancel Reservation</th>
             </tr>
             <tbody>
@@ -103,6 +104,11 @@
               </td>
               <td>
                 <p th:text="${record.TableType}"></p>
+              </td>
+              <td>
+                <form th:action="@{/editReservation/{id}(id=${record.ID})}">
+                  <input type="submit" value="Edit" />
+                </form>
               </td>
               <td>
                 <form th:action="@{/deleteReservation/{id}(id=${record.ID})}">

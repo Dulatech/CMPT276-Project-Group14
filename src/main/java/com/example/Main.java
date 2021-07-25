@@ -664,6 +664,52 @@ public class Main {
     }
   }
 
+  @GetMapping("/editReservation/{pid}")
+  public String getEditReservationForm(Map<String, Object> model, @PathVariable String pid) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+     
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Reservations2 WHERE id=" + pid);
+
+      Reservations reservation = new Reservations();
+      if(rs.next()==true) {
+        Integer id = rs.getInt("ID");
+        String name = rs.getString("Restaurant");
+        model.put("id", id);
+        model.put("name", name);
+
+        reservation.setID(id);
+        reservation.setRestaurant(name);
+      } 
+      
+      model.put("reservation", reservation);
+      return "addEditReservation";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    
+  }
+
+  @PostMapping(
+    path = "/addEditReservation",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleEditReservationSubmit(Map<String, Object> model, Reservations reservation, @ModelAttribute("userID") int id, @ModelAttribute("userID") String userName) throws Exception {
+    // Save the person data into the database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reservations2 (ID serial,UserID numeric,Restaurant varchar(225),FullName varchar(225), Time varchar(225),Phone varchar(255), TableType varchar(1))");
+      String sql = "UPDATE Reservations2 SET FullName ='" + reservation.getFullName() + "', Time ='" + reservation.getTime() + "', Phone = '"  + reservation.getPhone() + "', TableType ='" + reservation.getTableType()  + "' WHERE ID = " + reservation.getID();
+      stmt.executeUpdate(sql);
+      // model.put("reservation", reservation);
+      return "redirect:/user=" + id;
+      
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
   
 
   @RequestMapping("/db")
