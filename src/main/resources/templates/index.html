@@ -163,6 +163,40 @@
             </td>
           </tr>
         </table>
+    </div>
+      <div th:if="${not #lists.isEmpty(records4)}">
+        <table style="margin-top: 20px; margin-bottom: 10px">
+          <tr>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Rest</th>
+            <th>Name</th>
+            <th>Time</th>
+            <th>Comment</th>
+            <th>Rating</th>
+          </tr>
+          <tr th:each="record : ${records4}">
+            <td><p th:text="${record.ID}"></p></td>
+            <td>
+              <p th:text="${record.UserID}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Restaurant}"></p>
+            </td>
+            <td>
+              <p th:text="${record.FullName}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Time}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Comment}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Rating}"></p>
+            </td>
+          </tr>
+        </table>
       <form action="#" method="get" th:action="@{/adduser}">
         <input class="blue-button" type="submit" value="Register User" />
       </form>

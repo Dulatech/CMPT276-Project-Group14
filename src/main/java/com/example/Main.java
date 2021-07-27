@@ -93,6 +93,7 @@ public class Main {
       ArrayList<Users> output = new ArrayList<Users>();
       ArrayList<Restaurants> output2 = new ArrayList<Restaurants>();
       ArrayList<Reservations> output3 = new ArrayList<Reservations>();
+      ArrayList<Reviews> output4 = new ArrayList<Reviews>();
       while (rs.next()) {
         
         Integer id = rs.getInt("ID");
@@ -173,9 +174,32 @@ public class Main {
         output3.add(reservation);
       }
 
+      ResultSet rs4 = stmt.executeQuery("SELECT * FROM Reviews1");
+
+      while (rs4.next()) {
+        
+        Integer id = rs4.getInt("ID");
+        Integer userId = rs4.getInt("UserID");
+        String restaurant = rs4.getString("Restaurant");
+        String name = rs4.getString("FullName");
+        String time = rs4.getString("Time");
+        String comment = rs4.getString("Comment");
+        Integer rating = rs4.getInt("Rating");
+        Reviews review = new Reviews();
+        review.setID(id);
+        review.setUserID(userId);
+        review.setRestaurant(restaurant);
+        review.setFullName(name);
+        review.setTime(time);
+        review.setComment(comment);
+        review.setRating(rating);
+        output4.add(review);
+      }
+
       model.put("records", output);
       model.put("records2", output2);
       model.put("records3", output3);
+      model.put("records4", output4);
       return "index";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -722,18 +746,18 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
      
       Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT * FROM Reviews WHERE id=" + pid);
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants WHERE id=" + pid);
 
       Reviews review = new Reviews();
-      // if(rs.next()==true) {
-      //   Integer id = rs.getInt("ID");
-      //   String name = rs.getString("Name");
-      //   model.put("id", id);
-      //   model.put("name", name);
+      if(rs.next()==true) {
+        Integer id = rs.getInt("ID");
+        String name = rs.getString("Name");
+        model.put("id", id);
+        model.put("name", name);
 
-      //   review.setRestaurantID(id);
-      //   review.setRestaurant(name);
-      // } 
+        review.setRestaurantID(id);
+        review.setRestaurant(name);
+      } 
       
       model.put("review", review);
       return "addreview";
@@ -754,10 +778,10 @@ public class Main {
       Statement stmt = connection.createStatement();
       
 
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reviews (ID serial, UserID numeric, RestaurantID numeric, Time varchar(255), Comment text, Rating numeric)");
-      // String sql = "INSERT INTO Reservations2 (UserID, Restaurant, FullName, Time, Phone, TableType) VALUES ('" + id + "','" + reservation.getRestaurant() + "','" + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
-      // stmt.executeUpdate(sql);
-      // // model.put("reservation", reservation);
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reviews1 (ID serial, UserID numeric, Restaurant varchar(225), FullName varchar(225), Time varchar(255), Comment text, Rating numeric)");
+      String sql = "INSERT INTO Reviews1 (UserID, Restaurant, FullName, Time, Comment, Rating) VALUES ('" + id + "','" + reviews.getRestaurant() + "','" + reviews.getFullName() + "','" + reviews.getTime() + "','"  + reviews.getComment() + "','" + reviews.getRating()  + "')";
+      stmt.executeUpdate(sql);
+      // model.put("reservation", reservation);
       return "redirect:/user=" + id;
       
     } catch (Exception e) {
