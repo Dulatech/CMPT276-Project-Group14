@@ -1,4 +1,6 @@
 com\example\Main.class
+com\example\Favorites.class
 com\example\Reservations.class
 com\example\Restaurants.class
 com\example\Users.class
+com\example\Reviews.class

@@ -83,12 +83,11 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
 
-      
+     
+     
 
       ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
-      
-      
-      
+       
       System.out.println(test);
       
       ArrayList<Users> output = new ArrayList<Users>();
@@ -710,6 +709,120 @@ public class Main {
       return "error";
     }
   }
+
+  @RequestMapping("/addreview")
+  String getReviewForm(Map<String, Object> model) {
+    Reviews review = new Reviews();
+    model.put("review", review);
+    return "addreview";
+  }
+ 
+  @RequestMapping("/addreview/{pid}")
+  public String getReviewFormWithRestID(Map<String, Object> model, @PathVariable String pid) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+     
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Reviews WHERE id=" + pid);
+
+      Reviews review = new Reviews();
+      // if(rs.next()==true) {
+      //   Integer id = rs.getInt("ID");
+      //   String name = rs.getString("Name");
+      //   model.put("id", id);
+      //   model.put("name", name);
+
+      //   review.setRestaurantID(id);
+      //   review.setRestaurant(name);
+      // } 
+      
+      model.put("review", review);
+      return "addreview";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    
+  }
+
+  @PostMapping(
+    path = "/addreview",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleReviewSubmit(Map<String, Object> model, Reviews reviews, @ModelAttribute("userID") int id, @ModelAttribute("userID") String userName) throws Exception {
+    // Save the person data into the database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      
+
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reviews (ID serial, UserID numeric, RestaurantID numeric, Time varchar(255), Comment text, Rating numeric)");
+      // String sql = "INSERT INTO Reservations2 (UserID, Restaurant, FullName, Time, Phone, TableType) VALUES ('" + id + "','" + reservation.getRestaurant() + "','" + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
+      // stmt.executeUpdate(sql);
+      // // model.put("reservation", reservation);
+      return "redirect:/user=" + id;
+      
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @RequestMapping("/addfavorite")
+  String getFavoriteForm(Map<String, Object> model) {
+    Favorites favorite = new Favorites();
+    model.put("favorite", favorite);
+    return "addreview";
+  }
+ 
+  @RequestMapping("/addfavorite/{pid}")
+  public String getFavoriteFormWithRestID(Map<String, Object> model, @PathVariable String pid) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+     
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Favorites WHERE id=" + pid);
+
+      Favorites favorite = new Favorites();
+      // if(rs.next()==true) {
+      //   Integer id = rs.getInt("ID");
+      //   String name = rs.getString("Name");
+      //   model.put("id", id);
+      //   model.put("name", name);
+
+      //   review.setRestaurantID(id);
+      //   review.setRestaurant(name);
+      // } 
+      
+      model.put("favorite", favorite);
+      return "addfavorite";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    
+  }
+
+  @PostMapping(
+    path = "/addfavorite",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleFavoriteSubmit(Map<String, Object> model, Reviews reviews, @ModelAttribute("userID") int id, @ModelAttribute("userID") String userName) throws Exception {
+    // Save the person data into the database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      
+
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Favorites (ID serial, UserID numeric, RestaurantID numeric)");
+      // String sql = "INSERT INTO Reservations2 (UserID, Restaurant, FullName, Time, Phone, TableType) VALUES ('" + id + "','" + reservation.getRestaurant() + "','" + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
+      // stmt.executeUpdate(sql);
+      // // model.put("reservation", reservation);
+      return "redirect:/user=" + id;
+      
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  
   
 
   @RequestMapping("/db")
