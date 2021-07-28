@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/addUserLayout :: layout (~{::body},'addreview')}">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/addreview.css" />
+</head>
+<body>
+  <div class="cont">
+    <div class="loginHeader">
+      <img src="/images/logoAlt.png" alt="logo" />
+  </div>
+  <div class="container">
+    <form  id="addreview-form" action="#" method="post" th:action="@{/addreview}" th:object="${review}" >
+        <img src="/images/logoAlt.png" alt="logo" />
+        <textarea rows = "5" cols = "60" name = "review">
+            Write text here...
+         </textarea><br>
+    <button class="blue-button" id="submit-button">Submit Review</button>
+  </form>
+  </div>
+  </div>
+</body>
+</html>
