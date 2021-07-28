@@ -8,7 +8,7 @@
     <title>Login page</title>
 </head>
 
-<body th:onload="storeRestaurants([[${restaurants}]])">
+<body th:onload="storeRestaurants([[${restaurants}]]), storeUserID([[${id}]]), storeUserFavorites([[${userFavorites}]])" >
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&callback=initMap&libraries=places&v=weekly"
@@ -31,11 +31,17 @@
             <p id="phone"></p>
             <p id="address"></p>
             <a id="link" href="/addreservation"></a>
+            <form action="#" method="post" th:action="@{/map}" th:object="${favorite}">
+                <label>USERID:</label><br />
+                <input id="uid" required type="text" th:field="*{userID}"   /><br>
+                <label>RID:</label><br />
+                <input id="rid" required type="text" th:field="*{restaurantID}" autocomplete="off" /><br>
+                <input id="fsubmit" type="submit" value="Add to Favorite" />
+            </form>
         </div>
 
 
-
-
+        
 
         <div class="userInput">
             <div class="center">

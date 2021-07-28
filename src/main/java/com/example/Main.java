@@ -93,6 +93,7 @@ public class Main {
       ArrayList<Users> output = new ArrayList<Users>();
       ArrayList<Restaurants> output2 = new ArrayList<Restaurants>();
       ArrayList<Reservations> output3 = new ArrayList<Reservations>();
+      ArrayList<Favorites> output4 = new ArrayList<Favorites>();
       while (rs.next()) {
         
         Integer id = rs.getInt("ID");
@@ -173,9 +174,24 @@ public class Main {
         output3.add(reservation);
       }
 
+      ResultSet rs4 = stmt.executeQuery("SELECT * FROM Favorites");
+
+      while (rs4.next()) {
+        Integer id = rs4.getInt("ID");
+        Integer userID = rs4.getInt("UserID");
+        Integer restaurantID = rs4.getInt("RestaurantID");
+        Favorites favorite = new Favorites();
+        favorite.setID(id);
+        favorite.setUserID(userID);
+        favorite.setRestaurantID(restaurantID);
+        output4.add(favorite);
+      }
+
+
       model.put("records", output);
       model.put("records2", output2);
       model.put("records3", output3);
+      model.put("records4", output4);
       return "index";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -505,10 +521,11 @@ public class Main {
 
   //map
   @GetMapping("/map") 
-    public String getMap(Map<String, Object> model) {
+    public String getMap(Map<String, Object> model, @ModelAttribute("userID") Integer userID) {
       try (Connection connection = dataSource.getConnection()) {
         Statement stmt = connection.createStatement();
         ArrayList<Restaurants> output = new ArrayList<Restaurants>();
+        ArrayList<Favorites> output2 = new ArrayList<Favorites>();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants");
         while (rs.next()) {
           Integer id = rs.getInt("ID");
@@ -542,13 +559,86 @@ public class Main {
           restaurant.setPartyTables(party);
           output.add(restaurant);
         }
+
+        ResultSet rs2 = stmt.executeQuery("SELECT * FROM Favorites WHERE userID=" + userID);
+
+        while (rs2.next()) {
+          Integer id = rs2.getInt("ID");
+          Integer uid = rs2.getInt("userID");
+          Integer rid = rs2.getInt("restaurantID");
+          Favorites favorite = new Favorites();
+          favorite.setID(id);
+          favorite.setUserID(uid);
+          favorite.setRestaurantID(rid);
+          output2.add(favorite);
+        }
+
+
+        Favorites favorite = new Favorites();
+        model.put("favorite", favorite);
+        model.put("userFavorites", output2);
         model.put("restaurants", output);
+        model.put("id", userID);
         return "map";
       } catch (Exception e) {
         model.put("message", e.getMessage());
         return "error";
       }
     }
+
+  @PostMapping(
+    path = "/map",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+
+  public String test(Map<String, Object> model, Favorites favorite, @ModelAttribute("userID") Integer userID) throws Exception {
+
+     try (Connection connection = dataSource.getConnection()) {
+     
+      
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Favorites (ID serial, UserID numeric, RestaurantID numeric)");
+     //  String sql ="DELETE FROM Favorites";
+       
+
+     
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Favorites WHERE userID=" + userID);
+      
+
+      boolean isDelete = false; 
+      String sql = "INSERT INTO Favorites (UserID, RestaurantID) VALUES (" + favorite.getUserID() + "," + favorite.getRestaurantID() + ")";
+
+
+      while(rs.next()) { //check if we are deleting or inserting 
+        Integer rid = rs.getInt("restaurantID");
+
+        if (rid == favorite.getRestaurantID()) {
+          isDelete = true; 
+          System.out.println("ENTERED");
+          sql = "DELETE FROM Favorites WHERE UserID =" + userID + " AND RestaurantID = " + favorite.getRestaurantID();  
+          break;
+        }
+      }
+      
+  
+   //   stmt.executeUpdate("DELETE FROM Reservations2 WHERE ID =" + pid);
+
+     
+      
+      stmt.executeUpdate(sql);
+      model.put("favorite", favorite);
+      return "redirect:/";
+      
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
+
+ 
+
+
+  }
 
   @GetMapping("/success")
     public String userSuccess(){

@@ -1,5 +1,6 @@
-var id, target, options, latitude, longitude, map, geocoder, restaurants, restaurantIndex = 0, userMarker, userLocation;
+var id, target, options, latitude, longitude, map, geocoder, restaurants, restaurantIndex = 0, userMarker, userLocation, userID;
 let markers = [];
+var userFavorites;
 
 const option = {
     enableHighAccuracy: true,
@@ -25,7 +26,18 @@ const mapStyle = {
 //store restaurants to global variable 
 function storeRestaurants(r) {
     restaurants = r.slice();
+    console.log(restaurants);
     geoSetup();
+}
+
+//store userID
+function storeUserID(i) {
+    userID = i;
+}
+
+//store user's favorite
+function storeUserFavorites(userFavoriteAL) {
+    userFavorites = userFavoriteAL.slice();
 }
 
 //check if geolocation is supported. If supported, create map 
@@ -77,10 +89,27 @@ function createMap() {
     geocodeAddress(userLocation, 1);
 }
 
-//function to populate nearby restaurants 
+//function to populate nearby restaurants, n^2 
 function populateRestaurants() {
     for (i = 0; i < restaurants.length; i++) {
+        var isFavorite = false;
+     
         geocodeAddress(restaurants[i].address, 0);
+        /** 
+        for (j = 0; j < userFavorites.length; j++) {
+            if (userFavorites[j].restaurantID == restaurants[i].id) {
+                j = userFavorites.length;
+                isFavorite = true;
+            }
+        }
+
+        if (isFavorite) {
+            geocodeAddress(restaurants[i].address, 2);
+        } else {
+            geocodeAddress(restaurants[i].address, 0);
+        }
+        */
+
     }
 }
 //convert to readable address 
@@ -119,7 +148,28 @@ function converUserLocationToReadableAddressSetup() {
 
 //add functionality to marker 
 function markerFunctionality(marker, option) {
-    if (option == 0) {
+    if (option == 0) { //default restaurant 
+        marker.addListener("click", () => {
+            var i = parseInt(marker.getTitle());
+
+            console.log(" THIS IS I" + i);
+            document.getElementById("name").innerHTML = restaurants[i].name;
+            document.getElementById("description").innerHTML = restaurants[i].description;
+            document.getElementById("cuisine").innerHTML = "Cuisine: " + restaurants[i].cuisine;
+            document.getElementById("phone").innerHTML = "Phone: " + restaurants[i].phone;
+            document.getElementById("address").innerHTML = "Address " + restaurants[i].address;
+            document.getElementById("link").innerHTML = "make a reservation";
+            document.getElementById("link").href = "/addreservation/" + restaurants[i].id;
+            document.getElementById("start").innerHTML = "Open from: " + restaurants[i].startTime;
+            document.getElementById("end").innerHTML = "Close at: " + restaurants[i].endTime;
+
+
+            document.getElementById("uid").value = userID;
+            document.getElementById("rid").value = restaurants[i].id;
+            document.getElementById("fsubmit").value = "favorite"; 
+
+        });
+    } else if (option == 2) { //favorite 
         marker.addListener("click", () => {
             var i = parseInt(marker.getTitle());
             document.getElementById("name").innerHTML = restaurants[i].name;
@@ -131,10 +181,14 @@ function markerFunctionality(marker, option) {
             document.getElementById("link").href = "/addreservation/" + restaurants[i].id;
             document.getElementById("start").innerHTML = "Open from: " + restaurants[i].startTime;
             document.getElementById("end").innerHTML = "Close at: " + restaurants[i].endTime;
-            console.log(restaurants[i].id);
 
+            
+
+            document.getElementById("uid").value = userID;
+            document.getElementById("rid").value = restaurants[i].id;
+            document.getElementById("fsubmit").value = "unfavorite"; 
         });
-    } else {
+    } else { //user 
         marker.addListener("click", () => {
             var locationString = "";
             for (i = 0; i < userLocation.length; i++) {
@@ -157,27 +211,55 @@ function userMarkerInfoHelper() {
     document.getElementById("end").innerHTML = "";
 }
 
+
+
 //geocoder messes up with indexes so global var that represents index is needed 
 function geocodeAddress(address, option) {
+    
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == 'OK') {
             //if valid add the marker 
+
+            console.log("I OUTSIDE " + restaurantIndex);
+            console.log("");
+          
             if (option == 0) { //restaurant
+
                 
                 var latDiff = Math.abs(Math.abs(latitude) - Math.abs(results[0].geometry.location.lat()));
                 var lngDiff = Math.abs(Math.abs(longitude) - Math.abs(results[0].geometry.location.lng()));
-                if (latDiff <= 0.1 && lngDiff <= 0.1) { 
+                if (latDiff <= 0.1 && lngDiff <= 0.1) {
                     var marker = new google.maps.Marker({
                         map: map,
                         position: results[0].geometry.location,
                         icon: "https://img.icons8.com/color/48/000000/restaurant-.png",
                         Title: "" + restaurantIndex //convert to string 
                     });
+
+                  //  console.log("INPUTTING I " + restaurantIndex);
+                 //   console.log();
                     restaurantIndex++;
                     markerFunctionality(marker, 0); // add functionality for markers 
                     markers.push(marker);
+              
                 }
+
                
+
+               
+                
+
+
+            } else if (option == 2) { //favorite
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    icon: "https://img.icons8.com/nolan/64/star.png",
+                    Title: "" + restaurantIndex //convert to string 
+                });
+                restaurantIndex++;
+                markerFunctionality(marker, 2); // add functionality for markers 
+                markers.push(marker);
             } else { //user markers 
                 if (userMarker == null) { //null marker 
                     //update user coords 
