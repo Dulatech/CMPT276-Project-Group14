@@ -93,11 +93,7 @@ public class Main {
       ArrayList<Users> output = new ArrayList<Users>();
       ArrayList<Restaurants> output2 = new ArrayList<Restaurants>();
       ArrayList<Reservations> output3 = new ArrayList<Reservations>();
-<<<<<<< HEAD
-      ArrayList<Favorites> output4 = new ArrayList<Favorites>();
-=======
       ArrayList<Reviews> output4 = new ArrayList<Reviews>();
->>>>>>> b186bed31a23da4f5d0b9d1c2c4db2c461f55347
       while (rs.next()) {
         
         Integer id = rs.getInt("ID");
@@ -178,22 +174,6 @@ public class Main {
         output3.add(reservation);
       }
 
-<<<<<<< HEAD
-      ResultSet rs4 = stmt.executeQuery("SELECT * FROM Favorites");
-
-      while (rs4.next()) {
-        Integer id = rs4.getInt("ID");
-        Integer userID = rs4.getInt("UserID");
-        Integer restaurantID = rs4.getInt("RestaurantID");
-        Favorites favorite = new Favorites();
-        favorite.setID(id);
-        favorite.setUserID(userID);
-        favorite.setRestaurantID(restaurantID);
-        output4.add(favorite);
-      }
-
-
-=======
       ResultSet rs4 = stmt.executeQuery("SELECT * FROM Reviews1");
 
       while (rs4.next()) {
@@ -216,7 +196,6 @@ public class Main {
         output4.add(review);
       }
 
->>>>>>> b186bed31a23da4f5d0b9d1c2c4db2c461f55347
       model.put("records", output);
       model.put("records2", output2);
       model.put("records3", output3);

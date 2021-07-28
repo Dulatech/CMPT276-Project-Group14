@@ -163,29 +163,6 @@
             </td>
           </tr>
         </table>
-<<<<<<< HEAD
-        <div th:if="${#lists.isEmpty(records4)}">
-          <h3>There are no Favorite to show.</h3>
-        </div>
-        <div th:if="${not #lists.isEmpty(records4)}">
-          <table style="margin-top: 20px; margin-bottom: 10px">
-            <tr>
-              <th>ID</th>
-              <th>User ID</th>
-              <th>Restaurant ID</th>
-            </tr>
-            <tr th:each="record : ${records4}">
-              <td><p th:text="${record.ID}"></p></td>
-              <td>
-                <p th:text="${record.userID}"></p>
-              </td>
-              <td>
-                <p th:text="${record.RestaurantID}"></p>
-              </td>
-            </tr>
-          </table>
-      </div>
-=======
     </div>
       <div th:if="${not #lists.isEmpty(records4)}">
         <table style="margin-top: 20px; margin-bottom: 10px">
@@ -220,7 +197,6 @@
             </td>
           </tr>
         </table>
->>>>>>> b186bed31a23da4f5d0b9d1c2c4db2c461f55347
       <form action="#" method="get" th:action="@{/adduser}">
         <input class="blue-button" type="submit" value="Register User" />
       </form>
