@@ -32,11 +32,12 @@
             <p id="address"></p>
             <a id="link" href="/addreservation"></a>
             <form action="#" method="post" th:action="@{/map}" th:object="${favorite}">
-                <label>USERID:</label><br />
+                <div id="buttonCenter">
+                    <input id="fsubmit" type="submit" value="Add to Favorite" />
+                </div>
+               
                 <input id="uid" required type="text" th:field="*{userID}"   /><br>
-                <label>RID:</label><br />
                 <input id="rid" required type="text" th:field="*{restaurantID}" autocomplete="off" /><br>
-                <input id="fsubmit" type="submit" value="Add to Favorite" />
             </form>
         </div>
 

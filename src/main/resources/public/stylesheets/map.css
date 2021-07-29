@@ -72,3 +72,37 @@
     margin-bottom: 5px;
     padding:auto;
   }
+
+  #uid {
+    visibility: hidden;
+  }
+
+  #rid {
+    visibility: hidden;
+  }
+
+
+  #buttonCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #fsubmit {
+    border: 3px solid #73B842;
+    border-radius: 10px;
+    color: white;
+    background-color: #73B842;
+    font-size: 1.2em;
+    transition: background-color 3s; 
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  #fsubmit:hover {
+    background-color: #489113;
+  }
+
+  

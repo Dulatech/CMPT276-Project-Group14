@@ -94,6 +94,8 @@ public class Main {
       ArrayList<Restaurants> output2 = new ArrayList<Restaurants>();
       ArrayList<Reservations> output3 = new ArrayList<Reservations>();
       ArrayList<Reviews> output4 = new ArrayList<Reviews>();
+      ArrayList<Favorites> output5 = new ArrayList<Favorites>();
+
       while (rs.next()) {
         
         Integer id = rs.getInt("ID");
@@ -196,10 +198,25 @@ public class Main {
         output4.add(review);
       }
 
+      ResultSet rs5 = stmt.executeQuery("SELECT * FROM Favorites");
+
+      while (rs5.next()) {
+        Integer id = rs5.getInt("ID");
+        Integer uid = rs5.getInt("userID");
+        Integer rid = rs5.getInt("restaurantID");
+        Favorites favorite = new Favorites();
+        favorite.setID(id);
+        favorite.setUserID(uid);
+        favorite.setRestaurantID(rid);
+        output5.add(favorite);
+      }
+
+
       model.put("records", output);
       model.put("records2", output2);
       model.put("records3", output3);
       model.put("records4", output4);
+      model.put("records5", output5);
       return "index";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -585,7 +602,6 @@ public class Main {
           output2.add(favorite);
         }
 
-
         Favorites favorite = new Favorites();
         model.put("favorite", favorite);
         model.put("userFavorites", output2);
@@ -604,26 +620,15 @@ public class Main {
   )
 
   public String test(Map<String, Object> model, Favorites favorite, @ModelAttribute("userID") Integer userID) throws Exception {
-
-     try (Connection connection = dataSource.getConnection()) {
-     
-      
+     try (Connection connection = dataSource.getConnection()) { 
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Favorites (ID serial, UserID numeric, RestaurantID numeric)");
-     //  String sql ="DELETE FROM Favorites";
-       
-
-     
       ResultSet rs = stmt.executeQuery("SELECT * FROM Favorites WHERE userID=" + userID);
-      
-
       boolean isDelete = false; 
       String sql = "INSERT INTO Favorites (UserID, RestaurantID) VALUES (" + favorite.getUserID() + "," + favorite.getRestaurantID() + ")";
 
-
       while(rs.next()) { //check if we are deleting or inserting 
         Integer rid = rs.getInt("restaurantID");
-
         if (rid == favorite.getRestaurantID()) {
           isDelete = true; 
           System.out.println("ENTERED");
@@ -631,25 +636,13 @@ public class Main {
           break;
         }
       }
-      
-  
-   //   stmt.executeUpdate("DELETE FROM Reservations2 WHERE ID =" + pid);
-
-     
-      
       stmt.executeUpdate(sql);
       model.put("favorite", favorite);
-      return "redirect:/";
-      
+      return "redirect:/map";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
-
-
- 
-
-
   }
 
   @GetMapping("/success")

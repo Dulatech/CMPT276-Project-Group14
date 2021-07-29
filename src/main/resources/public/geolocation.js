@@ -6,7 +6,6 @@ var id,
   map,
   geocoder,
   restaurants,
-  restaurantIndex = 0,
   userMarker,
   userLocation,
   userID;
@@ -96,6 +95,7 @@ function createMap() {
   // geocoder
   geocoder = new google.maps.Geocoder();
 
+
   // populate restaurants if geocode address is valid
   populateRestaurants();
 
@@ -110,8 +110,8 @@ function populateRestaurants() {
   for (i = 0; i < restaurants.length; i++) {
     var isFavorite = false;
 
-    geocodeAddress(restaurants[i].address, 0, i);
-
+    //check if restaurant is a favorite one 
+    //create markers 
     for (j = 0; j < userFavorites.length; j++) {
       if (userFavorites[j].restaurantID == restaurants[i].id) {
         j = userFavorites.length;
@@ -120,11 +120,11 @@ function populateRestaurants() {
     }
 
     if (isFavorite) {
-      geocodeAddress(restaurants[i].address, 2);
+      console.log("hi");
+      geocodeAddress(restaurants[i].address, 2, i);
     } else {
-      geocodeAddress(restaurants[i].address, 0);
+      geocodeAddress(restaurants[i].address, 0, i);
     }
-
   }
 }
 //convert to readable address
@@ -171,7 +171,6 @@ function markerFunctionality(marker, option) {
     marker.addListener("click", () => {
       var i = parseInt(marker.getTitle());
 
-      console.log(" THIS IS I" + i);
       document.getElementById("name").innerHTML = restaurants[i].name;
       document.getElementById("description").innerHTML =
         restaurants[i].description;
@@ -191,6 +190,7 @@ function markerFunctionality(marker, option) {
 
       document.getElementById("uid").value = userID;
       document.getElementById("rid").value = restaurants[i].id;
+      document.getElementById("buttonCenter").style.visibility = "visible";
       document.getElementById("fsubmit").value = "favorite";
     });
   } else if (option == 2) {
@@ -216,6 +216,7 @@ function markerFunctionality(marker, option) {
 
       document.getElementById("uid").value = userID;
       document.getElementById("rid").value = restaurants[i].id;
+      document.getElementById("buttonCenter").style.visibility = "visible";
       document.getElementById("fsubmit").value = "unfavorite";
     });
   } else {
@@ -228,6 +229,8 @@ function markerFunctionality(marker, option) {
       document.getElementById("name").innerHTML =
         "Your position is " + locationString;
       userMarkerInfoHelper();
+
+      document.getElementById("buttonCenter").style.visibility = "hidden";
     });
   }
 }
@@ -241,6 +244,7 @@ function userMarkerInfoHelper() {
   document.getElementById("description").innerHTML = "";
   document.getElementById("start").innerHTML = "";
   document.getElementById("end").innerHTML = "";
+  document.getElementById("buttonCenter").style.visibility = "hidden";
 }
 
 //geocoder messes up with indexes so global var that represents index is needed
@@ -265,10 +269,6 @@ function geocodeAddress(address, option, i) {
             icon: "https://img.icons8.com/color/48/000000/restaurant-.png",
             Title: "" + i, //convert to string
           });
-
-          //  console.log("INPUTTING I " + restaurantIndex);
-          //   console.log();
-          restaurantIndex++;
           markerFunctionality(marker, 0); // add functionality for markers
           markers.push(marker);
         }
@@ -280,7 +280,6 @@ function geocodeAddress(address, option, i) {
           icon: "https://img.icons8.com/nolan/64/star.png",
           Title: "" + i, //convert to string
         });
-        restaurantIndex++;
         markerFunctionality(marker, 2); // add functionality for markers
         markers.push(marker);
       } else {

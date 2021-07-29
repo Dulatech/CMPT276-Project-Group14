@@ -1,50 +1,100 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  th:replace="~{fragments/layout :: layout (~{::body},'index')}"
->
-  <body>
-    <!-- delete after testing src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&callback=initMap&libraries=places&v=weekly"-->
-    <script src="/geolocation.js"></script>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'index')}">
 
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&callback=initMap&libraries=places&v=weekly"
-      async
-    ></script>
-    
-    <p th:if="${userID >= 0}" th:text="${userID}"></p>
-    <p th:if="${userName != ''}" th:text="${userName}"></p>
-    
-    <button onclick="geoTest()">Test Geo</button>
-    <div class="cont">
-      <div th:if="${#lists.isEmpty(records)}">
-        <h3>There are no Users to show, please add a User.</h3>
-        <form action="#" method="get" th:action="@{/adduser}">
-          <input class="blue-button" type="submit" value="Register User" />
-        </form>
+<body>
+  <!-- delete after testing src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&callback=initMap&libraries=places&v=weekly"-->
+  <script src="/geolocation.js"></script>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&callback=initMap&libraries=places&v=weekly"
+    async></script>
+
+  <p th:if="${userID >= 0}" th:text="${userID}"></p>
+  <p th:if="${userName != ''}" th:text="${userName}"></p>
+
+  <button onclick="geoTest()">Test Geo</button>
+  <div class="cont">
+    <div th:if="${#lists.isEmpty(records)}">
+      <h3>There are no Users to show, please add a User.</h3>
+      <form action="#" method="get" th:action="@{/adduser}">
+        <input class="blue-button" type="submit" value="Register User" />
+      </form>
+    </div>
+    <div th:if="${not #lists.isEmpty(records)}">
+      <table style="margin-top: 20px; margin-bottom: 10px">
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>User Type</th>
+        </tr>
+        <tr th:each="record : ${records}">
+          <td>
+            <p th:text="${record.ID}"></p>
+          </td>
+          <td>
+            <p th:text="${record.FullName}"></p>
+          </td>
+          <td>
+            <p th:text="${record.UserName}"></p>
+          </td>
+          <td>
+            <p th:text="${record.Password}"></p>
+          </td>
+          <td>
+            <p th:text="${record.Email}"></p>
+          </td>
+          <td>
+            <p th:text="${record.Phone}"></p>
+          </td>
+          <td>
+            <p th:text="${record.Address}"></p>
+          </td>
+          <td>
+            <p th:text="${record.UserType}"></p>
+          </td>
+        </tr>
+      </table>
+      <div th:if="${#lists.isEmpty(records2)}">
+        <h3>There are no Restaurants to show.</h3>
       </div>
-      <div th:if="${not #lists.isEmpty(records)}">
+      <div th:if="${not #lists.isEmpty(records2)}">
         <table style="margin-top: 20px; margin-bottom: 10px">
           <tr>
             <th>ID</th>
-            <th>Full Name</th>
-            <th>Username</th>
-            <th>Password</th>
+            <th>Owner ID</th>
+            <th>Name</th>
+            <th>Cuisine</th>
+            <th>Description</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Address</th>
-            <th>User Type</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Single Tables</th>
+            <th>Double Tables</th>
+            <th>Four Person Tables</th>
+            <th>Party Tables</th>
           </tr>
-          <tr th:each="record : ${records}">
-            <td><p th:text="${record.ID}"></p></td>
+          <tr th:each="record : ${records2}">
             <td>
-              <p th:text="${record.FullName}"></p>
+              <p th:text="${record.ID}"></p>
             </td>
             <td>
-              <p th:text="${record.UserName}"></p>
+              <p th:text="${record.OwnerID}"></p>
             </td>
             <td>
-              <p th:text="${record.Password}"></p>
+              <p th:text="${record.Name}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Cuisine}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Description}"></p>
             </td>
             <td>
               <p th:text="${record.Email}"></p>
@@ -55,77 +105,28 @@
             <td>
               <p th:text="${record.Address}"></p>
             </td>
+
             <td>
-              <p th:text="${record.UserType}"></p>
+              <p th:text="${record.StartTime}"></p>
+            </td>
+
+            <td>
+              <p th:text="${record.EndTime}"></p>
+            </td>
+            <td>
+              <p th:text="${record.SingleTables}"></p>
+            </td>
+            <td>
+              <p th:text="${record.DoubleTables}"></p>
+            </td>
+            <td>
+              <p th:text="${record.FourPersonTables}"></p>
+            </td>
+            <td>
+              <p th:text="${record.PartyTables}"></p>
             </td>
           </tr>
         </table>
-        <div th:if="${#lists.isEmpty(records2)}">
-          <h3>There are no Restaurants to show.</h3>
-        </div>
-        <div th:if="${not #lists.isEmpty(records2)}">
-          <table style="margin-top: 20px; margin-bottom: 10px">
-            <tr>
-              <th>ID</th>
-              <th>Owner ID</th>
-              <th>Name</th>
-              <th>Cuisine</th>
-              <th>Description</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Address</th>
-              <th>Start Time</th>
-              <th>End Time</th>
-              <th>Single Tables</th>
-              <th>Double Tables</th>
-              <th>Four Person Tables</th>
-              <th>Party  Tables</th>
-            </tr>
-            <tr th:each="record : ${records2}">
-              <td><p th:text="${record.ID}"></p></td>
-              <td>
-                <p th:text="${record.OwnerID}"></p>
-              </td>
-              <td>
-                <p th:text="${record.Name}"></p>
-              </td>
-              <td>
-                <p th:text="${record.Cuisine}"></p>
-              </td>
-              <td>
-                <p th:text="${record.Description}"></p>
-              </td>
-              <td>
-                <p th:text="${record.Email}"></p>
-              </td>
-              <td>
-                <p th:text="${record.Phone}"></p>
-              </td>
-              <td>
-                <p th:text="${record.Address}"></p>
-              </td>
-
-              <td>
-                <p th:text="${record.StartTime}"></p>
-              </td>
-
-              <td>
-                <p th:text="${record.EndTime}"></p>
-              </td>
-              <td>
-                <p th:text="${record.SingleTables}"></p>
-              </td>
-              <td>
-                <p th:text="${record.DoubleTables}"></p>
-              </td>
-              <td>
-                <p th:text="${record.FourPersonTables}"></p>
-              </td>
-              <td>
-                <p th:text="${record.PartyTables}"></p>
-              </td>
-            </tr>
-          </table>
       </div>
       <div th:if="${#lists.isEmpty(records3)}">
         <h3>There are no Reservations to show.</h3>
@@ -142,7 +143,9 @@
             <th>tabletype</th>
           </tr>
           <tr th:each="record : ${records3}">
-            <td><p th:text="${record.ID}"></p></td>
+            <td>
+              <p th:text="${record.ID}"></p>
+            </td>
             <td>
               <p th:text="${record.UserID}"></p>
             </td>
@@ -163,43 +166,70 @@
             </td>
           </tr>
         </table>
-    </div>
-    <div th:if="${not #lists.isEmpty(records4)}">
-      <table style="margin-top: 20px; margin-bottom: 10px">
-        <tr>
-          <th>ID</th>
-          <th>User ID</th>
-          <th>Rest</th>
-          <th>Name</th>
-          <th>Time</th>
-          <th>Comment</th>
-          <th>Rating</th>
-        </tr>
-        <tr th:each="record : ${records4}">
-          <td><p th:text="${record.ID}"></p></td>
-          <td>
-            <p th:text="${record.UserID}"></p>
-          </td>
-          <td>
-            <p th:text="${record.Restaurant}"></p>
-          </td>
-          <td>
-            <p th:text="${record.FullName}"></p>
-          </td>
-          <td>
-            <p th:text="${record.Time}"></p>
-          </td>
-          <td>
-            <p th:text="${record.Comment}"></p>
-          </td>
-          <td>
-            <p th:text="${record.Rating}"></p>
-          </td>
-        </tr>
-      </table>
-    <form action="#" method="get" th:action="@{/adduser}">
-      <input class="blue-button" type="submit" value="Register User" />
-    </form>
-  </div>
-  </body>
+      </div>
+      <div th:if="${#lists.isEmpty(records5)}">
+        <h3>There are no Favorite to show.</h3>
+      </div>
+      <div th:if="${not #lists.isEmpty(records5)}">
+        <table style="margin-top: 20px; margin-bottom: 10px">
+          <tr>
+            <th>ID</th>
+            <th>user ID</th>
+            <th>restaurant ID</th>
+          </tr>
+          <tr th:each="record : ${records5}">
+            <td>
+              <p th:text="${record.ID}"></p>
+            </td>
+            <td>
+              <p th:text="${record.userID}"></p>
+            </td>
+            <td>
+              <p th:text="${record.restaurantID}"></p>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div th:if="${not #lists.isEmpty(records4)}">
+        <table style="margin-top: 20px; margin-bottom: 10px">
+          <tr>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Rest</th>
+            <th>Name</th>
+            <th>Time</th>
+            <th>Comment</th>
+            <th>Rating</th>
+          </tr>
+          <tr th:each="record : ${records4}">
+            <td>
+              <p th:text="${record.ID}"></p>
+            </td>
+            <td>
+              <p th:text="${record.UserID}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Restaurant}"></p>
+            </td>
+            <td>
+              <p th:text="${record.FullName}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Time}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Comment}"></p>
+            </td>
+            <td>
+              <p th:text="${record.Rating}"></p>
+            </td>
+          </tr>
+        </table>
+
+        <form action="#" method="get" th:action="@{/adduser}">
+          <input class="blue-button" type="submit" value="Register User" />
+        </form>
+      </div>
+</body>
+
 </html>
