@@ -361,6 +361,8 @@ public class Main {
         reservation.setPhone(phone);
         output3.add(reservation);
       }
+      Search search = new Search();
+      model.put("search", search);
       model.put("records3", output3);
       return "userHome";
     } catch (Exception e) {
@@ -467,6 +469,8 @@ public class Main {
         model.put("addr", addr);
         model.put("userType", userType);
       } 
+      Search search = new Search();
+      model.put("search", search);
       return "ownerView";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -919,6 +923,66 @@ public class Main {
       return "error";
     }
   }
+
+
+
+
+  @PostMapping(
+    path = "/search",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String getSearch(Map<String, Object> model, Search search, @ModelAttribute("userID") Integer userID) throws Exception {
+      try (Connection connection = dataSource.getConnection()) {
+        Statement stmt = connection.createStatement();
+        ArrayList<Restaurants> output = new ArrayList<Restaurants>();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants");
+        while (rs.next()) {
+          Integer id = rs.getInt("ID");
+          Integer ownerID = rs.getInt("OwnerID");
+          String name = rs.getString("Name");
+          String cus = rs.getString("Cuisine");
+          String desc = rs.getString("Description");
+          String email = rs.getString("Email");
+          String phone = rs.getString("Phone");
+          String addr = rs.getString("Address");
+          String st = rs.getString("StartTime");
+          String et = rs.getString("EndTime");
+          Integer single = rs.getInt("SingleTables");
+          Integer duo = rs.getInt("DoubleTables");
+          Integer quad = rs.getInt("FourPersonTables");
+          Integer party = rs.getInt("PartyTables");
+          Restaurants restaurant = new Restaurants();
+          restaurant.setID(id);
+          restaurant.setOwnerID(ownerID);
+          restaurant.setName(name);
+          restaurant.setCuisine(cus);
+          restaurant.setDescription(desc);
+          restaurant.setEmail(email);
+          restaurant.setPhone(phone);
+          restaurant.setAddress(addr);
+          restaurant.setStartTime(st);
+          restaurant.setEndTime(et);
+          restaurant.setSingleTables(single);
+          restaurant.setDoubleTables(duo);
+          restaurant.setFourPersonTables(quad);
+          restaurant.setPartyTables(party);
+          output.add(restaurant);
+        }
+
+       
+
+        
+       
+        model.put("restaurants", output);
+        model.put("id", userID);
+        Search search2 = new Search();
+        model.put("search2", search2);
+        return "searchResult";
+      } catch (Exception e) {
+        model.put("message", e.getMessage());
+        return "error";
+      }
+    }
 
   
   
