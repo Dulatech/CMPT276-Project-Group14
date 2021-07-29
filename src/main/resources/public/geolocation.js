@@ -2,6 +2,9 @@ var id, target, options, latitude, longitude, map, geocoder, restaurants, restau
 let markers = [];
 var userFavorites;
 
+var test1 = 0; 
+let rgeo; 
+
 const option = {
     enableHighAccuracy: true,
     timeout: 60 * 1000, //refresh every 60s 
@@ -93,8 +96,14 @@ function createMap() {
 function populateRestaurants() {
     for (i = 0; i < restaurants.length; i++) {
         var isFavorite = false;
-     
+        
+       
+
+
+        console.log("address " + restaurants[i].address);
         geocodeAddress(restaurants[i].address, 0);
+        
+       // test(rgeo);
         /** 
         for (j = 0; j < userFavorites.length; j++) {
             if (userFavorites[j].restaurantID == restaurants[i].id) {
@@ -166,7 +175,7 @@ function markerFunctionality(marker, option) {
 
             document.getElementById("uid").value = userID;
             document.getElementById("rid").value = restaurants[i].id;
-            document.getElementById("fsubmit").value = "favorite"; 
+            document.getElementById("fsubmit").value = "favorite";
 
         });
     } else if (option == 2) { //favorite 
@@ -182,11 +191,11 @@ function markerFunctionality(marker, option) {
             document.getElementById("start").innerHTML = "Open from: " + restaurants[i].startTime;
             document.getElementById("end").innerHTML = "Close at: " + restaurants[i].endTime;
 
-            
+
 
             document.getElementById("uid").value = userID;
             document.getElementById("rid").value = restaurants[i].id;
-            document.getElementById("fsubmit").value = "unfavorite"; 
+            document.getElementById("fsubmit").value = "unfavorite";
         });
     } else { //user 
         marker.addListener("click", () => {
@@ -211,21 +220,47 @@ function userMarkerInfoHelper() {
     document.getElementById("end").innerHTML = "";
 }
 
+function test(results) {
+    //console.log("THIS IS I " + restaurantIndex);
+    console.log(rgeo);
+        /** 
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+            icon: "https://img.icons8.com/color/48/000000/restaurant-.png",
+            Title: "" + restaurantIndex //convert to string 
+        });
+
+        console.log("INPUTTING I " + restaurantIndex);
+        console.log();
+        restaurantIndex++;
+
+        markerFunctionality(marker, 0); // add functionality for markers 
+        markers.push(marker);
+        */
+    
+
+}
 
 
 //geocoder messes up with indexes so global var that represents index is needed 
 function geocodeAddress(address, option) {
-    
+
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == 'OK') {
             //if valid add the marker 
+            test1++;
+            console.log(test1);
+           // console.log("I OUTSIDE " + restaurantIndex);
+            //  console.log("");
 
-            console.log("I OUTSIDE " + restaurantIndex);
-            console.log("");
-          
+            
+
             if (option == 0) { //restaurant
-
-                
+                //test(results);
+                console.log("lat is " + results[0].geometry.location);
+                rgeo = results[0].geometry.location.lat();
+                /** 
                 var latDiff = Math.abs(Math.abs(latitude) - Math.abs(results[0].geometry.location.lat()));
                 var lngDiff = Math.abs(Math.abs(longitude) - Math.abs(results[0].geometry.location.lng()));
                 if (latDiff <= 0.1 && lngDiff <= 0.1) {
@@ -238,19 +273,22 @@ function geocodeAddress(address, option) {
 
                   //  console.log("INPUTTING I " + restaurantIndex);
                  //   console.log();
-                    restaurantIndex++;
+                 //   restaurantIndex++;
+                   
                     markerFunctionality(marker, 0); // add functionality for markers 
                     markers.push(marker);
               
                 }
+                */
 
-               
 
-               
-                
+
+
+
 
 
             } else if (option == 2) { //favorite
+                /** 
                 var marker = new google.maps.Marker({
                     map: map,
                     position: results[0].geometry.location,
@@ -260,6 +298,7 @@ function geocodeAddress(address, option) {
                 restaurantIndex++;
                 markerFunctionality(marker, 2); // add functionality for markers 
                 markers.push(marker);
+                */
             } else { //user markers 
                 if (userMarker == null) { //null marker 
                     //update user coords 
