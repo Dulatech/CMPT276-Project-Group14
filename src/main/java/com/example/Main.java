@@ -174,7 +174,7 @@ public class Main {
         output3.add(reservation);
       }
 
-      ResultSet rs4 = stmt.executeQuery("SELECT * FROM Reviews1");
+      ResultSet rs4 = stmt.executeQuery("SELECT * FROM Reviews");
 
       while (rs4.next()) {
         
