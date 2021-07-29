@@ -16,6 +16,20 @@
   border: none;
 }
 
+.input-box-big {
+  box-sizing: border-box;
+  border: none;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+  height: 100px;
+  width: 100%;
+}
+
+.input-box-big:focus {
+  border: none;
+}
+
 img {
   display: block;
   margin-left: auto;
@@ -36,6 +50,13 @@ h1 {
 .item {
   grid-row: 1;
   border-bottom: solid 0.1em black;
+  width: 100% !important;
+  margin-bottom: 2vh;
+}
+
+.item-big {
+  grid-row: 1;
+  border: solid 0.1em black;
   width: 100% !important;
   margin-bottom: 2vh;
 }
