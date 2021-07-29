@@ -3,4 +3,6 @@ com\example\Favorites.class
 com\example\Reservations.class
 com\example\Restaurants.class
 com\example\Users.class
+com\example\Search.class
+com\example\SearchResult.class
 com\example\Reviews.class

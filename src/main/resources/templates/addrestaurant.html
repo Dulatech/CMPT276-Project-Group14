@@ -47,16 +47,18 @@
               placeholder="Cuisine"
             />
             </div>
-            <div class="item">
+            
               <label>Description</label><br />
-              <input
+              <div class="item-big">
+              <textarea
               class="input-box"
                 required
-                type="text"
+                rows="10"
                 maxlength="255"
                 th:field="*{Description}"
                 placeholder="Description"
-              />
+              >
+            </textarea>
               </div>
       <div class="item">
         <label class="email">Email</label><br />
@@ -94,6 +96,7 @@
           th:field="*{Address}"
           placeholder="Address"
         />
+      </div>
         <div class="item">
           <label>Start Time</label><br />
           <input
