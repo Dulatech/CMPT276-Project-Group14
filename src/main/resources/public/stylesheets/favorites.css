@@ -1,0 +1,48 @@
+.FavoritesTable {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.FavoritesTable thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.FavoritesTable th,
+.FavoritesTable td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.FavoritesTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.FavoritesTable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.FavoritesTable tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.FavoritesTable tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+h1{
+    color:rgb(26, 187, 88);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body{
+    text-align: center;
+}

@@ -861,33 +861,34 @@ public class Main {
     }
   }
 
-  @RequestMapping("/addfavorite")
-  String getFavoriteForm(Map<String, Object> model) {
-    Favorites favorite = new Favorites();
-    model.put("favorite", favorite);
-    return "addreview";
-  }
+  // @RequestMapping("/favorites")
+  // String getFavoriteForm(Map<String, Object> model) {
+  //   Favorites favorite = new Favorites();
+  //   model.put("favorite", favorite);
+  //   return "addreview";
+  // }
  
-  @RequestMapping("/addfavorite/{pid}")
-  public String getFavoriteFormWithRestID(Map<String, Object> model, @PathVariable String pid) throws Exception {
-    try (Connection connection = dataSource.getConnection()) {
-     
+  @RequestMapping("/favorites")
+  public String getFavoriteFormWithRestID(Map<String, Object> model, @ModelAttribute("userID") int pid, @ModelAttribute("userID") String userName) throws Exception {
+    try (Connection connection = dataSource.getConnection()) { 
       Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT * FROM Favorites WHERE id=" + pid);
+      System.out.println(pid);
+       ResultSet rs = stmt.executeQuery("SELECT * FROM Favorites WHERE UserID=" + pid);
+       ArrayList<Favorites> output = new ArrayList<Favorites>();
+       Favorites favorite = new Favorites();
+       while(rs.next()==true) {
+       Integer id = rs.getInt("ID");
+       Integer UserID = rs.getInt("UserID");
+       Integer RestaurentID = rs.getInt("RestaurantID");
 
-      Favorites favorite = new Favorites();
-      // if(rs.next()==true) {
-      //   Integer id = rs.getInt("ID");
-      //   String name = rs.getString("Name");
-      //   model.put("id", id);
-      //   model.put("name", name);
-
-      //   review.setRestaurantID(id);
-      //   review.setRestaurant(name);
-      // } 
+        favorite.setID(id);
+        favorite.setUserID(UserID);
+        favorite.setRestaurantID(RestaurentID);
+        output.add(favorite);
+       } 
       
-      model.put("favorite", favorite);
-      return "addfavorite";
+      model.put("records", output);
+      return "favorites";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -895,27 +896,40 @@ public class Main {
     
   }
 
-  @PostMapping(
-    path = "/addfavorite",
-    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
-  )
-  public String handleFavoriteSubmit(Map<String, Object> model, Reviews reviews, @ModelAttribute("userID") int id, @ModelAttribute("userID") String userName) throws Exception {
-    // Save the person data into the database
+   @GetMapping("/favorites/{pid}")
+  public String unFavorite(Map<String, Object> model, @PathVariable int pid) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
+      stmt.executeUpdate("DELETE FROM Favorites WHERE ID =" + pid);
       
-
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Favorites (ID serial, UserID numeric, RestaurantID numeric)");
-      // String sql = "INSERT INTO Reservations2 (UserID, Restaurant, FullName, Time, Phone, TableType) VALUES ('" + id + "','" + reservation.getRestaurant() + "','" + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
-      // stmt.executeUpdate(sql);
-      // // model.put("reservation", reservation);
-      return "redirect:/user=" + id;
-      
+      return "favorites";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
   }
+
+  // @PostMapping(
+  //   path = "/addfavorite",
+  //   consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  // )
+  // public String handleFavoriteSubmit(Map<String, Object> model, Reviews reviews, @ModelAttribute("userID") int id, @ModelAttribute("userID") String userName) throws Exception {
+  //   // Save the person data into the database
+  //   try (Connection connection = dataSource.getConnection()) {
+  //     Statement stmt = connection.createStatement();
+      
+
+  //     stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Favorites (ID serial, UserID numeric, RestaurantID numeric)");
+  //     // String sql = "INSERT INTO Reservations2 (UserID, Restaurant, FullName, Time, Phone, TableType) VALUES ('" + id + "','" + reservation.getRestaurant() + "','" + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
+  //     // stmt.executeUpdate(sql);
+  //     // // model.put("reservation", reservation);
+  //     return "redirect:/user=" + id;
+      
+  //   } catch (Exception e) {
+  //     model.put("message", e.getMessage());
+  //     return "error";
+  //   }
+  // }
 
 
 
