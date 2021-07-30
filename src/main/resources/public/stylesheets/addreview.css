@@ -1,4 +1,4 @@
-/* .container {
+.container {
     width: 80% !important;
     margin: 0 auto;
   }
@@ -24,20 +24,16 @@
     margin-top: 2vh;
   }
   
-  .logo-text {
-    margin-top: 3vh;
-  }
-  
-  h1 {
-    font-size: 650%;
-    margin-top: 0.5px;
-  }
-  
   .item {
     grid-row: 1;
     border-bottom: solid 0.1em black;
     width: 100% !important;
     margin-bottom: 2vh;
+  }
+
+  .comment-box {
+    width: 500px;
+    height: 500px;
   }
   
   .select-item {
@@ -64,9 +60,3 @@
   .item:focus-within {
     border-bottom: solid 0.1em #45a23a;
   }
-  
-  .error {
-    color: #ca0f0f;
-    margin: 0 auto;
-  }
-   */
