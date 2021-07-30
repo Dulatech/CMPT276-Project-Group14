@@ -1,253 +1,282 @@
-
-html, body {
-    height: 100%;
-    margin: 0;
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
 .container {
-    display: grid;
-    grid-template-rows: 2fr 1fr 2fr;
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0 auto;
+  display: grid;
+  grid-template-rows: 2fr 1fr 2fr;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
 }
 
 /** top portion */
 .top {
-    grid-row: 1;
-    background-image: url("/images/landingPage.png");
-    background-position: center;
-    min-height: 300px;
+  grid-row: 1;
+  background-image: url("/images/landingPage.png");
+  background-position: center;
+  min-height: 300px;
 }
 
-
 .searchBarContainer {
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    margin: auto;
-    margin-top: 4em;
-    background-color: white;
-    border-radius: 15px;
-    width: 80%;
-    position: center;
-    min-height: 50%;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  margin: auto;
+  margin-top: 4em;
+  background-color: white;
+  border-radius: 15px;
+  width: 80%;
+  position: center;
+  min-height: 50%;
 }
 
 .logo {
-    grid-row: 1/3;
-    margin: auto;
+  grid-row: 1/3;
+  margin: auto;
 }
 
 .logo img {
-    width: 50%;
-    height: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    position: center;
-    display: block;
+  width: 50%;
+  height: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  position: center;
+  display: block;
 }
 
 .searchBar {
-    margin-top: 2em;
-    grid-row: 3;
-    width: 80%;
-    margin: auto;
+  margin-top: 2em;
+  grid-row: 3;
+  width: 80%;
+  margin: auto;
+  border-radius: 20px;
+  border: 1px solid #000000;
+}
+
+form.searchBarInner input[type="text"] {
+  font-size: 17px;
+  float: left;
+  width: 95%;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+/* Style the submit button */
+form.searchBarInner button {
+  float: left;
+  width: 5%;
+  color: black;
+  background: transparent;
+  font-size: 17px;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+  border: none;
+}
+
+form.searchBarInner button:hover {
+  color: #73b842;
+}
+
+/* Clear floats */
+form.searchBarInner::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 .searchBarItems {
-    color: black; 
-    font-weight: bold;
-    font-size: 1.2em;
-    text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-decoration: none;
 }
 
 .searchBarItems:hover {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 .items {
-    grid-row: 4; 
-    display: flex;
-    justify-content: space-evenly;
-    margin:auto;
-    width:100%;
+  grid-row: 4;
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto;
+  width: 100%;
 }
 
-input {
-    width: 100%;
-}
-
-/* middle */ 
+/* middle */
 .middle {
-    padding-top: 2em;
-    grid-row: 2;
-    padding-left: 2em;
+  padding-top: 2em;
+  grid-row: 2;
+  padding-left: 2em;
 }
-
 
 /*bottom */
 .bottom {
-    grid-row: 3;
-    display: flex; 
-    justify-content: space-evenly;
-    width: 85%;
-    margin: auto;
+  grid-row: 3;
+  display: flex;
+  justify-content: space-evenly;
+  width: 85%;
+  margin: auto;
 }
 
 .reviews {
-    padding-left: 2em;
-    padding-right: 2em;
-    margin: auto;
-    height: 350px;
-    background-color: #e7f6e1;
-    padding: 25px 50px 25px 50px;
-    border: 5px white;
-    margin: 50px;
-    border-radius: 25px;
+  padding-left: 2em;
+  padding-right: 2em;
+  margin: auto;
+  height: 350px;
+  background-color: #e7f6e1;
+  padding: 25px 50px 25px 50px;
+  border: 5px white;
+  margin: 50px;
+  border-radius: 25px;
 }
 
 .reviewIcon {
-    width:50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 .reviewName {
-    position: relative; 
-    left: 10px; 
-    top: 5px;
-    font-size: 20px;
+  position: relative;
+  left: 10px;
+  top: 5px;
+  font-size: 20px;
 }
 
 .stars {
-    float: right;
-    width:150px;
-    position: relative; 
-    top: 10px;
+  float: right;
+  width: 150px;
+  position: relative;
+  top: 10px;
 }
 
 h1 {
-    font-size: 25px;
-    font-weight: bold;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .reviewNameBodySpace {
-    display: block;
-    content: "";
-    margin-top: 10px;
+  display: block;
+  content: "";
+  margin-top: 10px;
 }
 
 .reviewHeaderNameSpace {
-    display: block;
-    content: "";
-    margin-top: 5px;
+  display: block;
+  content: "";
+  margin-top: 5px;
 }
-
 
 /* Recently Reviewed Button */
 
 .button {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 50px 200px;
-    cursor: pointer;
-    border-radius: 50px;
-  }
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 50px 200px;
+  cursor: pointer;
+  border-radius: 50px;
+}
 
 /* Review Boxes */
 
 .reviewBox {
-    height: 250px;
-    width: 150px;
-    background-color: #e7f6e1;
-    padding: 25px 50px 25px 50px;
-    border: 5px white;
-    margin: 50px;
+  height: 250px;
+  width: 150px;
+  background-color: #e7f6e1;
+  padding: 25px 50px 25px 50px;
+  border: 5px white;
+  margin: 50px;
 }
 
 /* Dropdown Button (the clickable image) */
 .dropbtn {
-    cursor: pointer;
-    max-height: 200px;
-    max-width: 130px;
-    border: 2px solid white;
-    border-radius: 25px;
-  }
-  
+  cursor: pointer;
+  max-height: 200px;
+  max-width: 130px;
+  border: 2px solid white;
+  border-radius: 25px;
+}
 
-  img{
-      height: 30px;
-      width: 30px;
-  }
-  /* Dropdown button on hover & focus */
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-    position: relative;
-    float: right;
-    display: inline-block;
-    /* display: flex; */
-    justify-content: flex-end;
-    margin-left: 1em;
-    margin-right: 3em;
-    margin-top: 2em;
-  }
+img {
+  height: 30px;
+  width: 30px;
+}
+/* Dropdown button on hover & focus */
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  float: right;
+  display: inline-block;
+  /* display: flex; */
+  justify-content: flex-end;
+  margin-left: 1em;
+  margin-right: 3em;
+  margin-top: 2em;
+}
 
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd}
-  
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;}
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
 
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
 
-  .ReservationTable thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
+}
+
+.ReservationTable thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
 }
 
 .ReservationTable th,
 .ReservationTable td {
-    padding: 12px 15px;
+  padding: 12px 15px;
 }
 
 .ReservationTable tbody tr {
-    border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
 }
 
 .ReservationTable tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+  background-color: #f3f3f3;
 }
 
 .ReservationTable tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+  border-bottom: 2px solid #009879;
 }
 
 .ReservationTable tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
+  font-weight: bold;
+  color: #009879;
 }

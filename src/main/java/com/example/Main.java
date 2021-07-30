@@ -961,10 +961,6 @@ public class Main {
           restaurant.setPartyTables(party);
           output.add(restaurant);
         }
-
-       
-
-        
        
         model.put("restaurants", output);
         model.put("id", userID);
