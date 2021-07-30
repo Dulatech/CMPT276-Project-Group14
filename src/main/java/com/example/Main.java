@@ -975,15 +975,11 @@ public class Main {
           restaurant.setPartyTables(party);
           output.add(restaurant);
         }
-
-       
-
-        
        
         model.put("restaurants", output);
         model.put("id", userID);
-        Search search2 = new Search();
-        model.put("search2", search2);
+        
+        model.put("search", search);
         return "searchResult";
       } catch (Exception e) {
         model.put("message", e.getMessage());

@@ -43,7 +43,16 @@
           </div>
 
           <div class="searchBar">
-            <input type="text" />
+            <form
+              action="#"
+              method="post"
+              th:action="@{/search}"
+              th:object="${search}"
+              class="searchBarInner"
+            >
+              <input type="text" placeholder="Search.." th:field="*{Param}" />
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
           </div>
 
           <div class="items">
@@ -71,7 +80,6 @@
           <h3>There are no Reservations to show.</h3>
         </div>
         <div th:if="${not #lists.isEmpty(records3)}">
-          
           <table class="ReservationTable">
             <tr>
               <th>ID</th>
@@ -85,44 +93,41 @@
               <th>Cancel Reservation</th>
             </tr>
             <tbody>
-            <tr th:each="record : ${records3}">
-              <td><p th:text="${record.ID}"></p></td>
-              <td>
-                <p th:text="${record.UserID}"></p>
-              </td>
-              <td>
-                <p th:text="${record.Restaurant}"></p>
-              </td>
-              <td>
-                <p th:text="${record.FullName}"></p>
-              </td>
-              <td>
-                <p th:text="${record.Time}"></p>
-              </td>
-              <td>
-                <p th:text="${record.Phone}"></p>
-              </td>
-              <td>
-                <p th:text="${record.TableType}"></p>
-              </td>
-              <td>
-                <form th:action="@{/editReservation/{id}(id=${record.ID})}">
-                  <input type="submit" value="Edit" />
-                </form>
-              </td>
-              <td>
-                <form th:action="@{/deleteReservation/{id}(id=${record.ID})}">
-                  <input type="submit" value="Cancel" />
-                </form>
-              </td>
-            </tr>
-          </tbody>
+              <tr th:each="record : ${records3}">
+                <td><p th:text="${record.ID}"></p></td>
+                <td>
+                  <p th:text="${record.UserID}"></p>
+                </td>
+                <td>
+                  <p th:text="${record.Restaurant}"></p>
+                </td>
+                <td>
+                  <p th:text="${record.FullName}"></p>
+                </td>
+                <td>
+                  <p th:text="${record.Time}"></p>
+                </td>
+                <td>
+                  <p th:text="${record.Phone}"></p>
+                </td>
+                <td>
+                  <p th:text="${record.TableType}"></p>
+                </td>
+                <td>
+                  <form th:action="@{/editReservation/{id}(id=${record.ID})}">
+                    <input type="submit" value="Edit" />
+                  </form>
+                </td>
+                <td>
+                  <form th:action="@{/deleteReservation/{id}(id=${record.ID})}">
+                    <input type="submit" value="Cancel" />
+                  </form>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
-
       </div>
-
-      
 
       <div class="bottom">
         <div class="reviews">

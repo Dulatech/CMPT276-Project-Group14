@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/searchResultLayout :: layout (~{::body},'searchResult')}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User</title>
+  </head>
+
+  <body>
+    <div class="cont">
+      <div class="top">
+        
+
+        <div class="searchBarContainer">
+          <div class="logo">
+            <img src="/images/logoAlt.png" alt="logo" />
+          </div>
+
+          <div class="searchBar">
+            <form
+              action="#"
+              method="post"
+              th:action="@{/search}"
+              th:object="${search}"
+              class="searchBarInner"
+            >
+              <input type="text" placeholder="Search.." th:field="*{Param}" />
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+
+         
+        </div>
+      </div>
+
+      
+
+    
+    <script src="/userHome.js"></script>
+  </body>
+</html>
