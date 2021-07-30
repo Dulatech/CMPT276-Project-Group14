@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/favoritesLayout :: layout (~{::body},'favorites')}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User</title>
+  </head>
+<body>
+    <div th:if="${#lists.isEmpty(records)}">
+        <h3>There are no Favorites to show.</h3>
+      </div>
+    <div class= "content" th:if="${not #lists.isEmpty(records)}">
+        <h1>Favorites</h1>
+        <table class="FavoritesTable">
+          <tr>
+            <th>ID</th>
+            <th>UserID</th>
+            <th>RestaurantID</th>
+            <th>Actions</th>
+          </tr>
+          <tbody>
+          <tr class="active-row" th:each="record : ${records}">
+            <td>
+              <p th:text="${record.ID}"></p>
+            </td>
+            <td>
+              <p th:text="${record.UserID}"></p>
+            </td>
+            <td>
+              <p th:text="${record.RestaurantID}"></p>
+            </td>
+            <td>
+            <form action="#" method="get" th:action="@{/favorites/{id}(id=${record.ID})}" th:object="${favorite}">
+                <div id="buttonCenter">
+                    <input id="fsubmit" type="submit" value="Unfavorite" />
+                </div>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+</body>
+</html>
