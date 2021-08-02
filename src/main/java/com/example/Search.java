@@ -16,7 +16,7 @@ public class Search {
     return this.ID;
 }
 
-public void setParam(Integer ID){
+public void setID(Integer ID){
     this.ID= ID;
 }
 

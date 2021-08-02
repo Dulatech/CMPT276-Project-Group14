@@ -53,15 +53,17 @@
               th:action="@{/searchFavorite}+'/'+${record.ID}"
               th:object="${search}"
               class="favoriteFrom"
+              th:if="${userType == 'C'}"
             >
               <input type="hidden" th:field="*{Param}" />
               <button th:if="${record.Favorite == 1}" type="submit"><i class="fa fa-star favorited"></i></button>
               <button th:if="${record.Favorite == 0}" type="submit"><i class="fa fa-star notfavorited"></i></button>
             </form>
-
+            <div th:if="${userType == 'C'}">
             <a th:href="'/addreservation/'+${record.ID}" class="button-nav">Make Reservation</a>
             <br>
             <a th:href="'/addreview/'+${record.ID}" class="button-nav2">Review</a>
+          </div>
           </div>
         </div>
 

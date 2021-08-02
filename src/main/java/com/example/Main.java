@@ -940,76 +940,168 @@ public class Main {
   )
   public String getSearch(Map<String, Object> model, Search search, @ModelAttribute("userID") Integer userID) throws Exception {
       try (Connection connection = dataSource.getConnection()) {
-        Statement stmt = connection.createStatement();
-        ArrayList<SearchResult> output = new ArrayList<SearchResult>();
-        ArrayList<Favorites> output2 = new ArrayList<Favorites>();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants WHERE Name ILIKE '%"+ search.getParam() +  "%' OR Description ILIKE '%" + search.getParam() + "%' OR Cuisine ILIKE '%" + search.getParam() + "%' OR Address ILIKE '%" + search.getParam() + "%'");
-        while (rs.next()) {
-          Integer id = rs.getInt("ID");
-          Integer ownerID = rs.getInt("OwnerID");
-          String name = rs.getString("Name");
-          String cus = rs.getString("Cuisine");
-          String desc = rs.getString("Description");
-          String email = rs.getString("Email");
-          String phone = rs.getString("Phone");
-          String addr = rs.getString("Address");
-          String st = rs.getString("StartTime");
-          String et = rs.getString("EndTime");
-          Integer single = rs.getInt("SingleTables");
-          Integer duo = rs.getInt("DoubleTables");
-          Integer quad = rs.getInt("FourPersonTables");
-          Integer party = rs.getInt("PartyTables");
-          SearchResult rearchResult = new SearchResult();
-          rearchResult.setID(id);
-          rearchResult.setOwnerID(ownerID);
-          rearchResult.setName(name);
-          rearchResult.setCuisine(cus);
-          rearchResult.setDescription(desc);
-          rearchResult.setEmail(email);
-          rearchResult.setPhone(phone);
-          rearchResult.setAddress(addr);
-          rearchResult.setStartTime(st);
-          rearchResult.setEndTime(et);
-          rearchResult.setSingleTables(single);
-          rearchResult.setDoubleTables(duo);
-          rearchResult.setFourPersonTables(quad);
-          rearchResult.setPartyTables(party);
-          output.add(rearchResult);
-        }
-
-        ResultSet rs2 = stmt.executeQuery("SELECT * FROM Favorites WHERE userID = " + userID);
-
-        while (rs2.next()) {
-          Integer id = rs2.getInt("ID");
-          Integer uid = rs2.getInt("userID");
-          Integer rid = rs2.getInt("restaurantID");
-          Favorites favorite = new Favorites();
-          favorite.setID(id);
-          favorite.setUserID(uid);
-          favorite.setRestaurantID(rid);
-          output2.add(favorite);
-        }
-
-        for (Integer i = 0; i < output.size(); i++) {
-          output.get(i).setFavorite(0);
-          for (Integer j = 0; j < output2.size(); j++) {
-            if (output2.get(j).getRestaurantID() == output.get(i).getID()) {
-              j = output2.size();
-              output.get(i).setFavorite(1);
-            }
-          }
-        }
        
-        model.put("records", output);
-        model.put("id", userID);
-        
-        model.put("search", search);
-        return "searchResult";
+        return "redirect:/searchResult/" + search.getParam();
       } catch (Exception e) {
         model.put("message", e.getMessage());
         return "error";
       }
     }
+
+
+    @GetMapping("/searchResult/{param}")
+public String searchTerminal(Map<String, Object> model, @ModelAttribute("userID") Integer userID, @PathVariable String param) {
+
+  try (Connection connection = dataSource.getConnection()) {
+    Statement stmt = connection.createStatement();
+    ArrayList<SearchResult> output = new ArrayList<SearchResult>();
+    ArrayList<Favorites> output2 = new ArrayList<Favorites>();
+    Search search = new Search();
+    search.setParam(param);
+    ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants WHERE Name ILIKE '%"+ search.getParam() +  "%' OR Description ILIKE '%" + search.getParam() + "%' OR Cuisine ILIKE '%" + search.getParam() + "%' OR Address ILIKE '%" + search.getParam() + "%'");
+    while (rs.next()) {
+      Integer id = rs.getInt("ID");
+      Integer ownerID = rs.getInt("OwnerID");
+      String name = rs.getString("Name");
+      String cus = rs.getString("Cuisine");
+      String desc = rs.getString("Description");
+      String email = rs.getString("Email");
+      String phone = rs.getString("Phone");
+      String addr = rs.getString("Address");
+      String st = rs.getString("StartTime");
+      String et = rs.getString("EndTime");
+      Integer single = rs.getInt("SingleTables");
+      Integer duo = rs.getInt("DoubleTables");
+      Integer quad = rs.getInt("FourPersonTables");
+      Integer party = rs.getInt("PartyTables");
+      SearchResult rearchResult = new SearchResult();
+      rearchResult.setID(id);
+      rearchResult.setOwnerID(ownerID);
+      rearchResult.setName(name);
+      rearchResult.setCuisine(cus);
+      rearchResult.setDescription(desc);
+      rearchResult.setEmail(email);
+      rearchResult.setPhone(phone);
+      rearchResult.setAddress(addr);
+      rearchResult.setStartTime(st);
+      rearchResult.setEndTime(et);
+      rearchResult.setSingleTables(single);
+      rearchResult.setDoubleTables(duo);
+      rearchResult.setFourPersonTables(quad);
+      rearchResult.setPartyTables(party);
+      output.add(rearchResult);
+    }
+
+    ResultSet rs2 = stmt.executeQuery("SELECT * FROM Favorites WHERE userID = " + userID);
+
+    while (rs2.next()) {
+      Integer id = rs2.getInt("ID");
+      Integer uid = rs2.getInt("userID");
+      Integer rid = rs2.getInt("restaurantID");
+      Favorites favorite = new Favorites();
+      favorite.setID(id);
+      favorite.setUserID(uid);
+      favorite.setRestaurantID(rid);
+      output2.add(favorite);
+    }
+
+    for (Integer i = 0; i < output.size(); i++) {
+      output.get(i).setFavorite(0);
+      for (Integer j = 0; j < output2.size(); j++) {
+        if (output2.get(j).getRestaurantID() == output.get(i).getID()) {
+          j = output2.size();
+          output.get(i).setFavorite(1);
+        }
+      }
+    }
+   
+    model.put("records", output);
+    model.put("id", userID);
+    
+    model.put("search", search);
+    return "searchResult";
+  } catch (Exception e) {
+    model.put("message", e.getMessage());
+    return "error";
+  }
+}
+
+@GetMapping("/searchResult")
+public String searchTerminalNull(Map<String, Object> model, @ModelAttribute("userID") Integer userID) {
+
+  try (Connection connection = dataSource.getConnection()) {
+    Statement stmt = connection.createStatement();
+    ArrayList<SearchResult> output = new ArrayList<SearchResult>();
+    ArrayList<Favorites> output2 = new ArrayList<Favorites>();
+    Search search = new Search();
+    search.setParam("");
+    ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants");
+    while (rs.next()) {
+      Integer id = rs.getInt("ID");
+      Integer ownerID = rs.getInt("OwnerID");
+      String name = rs.getString("Name");
+      String cus = rs.getString("Cuisine");
+      String desc = rs.getString("Description");
+      String email = rs.getString("Email");
+      String phone = rs.getString("Phone");
+      String addr = rs.getString("Address");
+      String st = rs.getString("StartTime");
+      String et = rs.getString("EndTime");
+      Integer single = rs.getInt("SingleTables");
+      Integer duo = rs.getInt("DoubleTables");
+      Integer quad = rs.getInt("FourPersonTables");
+      Integer party = rs.getInt("PartyTables");
+      SearchResult rearchResult = new SearchResult();
+      rearchResult.setID(id);
+      rearchResult.setOwnerID(ownerID);
+      rearchResult.setName(name);
+      rearchResult.setCuisine(cus);
+      rearchResult.setDescription(desc);
+      rearchResult.setEmail(email);
+      rearchResult.setPhone(phone);
+      rearchResult.setAddress(addr);
+      rearchResult.setStartTime(st);
+      rearchResult.setEndTime(et);
+      rearchResult.setSingleTables(single);
+      rearchResult.setDoubleTables(duo);
+      rearchResult.setFourPersonTables(quad);
+      rearchResult.setPartyTables(party);
+      output.add(rearchResult);
+    }
+
+    ResultSet rs2 = stmt.executeQuery("SELECT * FROM Favorites WHERE userID = " + userID);
+
+    while (rs2.next()) {
+      Integer id = rs2.getInt("ID");
+      Integer uid = rs2.getInt("userID");
+      Integer rid = rs2.getInt("restaurantID");
+      Favorites favorite = new Favorites();
+      favorite.setID(id);
+      favorite.setUserID(uid);
+      favorite.setRestaurantID(rid);
+      output2.add(favorite);
+    }
+
+    for (Integer i = 0; i < output.size(); i++) {
+      output.get(i).setFavorite(0);
+      for (Integer j = 0; j < output2.size(); j++) {
+        if (output2.get(j).getRestaurantID() == output.get(i).getID()) {
+          j = output2.size();
+          output.get(i).setFavorite(1);
+        }
+      }
+    }
+   
+    model.put("records", output);
+    model.put("id", userID);
+    
+    model.put("search", search);
+    return "searchResult";
+  } catch (Exception e) {
+    model.put("message", e.getMessage());
+    return "error";
+  }
+}
 
     @PostMapping(
       path = "/searchFavorite/{pid}",
@@ -1035,73 +1127,8 @@ public class Main {
         }
         stmt.executeUpdate(sql);
 
-        ArrayList<SearchResult> output = new ArrayList<SearchResult>();
-        ArrayList<Favorites> output2 = new ArrayList<Favorites>();
-        ResultSet rs2 = stmt.executeQuery("SELECT * FROM Restaurants WHERE Name ILIKE '%"+ search.getParam() +  "%' OR Description ILIKE '%" + search.getParam() + "%' OR Cuisine ILIKE '%" + search.getParam() + "%' OR Address ILIKE '%" + search.getParam() + "%'");
-        while (rs2.next()) {
-          Integer id = rs2.getInt("ID");
-          Integer ownerID = rs2.getInt("OwnerID");
-          String name = rs2.getString("Name");
-          String cus = rs2.getString("Cuisine");
-          String desc = rs2.getString("Description");
-          String email = rs2.getString("Email");
-          String phone = rs2.getString("Phone");
-          String addr = rs2.getString("Address");
-          String st = rs2.getString("StartTime");
-          String et = rs2.getString("EndTime");
-          Integer single = rs2.getInt("SingleTables");
-          Integer duo = rs2.getInt("DoubleTables");
-          Integer quad = rs2.getInt("FourPersonTables");
-          Integer party = rs2.getInt("PartyTables");
-          SearchResult rearchResult = new SearchResult();
-          rearchResult.setID(id);
-          rearchResult.setOwnerID(ownerID);
-          rearchResult.setName(name);
-          rearchResult.setCuisine(cus);
-          rearchResult.setDescription(desc);
-          rearchResult.setEmail(email);
-          rearchResult.setPhone(phone);
-          rearchResult.setAddress(addr);
-          rearchResult.setStartTime(st);
-          rearchResult.setEndTime(et);
-          rearchResult.setSingleTables(single);
-          rearchResult.setDoubleTables(duo);
-          rearchResult.setFourPersonTables(quad);
-          rearchResult.setPartyTables(party);
-          output.add(rearchResult);
-        }
-
-        ResultSet rs3 = stmt.executeQuery("SELECT * FROM Favorites WHERE userID = " + userID);
-
-        while (rs3.next()) {
-          Integer id = rs3.getInt("ID");
-          Integer uid = rs3.getInt("userID");
-          Integer rid = rs3.getInt("restaurantID");
-          Favorites favorite = new Favorites();
-          favorite.setID(id);
-          favorite.setUserID(uid);
-          favorite.setRestaurantID(rid);
-          output2.add(favorite);
-        }
         
-        System.out.println(search.getParam());
-        System.out.println(pid);
-        for (Integer i = 0; i < output.size(); i++) {
-          output.get(i).setFavorite(0);
-          for (Integer j = 0; j < output2.size(); j++) {
-            if (output2.get(j).getRestaurantID() == output.get(i).getID()) {
-              j = output2.size();
-              output.get(i).setFavorite(1);
-              
-            }
-          }
-        }
-       
-        model.put("records", output);
-        model.put("id", userID);
-
-        model.put("search", search);
-        return "searchResult";
+        return "redirect:/searchResult/" + search.getParam();
       } catch (Exception e) {
         model.put("message", e.getMessage());
         return "error";
