@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/searchResultLayout :: layout (~{::body},'restaurants')}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User</title>
+  </head>
+
+  <body>
+    <div class="cont">
+      <div class="result" th:each="record : ${records}">
+        <div>
+          <h3 class="name" th:text="${record.Name}"></h3>
+          <p th:text="'Cuisine: ' + ${record.Cuisine}"></p>
+          <p class="description" th:text=" ${record.Description}"></p>
+          <p th:text="'Phone: ' + ${record.Phone}"></p>
+          <p th:text="'Address: ' + ${record.Address}"></p>
+          <p th:text="'Email: ' + ${record.Email}"></p>
+        </div>
+        <div class="right-div">
+          <p th:text="${record.StartTime} + ' - ' + ${record.EndTime}"></p>
+
+          <a th:href="'/editrestaurant/'+${record.ID}" class="button-nav"
+            >Edit</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script src="/searchResult.js"></script>
+  </body>
+</html>

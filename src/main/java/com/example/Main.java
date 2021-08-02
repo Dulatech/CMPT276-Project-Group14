@@ -688,6 +688,8 @@ public class Main {
 
   }
 
+
+
   
   @RequestMapping("/addreservation")
   String getReservationForm(Map<String, Object> model) {
@@ -1135,6 +1137,129 @@ public String searchTerminalNull(Map<String, Object> model, @ModelAttribute("use
       }
     }
 
+
+    @GetMapping("/restaurants")
+public String restTerminal(Map<String, Object> model, @ModelAttribute("userID") Integer userID) {
+
+  try (Connection connection = dataSource.getConnection()) {
+    Statement stmt = connection.createStatement();
+    ArrayList<Restaurants> output = new ArrayList<Restaurants>();
+   
+    ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants WHERE OwnerID = " + userID + "");
+    while (rs.next()) {
+      Integer id = rs.getInt("ID");
+      Integer ownerID = rs.getInt("OwnerID");
+      String name = rs.getString("Name");
+      String cus = rs.getString("Cuisine");
+      String desc = rs.getString("Description");
+      String email = rs.getString("Email");
+      String phone = rs.getString("Phone");
+      String addr = rs.getString("Address");
+      String st = rs.getString("StartTime");
+      String et = rs.getString("EndTime");
+      Integer single = rs.getInt("SingleTables");
+      Integer duo = rs.getInt("DoubleTables");
+      Integer quad = rs.getInt("FourPersonTables");
+      Integer party = rs.getInt("PartyTables");
+      Restaurants restaurant = new Restaurants();
+      restaurant.setID(id);
+      restaurant.setOwnerID(ownerID);
+      restaurant.setName(name);
+      restaurant.setCuisine(cus);
+      restaurant.setDescription(desc);
+      restaurant.setEmail(email);
+      restaurant.setPhone(phone);
+      restaurant.setAddress(addr);
+      restaurant.setStartTime(st);
+      restaurant.setEndTime(et);
+      restaurant.setSingleTables(single);
+      restaurant.setDoubleTables(duo);
+      restaurant.setFourPersonTables(quad);
+      restaurant.setPartyTables(party);
+      output.add(restaurant);
+    }
+
+    
+    model.put("records", output);
+    model.put("id", userID);
+    
+    return "restaurants";
+  } catch (Exception e) {
+    model.put("message", e.getMessage());
+    return "error";
+  }
+}
+
+@RequestMapping("/editrestaurant/{rid}")
+  String getEditRestaurantForm(Map<String, Object> model, @PathVariable int rid) {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+    Restaurants restaurant = new Restaurants();
+    ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants WHERE ID = " + rid + "");
+    while (rs.next()) {
+      Integer id = rs.getInt("ID");
+      Integer ownerID = rs.getInt("OwnerID");
+      String name = rs.getString("Name");
+      String cus = rs.getString("Cuisine");
+      String desc = rs.getString("Description");
+      String email = rs.getString("Email");
+      String phone = rs.getString("Phone");
+      String addr = rs.getString("Address");
+      String st = rs.getString("StartTime");
+      String et = rs.getString("EndTime");
+      Integer single = rs.getInt("SingleTables");
+      Integer duo = rs.getInt("DoubleTables");
+      Integer quad = rs.getInt("FourPersonTables");
+      Integer party = rs.getInt("PartyTables");
+      
+      restaurant.setID(id);
+      restaurant.setOwnerID(ownerID);
+      restaurant.setName(name);
+      restaurant.setCuisine(cus);
+      restaurant.setDescription(desc);
+      restaurant.setEmail(email);
+      restaurant.setPhone(phone);
+      restaurant.setAddress(addr);
+      restaurant.setStartTime(st);
+      restaurant.setEndTime(et);
+      restaurant.setSingleTables(single);
+      restaurant.setDoubleTables(duo);
+      restaurant.setFourPersonTables(quad);
+      restaurant.setPartyTables(party);
+      
+    }
+
+    model.put("restaurant", restaurant);
+    return "editrestaurant";
+  } catch (Exception e) {
+    model.put("message", e.getMessage());
+    return "error";
+  }
+  }
+
+  @PostMapping(
+    path = "/editrestaurant",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleEditRestaurantSubmit(Map<String, Object> model, Restaurants restaurant,  @ModelAttribute("userID") int userID) throws Exception {
+    // Save the person data into the database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+
+    
+      
+      System.out.println(restaurant.getID());
+      String sql = "UPDATE Restaurants SET Name = '" + restaurant.getName() + "', Cuisine = '" + restaurant.getCuisine() + "', Description = '" + restaurant.getDescription() + "', StartTime= '" + restaurant.getStartTime() + "', EndTime= '" + restaurant.getEndTime() + "', Email = '" + restaurant.getEmail() + "', Phone= '" + restaurant.getPhone() + "', Address= '" + restaurant.getAddress() + "', SingleTables= " + restaurant.getSingleTables() + ", DoubleTables= " + restaurant.getDoubleTables() + ", FourPersonTables= " + restaurant.getFourPersonTables() + ", PartyTables= " + restaurant.getPartyTables() + " WHERE ID = " +  restaurant.getID() + "";
+      stmt.executeUpdate(sql);
+      model.put("restaurant", restaurant);
+      return "redirect:/restaurants";
+      
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
+  }
 
     
 
