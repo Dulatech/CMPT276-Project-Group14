@@ -36,10 +36,38 @@
          
         </div>
       </div>
+      <div class="result" th:each="record : ${records}">
+        <div>
+          <h3 class="name" th:text="${record.Name}"></h3>
+          <p th:text="'Cuisine: ' + ${record.Cuisine}"></p>
+          <p  class="description"  th:text=" ${record.Description}"></p>
+             <p  th:text="'Phone: ' + ${record.Phone}"></p>
+            <p th:text="'Address: ' + ${record.Address}"></p>
+              <p th:text="'Email: ' + ${record.Email}"></p>
+          </div>
+          <div class="right-div">
+            <p th:text="${record.StartTime} + ' - ' + ${record.EndTime}"></p>
+            <form
+              action="#"
+              method="post"
+              th:action="@{/searchFavorite}+'/'+${record.ID}"
+              th:object="${search}"
+              class="favoriteFrom"
+            >
+              <input type="hidden" th:field="*{Param}" />
+              <button th:if="${record.Favorite == 1}" type="submit"><i class="fa fa-star favorited"></i></button>
+              <button th:if="${record.Favorite == 0}" type="submit"><i class="fa fa-star notfavorited"></i></button>
+            </form>
+
+            <a th:href="'/addreservation/'+${record.ID}" class="button-nav">Make Reservation</a>
+            <br>
+            <a th:href="'/addreview/'+${record.ID}" class="button-nav2">Review</a>
+          </div>
+        </div>
 
       
 
     
-    <script src="/userHome.js"></script>
+    <script src="/searchResult.js"></script>
   </body>
 </html>

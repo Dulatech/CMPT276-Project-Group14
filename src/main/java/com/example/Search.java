@@ -2,6 +2,7 @@ package com.example;
 
 public class Search {
     private String Param;
+    private Integer ID;
    
     public String getParam(){
         return this.Param;
@@ -10,5 +11,13 @@ public class Search {
     public void setParam(String Param){
         this.Param= Param;
    }
+
+   public Integer getID(){
+    return this.ID;
+}
+
+public void setParam(Integer ID){
+    this.ID= ID;
+}
 
 }

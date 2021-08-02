@@ -13,7 +13,7 @@ body {
 
 .searchBarContainer {
   display: grid;
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   margin: auto;
   background-color: white;
   border-radius: 15px;
@@ -75,4 +75,76 @@ form.searchBarInner::after {
   content: "";
   clear: both;
   display: table;
+}
+
+.result {
+  background: #e7f6e1;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 10px;
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.right-div {
+  text-align: right;
+}
+
+.name {
+  padding: 0;
+  padding-bottom: 10px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.description {
+  padding-bottom: 20px;
+}
+
+.favorited {
+  color: rgb(221, 194, 38);
+}
+
+.notfavorited {
+  color: rgb(167, 167, 167);
+}
+
+form.favoriteFrom button {
+  background: transparent;
+  font-size: 40px;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+  border: none;
+  margin-bottom: 10px;
+}
+
+a.button-nav {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: white;
+  background-color: #73b842;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14pt;
+  margin-bottom: 10px;
+}
+
+a.button-nav2 {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: white;
+  background-color: #73b842;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 10pt;
 }
