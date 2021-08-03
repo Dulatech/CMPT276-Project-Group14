@@ -79,145 +79,150 @@ public class Main {
  
   
   @RequestMapping("/")
-  String index(Map<String, Object> model, @ModelAttribute("userID") String test, @ModelAttribute("userID") String userName) {
+  String index(Map<String, Object> model, @ModelAttribute("userID") String id, @ModelAttribute("userID") String userName) {
     try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
+      // Statement stmt = connection.createStatement();
 
      
      
 
-      ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
+      // ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
        
-      System.out.println(test);
+      // System.out.println(test);
       
-      ArrayList<Users> output = new ArrayList<Users>();
-      ArrayList<Restaurants> output2 = new ArrayList<Restaurants>();
-      ArrayList<Reservations> output3 = new ArrayList<Reservations>();
-      ArrayList<Reviews> output4 = new ArrayList<Reviews>();
-      ArrayList<Favorites> output5 = new ArrayList<Favorites>();
+      // ArrayList<Users> output = new ArrayList<Users>();
+      // ArrayList<Restaurants> output2 = new ArrayList<Restaurants>();
+      // ArrayList<Reservations> output3 = new ArrayList<Reservations>();
+      // ArrayList<Reviews> output4 = new ArrayList<Reviews>();
+      // ArrayList<Favorites> output5 = new ArrayList<Favorites>();
 
-      while (rs.next()) {
+      // while (rs.next()) {
         
-        Integer id = rs.getInt("ID");
-        String uName = rs.getString("UserName");
-        String name = rs.getString("FullName");
-        String pass = rs.getString("Password");
-        String email = rs.getString("Email");
-        String phone = rs.getString("Phone");
-        String addr = rs.getString("Address");
-        String userType = rs.getString("UserType");
-        Users user = new Users();
-        user.setID(id);
-        user.setFullName(name);
-        user.setUserName(uName);
-        user.setPassword(pass);
-        user.setEmail(email);
-        user.setPhone(phone);
-        user.setAddress(addr);
-        user.setUserType(userType);
-        output.add(user);
-      }
+      //   Integer id = rs.getInt("ID");
+      //   String uName = rs.getString("UserName");
+      //   String name = rs.getString("FullName");
+      //   String pass = rs.getString("Password");
+      //   String email = rs.getString("Email");
+      //   String phone = rs.getString("Phone");
+      //   String addr = rs.getString("Address");
+      //   String userType = rs.getString("UserType");
+      //   Users user = new Users();
+      //   user.setID(id);
+      //   user.setFullName(name);
+      //   user.setUserName(uName);
+      //   user.setPassword(pass);
+      //   user.setEmail(email);
+      //   user.setPhone(phone);
+      //   user.setAddress(addr);
+      //   user.setUserType(userType);
+      //   output.add(user);
+      // }
 
-      ResultSet rs2 = stmt.executeQuery("SELECT * FROM Restaurants");
+      // ResultSet rs2 = stmt.executeQuery("SELECT * FROM Restaurants");
 
-      while (rs2.next()) {
+      // while (rs2.next()) {
         
-        Integer id = rs2.getInt("ID");
-        Integer ownerID = rs2.getInt("OwnerID");
-        String name = rs2.getString("Name");
-        String cus = rs2.getString("Cuisine");
-        String desc = rs2.getString("Description");
-        String email = rs2.getString("Email");
-        String phone = rs2.getString("Phone");
-        String addr = rs2.getString("Address");
-        String st = rs2.getString("StartTime");
-        String et = rs2.getString("EndTime");
-        Integer single = rs2.getInt("SingleTables");
-        Integer duo = rs2.getInt("DoubleTables");
-        Integer quad = rs2.getInt("FourPersonTables");
-        Integer party = rs2.getInt("PartyTables");
-        Restaurants restaurant = new Restaurants();
-        restaurant.setID(id);
-        restaurant.setOwnerID(ownerID);
-        restaurant.setName(name);
-        restaurant.setCuisine(cus);
-        restaurant.setDescription(desc);
-        restaurant.setEmail(email);
-        restaurant.setPhone(phone);
-        restaurant.setAddress(addr);
-        restaurant.setStartTime(st);
-        restaurant.setEndTime(et);
-        restaurant.setSingleTables(single);
-        restaurant.setDoubleTables(duo);
-        restaurant.setFourPersonTables(quad);
-        restaurant.setPartyTables(party);
-        output2.add(restaurant);
-      }
+      //   Integer id = rs2.getInt("ID");
+      //   Integer ownerID = rs2.getInt("OwnerID");
+      //   String name = rs2.getString("Name");
+      //   String cus = rs2.getString("Cuisine");
+      //   String desc = rs2.getString("Description");
+      //   String email = rs2.getString("Email");
+      //   String phone = rs2.getString("Phone");
+      //   String addr = rs2.getString("Address");
+      //   String st = rs2.getString("StartTime");
+      //   String et = rs2.getString("EndTime");
+      //   Integer single = rs2.getInt("SingleTables");
+      //   Integer duo = rs2.getInt("DoubleTables");
+      //   Integer quad = rs2.getInt("FourPersonTables");
+      //   Integer party = rs2.getInt("PartyTables");
+      //   Restaurants restaurant = new Restaurants();
+      //   restaurant.setID(id);
+      //   restaurant.setOwnerID(ownerID);
+      //   restaurant.setName(name);
+      //   restaurant.setCuisine(cus);
+      //   restaurant.setDescription(desc);
+      //   restaurant.setEmail(email);
+      //   restaurant.setPhone(phone);
+      //   restaurant.setAddress(addr);
+      //   restaurant.setStartTime(st);
+      //   restaurant.setEndTime(et);
+      //   restaurant.setSingleTables(single);
+      //   restaurant.setDoubleTables(duo);
+      //   restaurant.setFourPersonTables(quad);
+      //   restaurant.setPartyTables(party);
+      //   output2.add(restaurant);
+      // }
 
-      ResultSet rs3 = stmt.executeQuery("SELECT * FROM Reservations1");
+      // ResultSet rs3 = stmt.executeQuery("SELECT * FROM Reservations1");
 
-      while (rs3.next()) {
+      // while (rs3.next()) {
         
-        Integer id = rs3.getInt("ID");
-        Integer userId = rs3.getInt("UserID");
-        Integer restaurantId = rs3.getInt("RestaurantID");
-        String name = rs3.getString("FullName");
-        String time = rs3.getString("Time");
-        String phone = rs3.getString("Phone");
-        String tabletype = rs3.getString("TableType");
-        Reservations reservation = new Reservations();
-        reservation.setID(id);
-        reservation.setUserID(userId);
-        reservation.setRestaurantID(restaurantId);
-        reservation.setFullName(name);
-        reservation.setTime(time);
-        reservation.setTableType(tabletype);
-        reservation.setPhone(phone);
-        output3.add(reservation);
-      }
+      //   Integer id = rs3.getInt("ID");
+      //   Integer userId = rs3.getInt("UserID");
+      //   Integer restaurantId = rs3.getInt("RestaurantID");
+      //   String name = rs3.getString("FullName");
+      //   String time = rs3.getString("Time");
+      //   String phone = rs3.getString("Phone");
+      //   String tabletype = rs3.getString("TableType");
+      //   Reservations reservation = new Reservations();
+      //   reservation.setID(id);
+      //   reservation.setUserID(userId);
+      //   reservation.setRestaurantID(restaurantId);
+      //   reservation.setFullName(name);
+      //   reservation.setTime(time);
+      //   reservation.setTableType(tabletype);
+      //   reservation.setPhone(phone);
+      //   output3.add(reservation);
+      // }
 
-      ResultSet rs4 = stmt.executeQuery("SELECT * FROM Reviews");
+      // ResultSet rs4 = stmt.executeQuery("SELECT * FROM Reviews");
 
-      while (rs4.next()) {
+      // while (rs4.next()) {
         
-        Integer id = rs4.getInt("ID");
-        Integer userId = rs4.getInt("UserID");
-        String restaurant = rs4.getString("Restaurant");
-        String name = rs4.getString("FullName");
-        String time = rs4.getString("Time");
-        String comment = rs4.getString("Comment");
-        Integer rating = rs4.getInt("Rating");
-        Reviews review = new Reviews();
-        review.setID(id);
-        review.setUserID(userId);
-        review.setRestaurant(restaurant);
-        review.setFullName(name);
-        review.setTime(time);
-        review.setComment(comment);
-        review.setRating(rating);
-        output4.add(review);
+      //   Integer id = rs4.getInt("ID");
+      //   Integer userId = rs4.getInt("UserID");
+      //   String restaurant = rs4.getString("Restaurant");
+      //   String name = rs4.getString("FullName");
+      //   String time = rs4.getString("Time");
+      //   String comment = rs4.getString("Comment");
+      //   Integer rating = rs4.getInt("Rating");
+      //   Reviews review = new Reviews();
+      //   review.setID(id);
+      //   review.setUserID(userId);
+      //   review.setRestaurant(restaurant);
+      //   review.setFullName(name);
+      //   review.setTime(time);
+      //   review.setComment(comment);
+      //   review.setRating(rating);
+      //   output4.add(review);
+      // }
+
+      // ResultSet rs5 = stmt.executeQuery("SELECT * FROM Favorites");
+
+      // while (rs5.next()) {
+      //   Integer id = rs5.getInt("ID");
+      //   Integer uid = rs5.getInt("userID");
+      //   Integer rid = rs5.getInt("restaurantID");
+      //   Favorites favorite = new Favorites();
+      //   favorite.setID(id);
+      //   favorite.setUserID(uid);
+      //   favorite.setRestaurantID(rid);
+      //   output5.add(favorite);
+      // }
+
+
+      // model.put("records", output);
+      // model.put("records2", output2);
+      // model.put("records3", output3);
+      // model.put("records4", output4);
+      // model.put("records5", output5);
+      // return "index";
+      if(Integer.parseInt(id) ==-1){
+        return "redirect:/login";
       }
-
-      ResultSet rs5 = stmt.executeQuery("SELECT * FROM Favorites");
-
-      while (rs5.next()) {
-        Integer id = rs5.getInt("ID");
-        Integer uid = rs5.getInt("userID");
-        Integer rid = rs5.getInt("restaurantID");
-        Favorites favorite = new Favorites();
-        favorite.setID(id);
-        favorite.setUserID(uid);
-        favorite.setRestaurantID(rid);
-        output5.add(favorite);
-      }
-
-
-      model.put("records", output);
-      model.put("records2", output2);
-      model.put("records3", output3);
-      model.put("records4", output4);
-      model.put("records5", output5);
-      return "index";
+        
+        return "redirect:/user=" + id;
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -336,6 +341,9 @@ public class Main {
   public String cuserHome(Map<String, Object> model, @PathVariable String id, @ModelAttribute("userID") String userID, @ModelAttribute("userType") String userName) {
     
     try (Connection connection = dataSource.getConnection()) {
+      if(Integer.parseInt(userID) ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE id="+(Integer.parseInt(id))); 
        
@@ -396,6 +404,9 @@ public class Main {
     }
 
     try (Connection connection = dataSource.getConnection()) {
+      if(Integer.parseInt(id) ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE id=" + id); 
        
@@ -426,10 +437,13 @@ public class Main {
   //update info for regular user  
   @RequestMapping("/updateUserInfo/{selector}")
   public String setupUpdateInfo(Map<String, Object> model, @PathVariable String selector, @ModelAttribute("userID") String id) {
+<<<<<<< HEAD
     if (id.equals("-1")) {
+=======
+    if(Integer.parseInt(id) ==-1){
+>>>>>>> e76317b001f1ea526d0ac1288a1585c7609db14d
       return "redirect:/login";
     }
-
     Users user = new Users();
     model.put("selector", selector);
     model.put("user", user);
@@ -443,6 +457,11 @@ public class Main {
 
   public String updateInfo(Map<String, Object> model, @PathVariable String selector, Users user, @ModelAttribute("userID") String id, @ModelAttribute("userID") String userName) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
+      if(Integer.parseInt(id) ==-1){
+        return "redirect:/login";
+      }
+      
+      
       Statement stmt = connection.createStatement();
       //I have done it this way because selector doesn't get saved when we call PostMapping -Ricky
       if (user.getFullName() != null) { //update name
@@ -469,9 +488,13 @@ public class Main {
 
   // owner view
   @RequestMapping("/ownerView/{id}")
-  public String ownerView(Map<String, Object> model, @PathVariable String id) {
+  public String ownerView(Map<String, Object> model, @PathVariable String id, @ModelAttribute("userID") String pid) {
 
     try (Connection connection = dataSource.getConnection()) {
+      if(Integer.parseInt(pid) ==-1){
+        return "redirect:/login";
+      }
+
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE id="+(Integer.parseInt(id)));
 
@@ -503,8 +526,12 @@ public class Main {
 
   //admin view 
   @GetMapping("/adminView")
-  public String accessAdminPage(Map<String, Object> model) {
+  public String accessAdminPage(Map<String, Object> model, @ModelAttribute("userID") String userID) {
     try (Connection connection = dataSource.getConnection()) {
+
+      if(Integer.parseInt(userID) ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       
       ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
@@ -542,8 +569,11 @@ public class Main {
   }
 
   @GetMapping("/user/delete/{pid}")
-  public String deleteUser(Map<String, Object> model, @PathVariable String pid) throws Exception {
+  public String deleteUser(Map<String, Object> model, @PathVariable String pid,  @ModelAttribute("userID") String userID) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
+      if(Integer.parseInt(userID) ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("DELETE FROM Users WHERE ID =" + pid);
       
@@ -558,6 +588,9 @@ public class Main {
   @GetMapping("/map") 
     public String getMap(Map<String, Object> model, @ModelAttribute("userID") Integer userID) {
       try (Connection connection = dataSource.getConnection()) {
+        if(userID ==-1){
+          return "redirect:/login";
+        }
         Statement stmt = connection.createStatement();
         ArrayList<Restaurants> output = new ArrayList<Restaurants>();
         ArrayList<Favorites> output2 = new ArrayList<Favorites>();
@@ -627,6 +660,9 @@ public class Main {
 
   public String test(Map<String, Object> model, Favorites favorite, @ModelAttribute("userID") Integer userID) throws Exception {
      try (Connection connection = dataSource.getConnection()) { 
+      if(userID ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Favorites (ID serial, UserID numeric, RestaurantID numeric)");
       ResultSet rs = stmt.executeQuery("SELECT * FROM Favorites WHERE userID=" + userID);
@@ -663,7 +699,10 @@ public class Main {
 
 
   @RequestMapping("/addrestaurant")
-  String getRestaurantForm(Map<String, Object> model) {
+  String getRestaurantForm(Map<String, Object> model,  @ModelAttribute("userID") Integer userID) {
+    if(userID ==-1){
+      return "redirect:/login";
+    }
     Restaurants restaurant = new Restaurants();
     model.put("restaurant", restaurant);
     return "addrestaurant";
@@ -677,7 +716,9 @@ public class Main {
     // Save the person data into the database
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-
+      if(userID ==-1){
+        return "redirect:/login";
+      }
     
       
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Restaurants (ID serial, OwnerID numeric, Name varchar(50), Description varchar(255), Cuisine varchar(50), Email varchar(50), Phone varchar(255), Address varchar(255), StartTime varchar(50), EndTime varchar(50), SingleTables  numeric, DoubleTables  numeric, FourPersonTables numeric, PartyTables numeric)");
@@ -698,16 +739,21 @@ public class Main {
 
   
   @RequestMapping("/addreservation")
-  String getReservationForm(Map<String, Object> model) {
+  String getReservationForm(Map<String, Object> model, @ModelAttribute("userID") Integer userID) {
+    if(userID ==-1){
+      return "redirect:/login";
+    }
     Reservations reservation = new Reservations();
     model.put("reservation", reservation);
     return "addreservation";
   }
  
   @RequestMapping("/addreservation/{pid}")
-  public String getReservationFormWithRestID(Map<String, Object> model, @PathVariable String pid) throws Exception {
+  public String getReservationFormWithRestID(Map<String, Object> model, @PathVariable String pid, @ModelAttribute("userID") Integer userID) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
-     
+      if(userID ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants WHERE id=" + pid);
 
@@ -738,6 +784,9 @@ public class Main {
   public String handleReservationSubmit(Map<String, Object> model, Reservations reservation, @ModelAttribute("userID") int id, @ModelAttribute("userID") String userName) throws Exception {
     // Save the person data into the database
     try (Connection connection = dataSource.getConnection()) {
+      if(id ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       
 
@@ -754,8 +803,11 @@ public class Main {
   }
 
   @GetMapping("/deleteReservation/{pid}")
-  public String deleteReservation(Map<String, Object> model, @PathVariable int pid) throws Exception {
+  public String deleteReservation(Map<String, Object> model, @PathVariable int pid, @ModelAttribute("userID") int id) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
+      if(id ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("DELETE FROM Reservations2 WHERE ID =" + pid);
       
@@ -767,9 +819,11 @@ public class Main {
   }
 
   @GetMapping("/editReservation/{pid}")
-  public String getEditReservationForm(Map<String, Object> model, @PathVariable String pid) throws Exception {
+  public String getEditReservationForm(Map<String, Object> model, @PathVariable String pid, @ModelAttribute("userID") int userID) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
-     
+      if(userID ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM Reservations2 WHERE id=" + pid);
 
@@ -800,6 +854,9 @@ public class Main {
   public String handleEditReservationSubmit(Map<String, Object> model, Reservations reservation, @ModelAttribute("userID") int id, @ModelAttribute("userID") String userName) throws Exception {
     // Save the person data into the database
     try (Connection connection = dataSource.getConnection()) {
+      if(id ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reservations2 (ID serial,UserID numeric,Restaurant varchar(225),FullName varchar(225), Time varchar(225),Phone varchar(255), TableType varchar(1))");
       String sql = "UPDATE Reservations2 SET FullName ='" + reservation.getFullName() + "', Time ='" + reservation.getTime() + "', Phone = '"  + reservation.getPhone() + "', TableType ='" + reservation.getTableType()  + "' WHERE ID = " + reservation.getID();
@@ -814,16 +871,21 @@ public class Main {
   }
 
   @RequestMapping("/addreview")
-  String getReviewForm(Map<String, Object> model) {
+  String getReviewForm(Map<String, Object> model, @ModelAttribute("userID") int id) {
+    if(id ==-1){
+      return "redirect:/login";
+    }
     Reviews review = new Reviews();
     model.put("review", review);
     return "addreview";
   }
  
   @RequestMapping("/addreview/{pid}")
-  public String getReviewFormWithRestID(Map<String, Object> model, @PathVariable String pid) throws Exception {
+  public String getReviewFormWithRestID(Map<String, Object> model, @PathVariable String pid, @ModelAttribute("userID") int userID) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
-     
+      if(userID ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants WHERE id=" + pid);
 
@@ -854,6 +916,9 @@ public class Main {
   public String handleReviewSubmit(Map<String, Object> model, Reviews reviews, @ModelAttribute("userID") int id, @ModelAttribute("userID") String userName) throws Exception {
     // Save the person data into the database
     try (Connection connection = dataSource.getConnection()) {
+      if(id ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       
       stmt.executeUpdate("DROP TABLE IF EXISTS Reviews");
@@ -879,6 +944,9 @@ public class Main {
   @RequestMapping("/favorites")
   public String getFavoriteFormWithRestID(Map<String, Object> model, @ModelAttribute("userID") int pid, @ModelAttribute("userID") String userName) throws Exception {
     try (Connection connection = dataSource.getConnection()) { 
+      if(pid ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       System.out.println(pid);
        ResultSet rs = stmt.executeQuery("SELECT * FROM Favorites WHERE UserID=" + pid);
@@ -905,8 +973,11 @@ public class Main {
   }
 
    @GetMapping("/favorites/{pid}")
-  public String unFavorite(Map<String, Object> model, @PathVariable int pid) throws Exception {
+  public String unFavorite(Map<String, Object> model, @PathVariable int pid, @ModelAttribute("userID") int userID) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
+      if(userID ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("DELETE FROM Favorites WHERE ID =" + pid);
       
@@ -948,7 +1019,9 @@ public class Main {
   )
   public String getSearch(Map<String, Object> model, Search search, @ModelAttribute("userID") Integer userID) throws Exception {
       try (Connection connection = dataSource.getConnection()) {
-       
+        if(userID ==-1){
+          return "redirect:/login";
+        }
         return "redirect:/searchResult/" + search.getParam();
       } catch (Exception e) {
         model.put("message", e.getMessage());
@@ -961,6 +1034,9 @@ public class Main {
 public String searchTerminal(Map<String, Object> model, @ModelAttribute("userID") Integer userID, @PathVariable String param) {
 
   try (Connection connection = dataSource.getConnection()) {
+    if(userID ==-1){
+      return "redirect:/login";
+    }
     Statement stmt = connection.createStatement();
     ArrayList<SearchResult> output = new ArrayList<SearchResult>();
     ArrayList<Favorites> output2 = new ArrayList<Favorites>();
@@ -1038,6 +1114,9 @@ public String searchTerminal(Map<String, Object> model, @ModelAttribute("userID"
 public String searchTerminalNull(Map<String, Object> model, @ModelAttribute("userID") Integer userID) {
 
   try (Connection connection = dataSource.getConnection()) {
+    if(userID ==-1){
+      return "redirect:/login";
+    }
     Statement stmt = connection.createStatement();
     ArrayList<SearchResult> output = new ArrayList<SearchResult>();
     ArrayList<Favorites> output2 = new ArrayList<Favorites>();
@@ -1118,6 +1197,9 @@ public String searchTerminalNull(Map<String, Object> model, @ModelAttribute("use
   
     public String test(Map<String, Object> model, @PathVariable String pid, Search search, @ModelAttribute("userID") Integer userID) throws Exception {
        try (Connection connection = dataSource.getConnection()) { 
+        if(userID ==-1){
+          return "redirect:/login";
+        }
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Favorites (ID serial, UserID numeric, RestaurantID numeric)");
         ResultSet rs = stmt.executeQuery("SELECT * FROM Favorites WHERE userID=" + userID);
@@ -1148,6 +1230,9 @@ public String searchTerminalNull(Map<String, Object> model, @ModelAttribute("use
 public String restTerminal(Map<String, Object> model, @ModelAttribute("userID") Integer userID) {
 
   try (Connection connection = dataSource.getConnection()) {
+    if(userID ==-1){
+      return "redirect:/login";
+    }
     Statement stmt = connection.createStatement();
     ArrayList<Restaurants> output = new ArrayList<Restaurants>();
    
@@ -1197,8 +1282,11 @@ public String restTerminal(Map<String, Object> model, @ModelAttribute("userID") 
 }
 
 @RequestMapping("/editrestaurant/{rid}")
-  String getEditRestaurantForm(Map<String, Object> model, @PathVariable int rid) {
+  String getEditRestaurantForm(Map<String, Object> model, @PathVariable int rid, @ModelAttribute("userID") int userID) {
     try (Connection connection = dataSource.getConnection()) {
+      if(userID ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
     Restaurants restaurant = new Restaurants();
     ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants WHERE ID = " + rid + "");
@@ -1250,6 +1338,9 @@ public String restTerminal(Map<String, Object> model, @ModelAttribute("userID") 
   public String handleEditRestaurantSubmit(Map<String, Object> model, Restaurants restaurant,  @ModelAttribute("userID") int userID) throws Exception {
     // Save the person data into the database
     try (Connection connection = dataSource.getConnection()) {
+      if(userID ==-1){
+        return "redirect:/login";
+      }
       Statement stmt = connection.createStatement();
 
     
