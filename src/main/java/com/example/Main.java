@@ -387,11 +387,14 @@ public class Main {
       return "error";
     }
   }
-
+ 
   //userInfo
   @RequestMapping("/userInfo") 
   public String cuserSetting(Map<String, Object> model, @ModelAttribute("userID") String id, @ModelAttribute("userID") String userName) {
-     
+    if (id.equals("-1")) {
+      return "redirect:/";
+    }
+
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE id=" + id); 
@@ -422,9 +425,12 @@ public class Main {
 
   //update info for regular user  
   @RequestMapping("/updateUserInfo/{selector}")
-  public String setupUpdateInfo(Map<String, Object> model, @PathVariable String selector) {
+  public String setupUpdateInfo(Map<String, Object> model, @PathVariable String selector, @ModelAttribute("userID") String id) {
+    if (id.equals("-1")) {
+      return "redirect:/";
+    }
+
     Users user = new Users();
-    System.out.println("hi" + selector);
     model.put("selector", selector);
     model.put("user", user);
     return "updateUserInfo";
