@@ -29,7 +29,7 @@
             class="dropbtn"
           />
           <div id="myDropdown" class="dropdown-content">
-            <a href="/userInfo">Edit Profile</a>
+            <a href="/userInfo">My Info</a>
             <a th:href="@{/addrestaurant}" th:if="${userType == 'R'}"
               >Add Restaurant</a
             >
@@ -201,7 +201,6 @@
       </div>
     </div>
 
-    <a href="/userInfo">My Info</a>
     <script src="/userHome.js"></script>
   </body>
 </html>

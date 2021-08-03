@@ -305,7 +305,9 @@ public class Main {
       String userType = rs.getString("UserType");
       return "redirect:/user";
       } else {
-        return "redirect:/loginError";
+        model.put("user", user);
+        model.put("error", "The Username or Password you've entered is incorrect.");
+        return "login";
       } 
     } catch (Exception e) {
       return "error";

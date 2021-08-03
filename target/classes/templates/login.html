@@ -28,6 +28,9 @@
         <label>Password</label><br />
         <input class="field" required type="password" th:field="*{Password}" placeholder="password" autocomplete="off" /><br />
       </div>
+      <div th:if="${error != null}">
+        <span class="error"  th:text="${error}"></span>
+     </div>
 
       <div class="itemThree">
         <a class="register" href="/adduser">Register</a>
