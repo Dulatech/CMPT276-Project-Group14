@@ -13,8 +13,6 @@
   <body>
     <div class="cont">
       <div class="top">
-        
-
         <div class="searchBarContainer">
           <div class="logo">
             <img src="/images/logoAlt.png" alt="logo" />
@@ -32,18 +30,22 @@
               <button type="submit"><i class="fa fa-search"></i></button>
             </form>
           </div>
-
-         
         </div>
       </div>
-      <div class="result" th:each="record : ${records}">
-        <div>
-          <h3 class="name" th:text="${record.Name}"></h3>
-          <p th:text="'Cuisine: ' + ${record.Cuisine}"></p>
-          <p  class="description"  th:text=" ${record.Description}"></p>
-             <p  th:text="'Phone: ' + ${record.Phone}"></p>
+      <div th:if="${#lists.isEmpty(records)}">
+        <div class="result">
+          <h3>No Results Found.</h3>
+        </div>
+      </div>
+      <div th:if="${not #lists.isEmpty(records)}">
+        <div class="result" th:each="record : ${records}">
+          <div>
+            <h3 class="name" th:text="${record.Name}"></h3>
+            <p th:text="'Cuisine: ' + ${record.Cuisine}"></p>
+            <p class="description" th:text=" ${record.Description}"></p>
+            <p th:text="'Phone: ' + ${record.Phone}"></p>
             <p th:text="'Address: ' + ${record.Address}"></p>
-              <p th:text="'Email: ' + ${record.Email}"></p>
+            <p th:text="'Email: ' + ${record.Email}"></p>
           </div>
           <div class="right-div">
             <p th:text="${record.StartTime} + ' - ' + ${record.EndTime}"></p>
@@ -56,20 +58,26 @@
               th:if="${userType == 'C'}"
             >
               <input type="hidden" th:field="*{Param}" />
-              <button th:if="${record.Favorite == 1}" type="submit"><i class="fa fa-star favorited"></i></button>
-              <button th:if="${record.Favorite == 0}" type="submit"><i class="fa fa-star notfavorited"></i></button>
+              <button th:if="${record.Favorite == 1}" type="submit">
+                <i class="fa fa-star favorited"></i>
+              </button>
+              <button th:if="${record.Favorite == 0}" type="submit">
+                <i class="fa fa-star notfavorited"></i>
+              </button>
             </form>
             <div th:if="${userType == 'C'}">
-            <a th:href="'/addreservation/'+${record.ID}" class="button-nav">Make Reservation</a>
-            <br>
-            <a th:href="'/addreview/'+${record.ID}" class="button-nav2">Review</a>
-          </div>
+              <a th:href="'/addreservation/'+${record.ID}" class="button-nav"
+                >Make Reservation</a
+              >
+              <br />
+              <a th:href="'/addreview/'+${record.ID}" class="button-nav2"
+                >Review</a
+              >
+            </div>
           </div>
         </div>
-
-      
-
-    
+      </div>
+    </div>
     <script src="/searchResult.js"></script>
   </body>
 </html>
