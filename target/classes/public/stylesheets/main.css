@@ -167,7 +167,7 @@ label {
 .userInfoAnchor:hover {
   color: white;
   text-decoration: none;
-  opacity: 50%; 
+  opacity: 70%; 
 }
 
 .userInfoBody {
@@ -181,9 +181,57 @@ label {
   align-items: center;
   justify-content: center;
   min-height: 95vh;
-  min-width: 95vh;
+  min-width: 100vw;
 }
 
 .userInfoHeader {
   text-align: center;
+}
+
+/** updateUserInfo */ 
+
+.updateUserFormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 95vh;
+  min-width: 100vw; 
+}
+
+.updateUserForm {
+  min-width: 400px;
+  border: 4px solid #73B842;
+  border-radius: 10px;
+  background-color: white;
+  padding: 10px;
+}
+
+.updateUserForm * {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  
+}
+
+.centerUpdateUserItems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.updateUserBtn {
+  padding: 5px;
+  border: 4px solid #73B842;
+  color: white;
+  background-color: #73B842;
+  border-radius: 10px;
+}
+
+.updateUserBtn:hover {
+  opacity: 70%;
+}
+
+.updateUserInfoBody {
+  background-image: url("/images/updateUserInfo.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }

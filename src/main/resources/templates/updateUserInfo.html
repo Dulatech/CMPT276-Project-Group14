@@ -8,31 +8,55 @@
     <title>User</title>
 </head>
 
-<body>
-    <div th:switch="${selector}">
+<body class="updateUserInfoBody">
+    <div class="updateUserFormContainer" th:switch="${selector}">
         <!--change name-->
-        <form action="#" method="post" th:case="'FullName'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
-            <label>New Name:</label><br />
-            <input required type="text" th:field="*{FullName}" placeholder="FullName" autocomplete="off" /><br>
-            <input type="submit" value="Submit" />
+        <form class="updateUserForm" action="#" method="post" th:case="'FullName'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
+            <div class="centerUpdateUserItems">
+                <label>Please enter your new name:</label><br />
+            </div>
+            <div class="centerUpdateUserItems">
+                <input required type="text" th:field="*{FullName}" placeholder="FullName" autocomplete="off" /><br>
+            </div>
+            <div class="centerUpdateUserItems">
+                <input class="updateUserBtn" type="submit" value="Submit" />
+            </div>
         </form>
         <!--change pass-->
-        <form action="#" method="post" th:case="'UserName'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
-            <label>New Password:</label><br />
-            <input required type="text" th:field="*{Password}" placeholder="password" autocomplete="off" /><br />
-            <input type="submit" value="Submit" />
+        <form class="updateUserForm" action="#" method="post" th:case="'UserName'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
+            <div class="centerUpdateUserItems">
+                <label>Please enter your new password:</label><br />
+            </div>
+            <div class="centerUpdateUserItems">
+                <input required type="text" th:field="*{Password}" placeholder="password" autocomplete="off" /><br />
+            </div>
+            <div class="centerUpdateUserItems">
+                <input class="updateUserBtn" type="submit" value="Submit" />
+            </div>
         </form>
         <!--change email-->
-        <form action="#" method="post" th:case="'Email'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
-            <label>New Email:</label><br />
-            <input required type="text" th:field="*{Email}" placeholder="email" autocomplete="off" /><br />
-            <input type="submit" value="Submit" />
+        <form class="updateUserForm" action="#" method="post" th:case="'Email'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
+            <div class="centerUpdateUserItems">
+                <label>Please enter your new email:</label><br />
+            </div>
+            <div class="centerUpdateUserItems">
+                <input required type="text" th:field="*{Email}" placeholder="email" autocomplete="off" /><br />
+            </div>
+            <div class="centerUpdateUserItems">
+                <input class="updateUserBtn" type="submit" value="Submit" />
+            </div>
         </form>
         <!--change address-->
-        <form action="#" method="post" th:case="'Address'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
-            <label>New Address:</label><br />
-            <input required type="text" th:field="*{Address}" placeholder="address" autocomplete="off" /><br />
-            <input type="submit" value="Submit" />
+        <form class="updateUserForm" action="#" method="post" th:case="'Address'" th:action="@{/updateUserInfo/{selector}}" th:object="${user}">
+            <div class="centerUpdateUserItems">
+                <label>Please enter your new address:</label><br />
+            </div>
+            <div class="centerUpdateUserItems">
+                <input required type="text" th:field="*{Address}" placeholder="address" autocomplete="off" /><br />
+            </div>
+            <div class="centerUpdateUserItems">
+                <input class="updateUserBtn" type="submit" value="Submit" />
+            </div>
         </form>
     </div>
    

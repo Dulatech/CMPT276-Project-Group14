@@ -392,7 +392,7 @@ public class Main {
   @RequestMapping("/userInfo") 
   public String cuserSetting(Map<String, Object> model, @ModelAttribute("userID") String id, @ModelAttribute("userID") String userName) {
     if (id.equals("-1")) {
-      return "redirect:/";
+      return "redirect:/login";
     }
 
     try (Connection connection = dataSource.getConnection()) {
@@ -427,7 +427,7 @@ public class Main {
   @RequestMapping("/updateUserInfo/{selector}")
   public String setupUpdateInfo(Map<String, Object> model, @PathVariable String selector, @ModelAttribute("userID") String id) {
     if (id.equals("-1")) {
-      return "redirect:/";
+      return "redirect:/login";
     }
 
     Users user = new Users();
