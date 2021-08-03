@@ -8,47 +8,68 @@
     <title>User</title>
 </head>
 
-<body>
-    <div id="wrapper">
+<body class="userInfoBody">
+    <div class="userInfoCenter">
+        <div id="userInfoWrapper">
+            <h1 class="userInfoHeader">Displaying user <span th:text="${uName}"></span>'s info: </h1>
+            <div class="userInfoGrid">
+                <div class="userInfoLeft">
+                    <p class="inline">Username: </p>
+                    <p class="inline" th:text="${uName}"></p>
+                </div>
+            </div>
 
+            <div class="userInfoGrid">
+                <div class="userInfoLeft">
+                    <p class="inline">Full name: </p>
+                    <p class="inline" th:text="${name}"></p>
+                </div>
+                <div class="anchorOuter">
+                    <a class="userInfoAnchor" th:href="@{'/updateUserInfo/FullName'}">Change full name</a>
+                </div>
 
-        <p>Welcome </p>
-        <p th:text="${uName}"></p>
-        <p th:text="${userID}"></p>
+            </div>
 
-        <p>My Info:</p>
-        <div>
-            <p class="inline">Username: </p>
-            <p class="inline" th:text="${uName}"></p>
-        </div>
+            <div class="userInfoGrid">
+                <div class="userInfoLeft">
+                    <p class="inline">Password: </p>
+                    <p class="inline" th:text="${pass}"></p>
+                </div>
+                <div class="anchorOuter">
+                    <a class="userInfoAnchor" th:href="@{'/updateUserInfo/UserName'}">Change password</a>
+                </div>
+            </div>
 
+            <div class="userInfoGrid">
+                <div class="userInfoLeft">
+                    <p class="inline">Email: </p>
+                    <p class="inline" th:text="${email}"></p>
+                </div>
+                <div class="anchorOuter">
+                    <a class="userInfoAnchor" th:href="@{'/updateUserInfo/Email'}">Change email</a>
+                </div>
 
-        <div>
-            <p class="inline">Full name: </p>
-            <p class="inline" th:text="${name}"></p><a th:href="@{'/updateUserInfo/FullName'}">Change full name</a>
-        </div>
+            </div>
 
-        <div>
-            <p class="inline">Password: </p>
-            <p class="inline" th:text="${pass}"></p><a th:href="@{'/updateUserInfo/UserName'}">Change password</a>
-        </div>
+            <div class="userInfoGrid">
+                <div class="userInfoLeft">
+                    <p class="inline">Address: </p>
+                    <p class="inline" th:text="${addr}"></p>
+                </div>
+                <div class="anchorOuter">
+                    <a class="userInfoAnchor" th:href="@{'/updateUserInfo/Address'}">Change address</a>
+                </div>
 
-        <div>
-            <p class="inline">Email: </p>
-            <p class="inline" th:text="${email}"></p><a th:href="@{'/updateUserInfo/Email'}">Change email</a>
-        </div>
+            </div>
 
-        <div>
-            <p class="inline">Address: </p>
-            <p class="inline" th:text="${addr}"></p><a th:href="@{'/updateUserInfo/Address'}">Change address</a>
-        </div>
-
-        <div>
-            <p class="inline">userType: </p>
-            <p class="inline" th:text="${userType}"></p>
+            <div class="userInfoGrid">
+                <div class="userInfoLeft">
+                    <p class="inline">userType: </p>
+                    <p class="inline" th:text="${userType}"></p>
+                </div>
+            </div>
         </div>
     </div>
-
 </body>
 
 </html>

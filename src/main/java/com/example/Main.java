@@ -395,11 +395,14 @@ public class Main {
       return "error";
     }
   }
-
+ 
   //userInfo
   @RequestMapping("/userInfo") 
   public String cuserSetting(Map<String, Object> model, @ModelAttribute("userID") String id, @ModelAttribute("userID") String userName) {
-     
+    if (id.equals("-1")) {
+      return "redirect:/";
+    }
+
     try (Connection connection = dataSource.getConnection()) {
       if(Integer.parseInt(id) ==-1){
         return "redirect:/login";
@@ -438,7 +441,6 @@ public class Main {
       return "redirect:/login";
     }
     Users user = new Users();
-    System.out.println("hi" + selector);
     model.put("selector", selector);
     model.put("user", user);
     return "updateUserInfo";
