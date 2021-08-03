@@ -302,23 +302,8 @@ public class Main {
       model.put("userType", rs.getString("userType"));
       output.setID(rs.getInt("ID"));
       d.add(output);
-      
       String userType = rs.getString("UserType");
-
-      /** 
-      switch(userType) {
-        case "A":
-          return "redirect:/user/adminView"; 
-        case "R":
-          return "redirect:/ownerView/" + id;
-        default:
-          return "redirect:/user=" + id;
-        }
-        */
-      
-      return "redirect:/user=" + id;
-
-
+      return "redirect:/user";
       } else {
         return "redirect:/loginError";
       } 
@@ -337,15 +322,15 @@ public class Main {
   }
 
   //cuser default page
-  @RequestMapping("/user={id}")
-  public String cuserHome(Map<String, Object> model, @PathVariable String id, @ModelAttribute("userID") String userID, @ModelAttribute("userType") String userName) {
+  @RequestMapping("/user")
+  public String cuserHome(Map<String, Object> model,  @ModelAttribute("userID") String userID, @ModelAttribute("userType") String userName) {
     
     try (Connection connection = dataSource.getConnection()) {
       if(Integer.parseInt(userID) ==-1){
         return "redirect:/login";
       }
       Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE id="+(Integer.parseInt(id))); 
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE id="+(Integer.parseInt(userID))); 
        
       while (rs.next()) { //load info
         String uName = rs.getString("UserName");
@@ -355,7 +340,7 @@ public class Main {
         String phone = rs.getString("Phone");
         String addr = rs.getString("Address");
         String userType = rs.getString("UserType");
-        model.put("id", id);
+        model.put("id", userID);
         model.put("uName", uName);
         model.put("name", name);
         model.put("pass", pass);
@@ -400,7 +385,7 @@ public class Main {
   @RequestMapping("/userInfo") 
   public String cuserSetting(Map<String, Object> model, @ModelAttribute("userID") String id, @ModelAttribute("userID") String userName) {
     if (id.equals("-1")) {
-      return "redirect:/";
+      return "redirect:/login";
     }
 
     try (Connection connection = dataSource.getConnection()) {
@@ -437,7 +422,7 @@ public class Main {
   //update info for regular user  
   @RequestMapping("/updateUserInfo/{selector}")
   public String setupUpdateInfo(Map<String, Object> model, @PathVariable String selector, @ModelAttribute("userID") String id) {
-    if(Integer.parseInt(id) ==-1){
+    if(Integer.parseInt(id) == -1){
       return "redirect:/login";
     }
     Users user = new Users();
