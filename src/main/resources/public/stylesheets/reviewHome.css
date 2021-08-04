@@ -1,95 +1,90 @@
-html,
-body {
-  height: 100%;
+.container {
+  width: 80% !important;
+  margin: 0 auto;
+}
+
+ul {
+  list-style-type: none;
   margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  height: 5vh; 
+  min-height: 20px;
 }
 
-/** top portion */
-.top {
-    grid-row: 1;
-    background-image: url("/images/landingPage.png");
-    background-position: center;
-    min-height: 300px;
-  }
-
-.logo {
-    grid-row: 1/3;
-    margin: auto;
-  }
-
-.reviews {
-  padding-left: 2em;
-  padding-right: 2em;
-  margin: auto;
-  height: 350px;
-  background-color: #e7f6e1;
-  padding: 25px 50px 25px 50px;
-  border: 5px white;
-  margin: 50px;
-  border-radius: 25px;
+li {
+  float: left;
 }
 
-.reviewIcon {
-  width: 50px;
-  height: 50px;
-}
-
-.reviewName {
-  position: relative;
-  left: 10px;
-  top: 5px;
-  font-size: 20px;
-}
-
-.stars {
-  float: right;
-  width: 150px;
-  position: relative;
-  top: 10px;
-}
-
-h1 {
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.reviewNameBodySpace {
+li a {
   display: block;
-  content: "";
-  margin-top: 10px;
-}
-
-.reviewHeaderNameSpace {
-  display: block;
-  content: "";
-  margin-top: 5px;
-}
-
-/* Recently Reviewed Button */
-
-.button {
-  background-color: #4caf50;
-  border: none;
   color: white;
-  padding: 15px 32px;
   text-align: center;
+  padding: 14px 16px;
   text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 50px 200px;
-  cursor: pointer;
-  border-radius: 50px;
 }
 
-/* Review Boxes */
+li a:hover {
+  background-color: #111;
+}
 
-.reviewBox {
-  height: 250px;
-  width: 150px;
-  background-color: #e7f6e1;
-  padding: 25px 50px 25px 50px;
-  border: 5px white;
-  margin: 50px;
+.input-box {
+  box-sizing: border-box;
+  border: none;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+  width: 100%;
+}
+
+.input-box:focus {
+  border: none;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2vh;
+  margin-top: 2vh;
+}
+
+.item {
+  grid-row: 1;
+  border-bottom: solid 0.1em black;
+  width: 100% !important;
+  margin-bottom: 2vh;
+}
+
+.comment-box {
+  width: 500px;
+  height: 500px;
+}
+
+.select-item {
+  grid-row: 1;
+  border-bottom: solid 0.1em black;
+  width: 48% !important;
+  display: inline-block;
+  margin-bottom: 2vh;
+}
+
+.select-item-right {
+  grid-row: 1;
+  border-bottom: solid 0.1em black;
+  width: 48% !important;
+  margin-right: 2.5%;
+  display: inline-block;
+  margin-bottom: 2vh;
+}
+
+.select-item:focus-within {
+  border-bottom: solid 0.1em #45a23a;
+}
+
+.item:focus-within {
+  border-bottom: solid 0.1em #45a23a;
 }
 
 .ReviewTable thead tr {
