@@ -887,6 +887,7 @@ public class Main {
         String time = dateFormat.format(currentTime);
         model.put("time", time);
 
+        review.setUserID(userID);
         review.setRestaurantID(id);
         review.setRestaurant(name);
         review.setTime(time);

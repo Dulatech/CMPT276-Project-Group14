@@ -17,6 +17,19 @@
       <form  id="addreview-form" action="#" method="post" th:action="@{/addreview}" th:object="${review}" >
 
       <div class="item">
+        <label class="userid">User ID</label><br />
+        <input
+        class="input-box"
+          required
+          type="text"
+          maxlength="10"
+          th:field="*{UserID}"
+          placeholder="UserID"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="item">
         <label class="restaurantid">Restaurant ID</label><br />
         <input
         class="input-box"

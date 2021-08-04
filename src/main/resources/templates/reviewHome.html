@@ -14,48 +14,6 @@
     <img src="/images/logoAlt.png" alt="logo" />
   </div>
 
-<div th:if="${#lists.isEmpty(records)}">
-  <h3>There are no Reviews to show.</h3>
-</div>
-<div th:if="${not #lists.isEmpty(records)}">
-  <table class="ReviewTable">
-    <tr>
-      <th>ID</th>
-      <th>User ID</th>
-      <th>RestaurantID</th>
-      <th>Restaurant</th>
-      <th>Name</th>
-      <th>Time</th>
-      <th>Comment</th>
-      <th>Rating</th>
-    </tr>
-    <tbody>
-      <tr th:each="record : ${records}">
-        <td><p th:text="${record.ID}"></p></td>
-        <td>
-          <p th:text="${record.UserID}"></p>
-        </td>
-        <td>
-          <p th:text="${record.RestaurantID}"></p>
-        </td>
-        <td>
-          <p th:text="${record.Restaurant}"></p>
-        </td>
-        <td>
-          <p th:text="${record.FullName}"></p>
-        </td>
-        <td>
-          <p th:text="${record.Time}"></p>
-        </td>
-        <td>
-          <p th:text="${record.Comment}"></p>
-        </td>
-        <td>
-          <p th:text="${record.Rating}"></p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-  </html>
+
+</html>
         
