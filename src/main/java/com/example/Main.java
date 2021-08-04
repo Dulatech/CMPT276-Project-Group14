@@ -913,11 +913,9 @@ public class Main {
       }
       Statement stmt = connection.createStatement();
       
-      stmt.executeUpdate("DROP TABLE IF EXISTS Reviews");
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reviews (ID serial, UserID numeric, Restaurant varchar(225), RestaurantID numeric, FullName varchar(225), Time varchar(255), Comment text, Rating numeric)");
       String sql = "INSERT INTO Reviews (UserID, Restaurant, RestaurantID, FullName, Time, Comment, Rating) VALUES ('" + id + "','" + reviews.getRestaurant() + "','" + reviews.getRestaurantID() + "','" + reviews.getFullName() + "','" + reviews.getTime() + "','"  + reviews.getComment() + "','" + reviews.getRating()  + "')";
       stmt.executeUpdate(sql);
-      // model.put("reservation", reservation);
       return "redirect:/user";
       
     } catch (Exception e) {
@@ -927,7 +925,7 @@ public class Main {
   }
 
   @RequestMapping("/reviewHome")
-  public String getReviewHome(Map<String, Object> model, @PathVariable String pid, @ModelAttribute("userID") int userID) throws Exception {
+  public String getReviewHome(Map<String, Object> model, @ModelAttribute("userID") int userID) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       if(userID ==-1){
         return "redirect:/login";
@@ -936,11 +934,11 @@ public class Main {
       ResultSet rs = stmt.executeQuery("SELECT * FROM Reviews WHERE UserID=" + userID);
 
       ArrayList<Reviews> output = new ArrayList<Reviews>();
-      if(rs.next()) {
+      while(rs.next()) {
         Integer id = rs.getInt("ID");
         Integer userId = rs.getInt("UserID");
-        Integer restaurantID = rs.getInt("RestaurantID");
         String restaurant = rs.getString("Restaurant");
+        Integer restaurantID = rs.getInt("RestaurantID");
         String name = rs.getString("FullName");
         String time = rs.getString("Time");
         String comment = rs.getString("Comment");
@@ -948,8 +946,8 @@ public class Main {
         Reviews review = new Reviews();
         review.setID(id);
         review.setUserID(userId);
-        review.setRestaurantID(restaurantID);
         review.setRestaurant(restaurant);
+        review.setRestaurantID(restaurantID);
         review.setFullName(name);
         review.setTime(time);
         review.setComment(comment);

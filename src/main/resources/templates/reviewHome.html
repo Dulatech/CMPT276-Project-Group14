@@ -8,6 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/reviewHome.css" />
 </head>
 <body>
   <div class="logo">
@@ -22,8 +23,8 @@
       <tr>
         <th>ID</th>
         <th>User ID</th>
-        <th>RestaurantID</th>
         <th>Restaurant</th>
+        <th>RestaurantID</th>
         <th>Name</th>
         <th>Time</th>
         <th>Comment</th>
@@ -36,10 +37,10 @@
             <p th:text="${record.UserID}"></p>
           </td>
           <td>
-            <p th:text="${record.RestaurantID}"></p>
+            <p th:text="${record.Restaurant}"></p>
           </td>
           <td>
-            <p th:text="${record.Restaurant}"></p>
+            <p th:text="${record.RestaurantID}"></p>
           </td>
           <td>
             <p th:text="${record.FullName}"></p>
