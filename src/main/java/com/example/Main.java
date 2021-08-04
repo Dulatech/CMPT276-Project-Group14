@@ -35,10 +35,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 
 import org.springframework.web.bind.annotation.SessionAttributes; 
@@ -881,9 +882,10 @@ public class Main {
         model.put("id", id);
         model.put("name", name);
 
-        LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("YYYY-MM-DD'T'hh:mm");
-        String time = currentTime.format(format);
+        Date currentTime = new Date();
+        // SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm");
+        // date = format.parse(Time);
+        String time = currentTime.toString();
         model.put("time", time);
 
         review.setRestaurantID(id);
