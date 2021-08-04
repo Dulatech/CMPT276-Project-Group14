@@ -1385,4 +1385,19 @@ public String restTerminal(Map<String, Object> model, @ModelAttribute("userID") 
     // }
   }
 
+  @RequestMapping("/reviewHome")
+  String reviewHome(Map<String, Object> model) {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
+      stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+      ResultSet rs1 = stmt.executeQuery("SELECT * FROM Reviews WHERE userID=" + userID);
+      while (r1s.next()) {
+        String name = rs.getString("Name");
+        String comment = rs.getString("Comment");
+        Integer rating = rs.getInt("Rating");
+        
+        
+  }
+
 }
