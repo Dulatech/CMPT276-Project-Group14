@@ -883,9 +883,8 @@ public class Main {
         model.put("name", name);
 
         Date currentTime = new Date();
-        // SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm");
-        // date = format.parse(Time);
-        String time = currentTime.toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm");
+        String time = dateFormat.format(currentTime);
         model.put("time", time);
 
         review.setRestaurantID(id);
