@@ -1,0 +1,93 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+/** top portion */
+.top {
+    grid-row: 1;
+    background-image: url("/images/landingPage.png");
+    background-position: center;
+    min-height: 300px;
+  }
+
+.logo {
+    grid-row: 1/3;
+    margin: auto;
+  }
+
+.reviews {
+  padding-left: 2em;
+  padding-right: 2em;
+  margin: auto;
+  height: 350px;
+  background-color: #e7f6e1;
+  padding: 25px 50px 25px 50px;
+  border: 5px white;
+  margin: 50px;
+  border-radius: 25px;
+}
+
+.reviewIcon {
+  width: 50px;
+  height: 50px;
+}
+
+.reviewName {
+  position: relative;
+  left: 10px;
+  top: 5px;
+  font-size: 20px;
+}
+
+.stars {
+  float: right;
+  width: 150px;
+  position: relative;
+  top: 10px;
+}
+
+h1 {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.reviewNameBodySpace {
+  display: block;
+  content: "";
+  margin-top: 10px;
+}
+
+.reviewHeaderNameSpace {
+  display: block;
+  content: "";
+  margin-top: 5px;
+}
+
+/* Recently Reviewed Button */
+
+.button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 50px 200px;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+/* Review Boxes */
+
+.reviewBox {
+  height: 250px;
+  width: 150px;
+  background-color: #e7f6e1;
+  padding: 25px 50px 25px 50px;
+  border: 5px white;
+  margin: 50px;
+}
