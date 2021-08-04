@@ -1,60 +1,42 @@
-<div class="bottom">
-    <div class="reviews">
-      <div class="reviewHeader">
-        <img src="/images/user_review.png" class="reviewIcon" />
-        <span class="reviewName"> John Doe </span>
-        <img src="/images/5_stars.png" class="stars" />
-      </div>
-      <br class="reviewHeaderNameSpace" />
-      <h1>Restaurant Name</h1>
-      <br class="reviewNameBodySpace" />
-      <div class="placeHolderText">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porta
-        consectetur semper. Suspendisse accumsan nec purus at rutrum.
-        Curabitur convallis venenatis massa at euismod. Maecenas vestibulum
-        ipsum vitae semper pellentesque. Aliquam at elit arcu. Aliquam
-        semper eu nibh interdum varius. Phasellus luctus erat vitae enim
-        sodales semper. Donec mollis sem velit, vel consequat dolor
-        porttitor vel. Ut aliquet augue non egestas maximus.
-      </div>
-    </div>
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/userHomeLayout :: layout (~{::body},'reviewHome')}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User</title>
+  </head>
 
-    <div class="reviews">
-      <div class="reviewHeader">
-        <img src="/images/user_review.png" class="reviewIcon" />
-        <span class="reviewName"> John Doe </span>
-        <img src="/images/5_stars.png" class="stars" />
-      </div>
-      <br class="reviewHeaderNameSpace" />
-      <h1>Restaurant Name</h1>
-      <br class="reviewNameBodySpace" />
-      <div class="placeHolderText">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porta
-        consectetur semper. Suspendisse accumsan nec purus at rutrum.
-        Curabitur convallis venenatis massa at euismod. Maecenas vestibulum
-        ipsum vitae semper pellentesque. Aliquam at elit arcu. Aliquam
-        semper eu nibh interdum varius. Phasellus luctus erat vitae enim
-        sodales semper. Donec mollis sem velit, vel consequat dolor
-        porttitor vel. Ut aliquet augue non egestas maximus.
-      </div>
-    </div>
+  <div class="logo">
+    <img src="/images/logoAlt.png" alt="logo" />
+  </div>
 
-    <div class="reviews">
-      <div class="reviewHeader">
-        <img src="/images/user_review.png" class="reviewIcon" />
-        <span class="reviewName"> John Doe </span>
-        <img src="/images/5_stars.png" class="stars" />
-      </div>
-      <br class="reviewHeaderNameSpace" />
-      <h1>Restaurant Name</h1>
-      <br class="reviewNameBodySpace" />
-      <div class="placeHolderText">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porta
-        consectetur semper. Suspendisse accumsan nec purus at rutrum.
-        Curabitur convallis venenatis massa at euismod. Maecenas vestibulum
-        ipsum vitae semper pellentesque. Aliquam at elit arcu. Aliquam
-        semper eu nibh interdum varius. Phasellus luctus erat vitae enim
-        sodales semper. Donec mollis sem velit, vel consequat dolor
-        porttitor vel. Ut aliquet augue non egestas maximus.
-      </div>
-    </div>
+<div th:if="${#lists.isEmpty(records3)}">
+  <h3>There are no Reviewss to show.</h3>
+</div>
+<div th:if="${not #lists.isEmpty(records3)}">
+  <table class="Review Table">
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Restaurant</th>
+      <th>Comment</th>
+    </tr>
+    <tbody>
+      <tr th:each="record : ${records3}">
+        <td><p th:text="${record.Name}"></p></td>
+        <td>
+          <p th:text="${record.Restaurant}"></p>
+        </td>
+        <td>
+          <p th:text="${record.Comment}"></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  </html>
+        
