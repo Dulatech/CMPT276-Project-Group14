@@ -55,10 +55,18 @@
       />
       </div>
 
-      <div class="time">
+      <div class="item">
         <label>Time</label><br />
-        <input type="datetime-local" required th:field="*{Time}" name="Time" id="time">
-      </div>
+        <input
+        class="input-box"
+          required
+          type="text"
+          maxlength="50"
+          th:field="*{Time}"
+          placeholder="Time"
+          autocomplete="off"
+        />
+        </div>
 
       <div class="comment-box">
         <label>Comment</label><br />
