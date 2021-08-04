@@ -915,7 +915,7 @@ public class Main {
       
       stmt.executeUpdate("DROP TABLE IF EXISTS Reviews");
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reviews (ID serial, UserID numeric, Restaurant varchar(225), RestaurantID numeric, FullName varchar(225), Time varchar(255), Comment text, Rating numeric)");
-      String sql = "INSERT INTO Reviews (UserID, Restaurant, FullName, Time, Comment, Rating) VALUES ('" + id + "','" + reviews.getRestaurant() + "','" + reviews.getRestaurantID() + "','" + reviews.getFullName() + "','" + reviews.getTime() + "','"  + reviews.getComment() + "','" + reviews.getRating()  + "')";
+      String sql = "INSERT INTO Reviews (UserID, Restaurant, RestaurantID, FullName, Time, Comment, Rating) VALUES ('" + id + "','" + reviews.getRestaurant() + "','" + reviews.getRestaurantID() + "','" + reviews.getFullName() + "','" + reviews.getTime() + "','"  + reviews.getComment() + "','" + reviews.getRating()  + "')";
       stmt.executeUpdate(sql);
       // model.put("reservation", reservation);
       return "redirect:/user";
