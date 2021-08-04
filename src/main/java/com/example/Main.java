@@ -37,6 +37,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 import org.springframework.web.bind.annotation.SessionAttributes; 
@@ -879,8 +881,14 @@ public class Main {
         model.put("id", id);
         model.put("name", name);
 
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("YYYY-MM-DD'T'hh:mm");
+        String time = currentTime.format(format);
+        model.put("time", time);
+
         review.setRestaurantID(id);
         review.setRestaurant(name);
+        review.setTime(time);
       } 
       
       model.put("review", review);
@@ -889,7 +897,6 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
     }
-    
   }
 
   @PostMapping(
@@ -911,6 +918,28 @@ public class Main {
       // model.put("reservation", reservation);
       return "redirect:/user=" + id;
       
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @RequestMapping("/reviewHome")
+  public String getReviewHome(Map<String, Object> model, @PathVariable String pid, @ModelAttribute("userID") int userID) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      if(userID ==-1){
+        return "redirect:/login";
+      }
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Reviews WHERE UserID=" + userID);
+
+      if(rs.next()) {
+        String name = rs.getString("Name");
+        String comment = rs.getString("Comment");
+        Integer rating = rs.getInt("Rating");
+      } 
+      
+      return "reviewHome";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -1383,24 +1412,5 @@ public String restTerminal(Map<String, Object> model, @ModelAttribute("userID") 
       config.setPassword(password);
       return new HikariDataSource(config);
     // }
-  }
-
-  @RequestMapping("/reviewHome")
-  String reviewHome(Map<String, Object> model, @ModelAttribute("userID") int userID) throws Exception {
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-
-      ArrayList<Reviews> output = new ArrayList<Reviews>();
-      ResultSet rs1 = stmt.executeQuery("SELECT * FROM Reviews WHERE userID=" + userID);
-      while (r1s.next()) {
-        String name = rs.getString("Name");
-        String comment = rs.getString("Comment");
-        Integer rating = rs.getInt("Rating");
-    }
-    return "reviewHome";
-  } catch(Exception e) {
-      model.put("message", e.getMessage());
-      return error;
-    }
   }
 }
