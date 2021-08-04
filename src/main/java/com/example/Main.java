@@ -912,12 +912,11 @@ public class Main {
       }
       Statement stmt = connection.createStatement();
       
-      stmt.executeUpdate("DROP TABLE IF EXISTS Reviews");
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reviews (ID serial, UserID numeric, Restaurant varchar(225), FullName varchar(225), Time varchar(255), Comment text, Rating numeric)");
       String sql = "INSERT INTO Reviews (UserID, Restaurant, FullName, Time, Comment, Rating) VALUES ('" + id + "','" + reviews.getRestaurant() + "','" + reviews.getFullName() + "','" + reviews.getTime() + "','"  + reviews.getComment() + "','" + reviews.getRating()  + "')";
       stmt.executeUpdate(sql);
       // model.put("reservation", reservation);
-      return "redirect:/user=" + id;
+      return "redirect:/user";
       
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -934,12 +933,29 @@ public class Main {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM Reviews WHERE UserID=" + userID);
 
+      ArrayList<Reviews> output = new ArrayList<Reviews>();
       if(rs.next()) {
-        String name = rs.getString("Name");
+        Integer id = rs.getInt("ID");
+        Integer userId = rs.getInt("UserID");
+        Integer restaurantID = rs.getInt("RestaurantID");
+        String restaurant = rs.getString("Restaurant");
+        String name = rs.getString("FullName");
+        String time = rs.getString("Time");
         String comment = rs.getString("Comment");
         Integer rating = rs.getInt("Rating");
+        Reviews review = new Reviews();
+        review.setID(id);
+        review.setUserID(userId);
+        review.setRestaurantID(restaurantID);
+        review.setRestaurant(restaurant);
+        review.setFullName(name);
+        review.setTime(time);
+        review.setComment(comment);
+        review.setRating(rating);
+        output.add(review);
       } 
       
+      model.put("records", output);
       return "reviewHome";
     } catch (Exception e) {
       model.put("message", e.getMessage());
