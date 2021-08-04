@@ -26,7 +26,8 @@
 }
 
 .FavoritesTable tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+    background-color: #f7f5f5;
+    color: rgb(255, 251, 251);
 }
 
 .FavoritesTable tbody tr:last-of-type {
@@ -39,10 +40,16 @@
 }
 
 h1{
-    color:rgb(26, 187, 88);
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:rgb(17, 119, 56);
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    margin-top: 5%;
+    font-weight: 900;
 }
 
 body{
     text-align: center;
+}
+
+.FavoritesTable tbody {
+    background-color: #f7f5f5;
 }
