@@ -1386,7 +1386,7 @@ public String restTerminal(Map<String, Object> model, @ModelAttribute("userID") 
   }
 
   @RequestMapping("/reviewHome")
-  String reviewHome(Map<String, Object> model) {
+  String reviewHome(Map<String, Object> model, @ModelAttribute("userID") int userID) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
 
@@ -1396,8 +1396,11 @@ public String restTerminal(Map<String, Object> model, @ModelAttribute("userID") 
         String name = rs.getString("Name");
         String comment = rs.getString("Comment");
         Integer rating = rs.getInt("Rating");
-      }
-
+    }
+    return "reviewHome";
+  } catch(Exception e) {
+      model.put("message", e.getMessage());
+      return error;
     }
   }
 }
