@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User</title>
   </head>
-<body style="background-image: url('/images/favorites.jpg');">
+<body class = "favoriteBody">
     <div th:if="${#lists.isEmpty(records)}">
-        <h3>There are no Favorites to show.</h3>
+        <h1 class="empty">There are no Favorites to show.</h1>
       </div>
     <div class= "content" th:if="${not #lists.isEmpty(records)}">
         <h1>Favorites</h1>

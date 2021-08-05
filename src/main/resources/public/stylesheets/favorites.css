@@ -40,7 +40,7 @@
 }
 
 h1{
-    color:rgb(17, 119, 56);
+    color:rgb(245, 245, 245);
     font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
     margin-top: 5%;
     font-weight: 900;
@@ -52,4 +52,11 @@ body{
 
 .FavoritesTable tbody {
     background-color: #f7f5f5;
+}
+
+.favoriteBody{
+    background-image: url("/images/favorites.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+      
 }
