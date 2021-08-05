@@ -66,7 +66,7 @@
     min-height: 100%;
   }
   
-  .markerInfo a, p {
+  .markerInfo p {
     margin-left: 15px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -89,6 +89,9 @@
   }
 
   #fsubmit {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-width: 250px;
     border: 3px solid #73B842;
     border-radius: 10px;
     color: white;
@@ -104,5 +107,37 @@
   #fsubmit:hover {
     background-color: #489113;
   }
+
+  .anchorCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #link, #addReview, #viewReview {
+    min-width: 250px;
+    display:block; 
+    border: 3px solid #73B842;
+    border-radius: 10px;
+    color: white;
+    background-color: #73B842;
+    font-size: 1.2em;
+    transition: background-color 3s; 
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #link:hover, #addReview:hover, #viewReview:hover {
+    display:block; 
+    background-color: #489113;
+    text-decoration: none;
+  }
+
 
   

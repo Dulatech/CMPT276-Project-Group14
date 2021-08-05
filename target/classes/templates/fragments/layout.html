@@ -12,11 +12,7 @@
 
   <body>
     <ul>
-<<<<<<< HEAD
-      <li><a class="active" href="/userHome">Home</a></li>
-=======
       <li><a class="active" href="/user">Home</a></li>
->>>>>>> edc51fa18eaa7c39c6b6b7582f02ba80861bb3d5
       <li th:if="${userID == -1}"><a class="active" href="/login">Login</a></li>
       <li th:if="${userID >= 0}" ><a class="active" href="/logout">Logout</a></li>
     </ul>
