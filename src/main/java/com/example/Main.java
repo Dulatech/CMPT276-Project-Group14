@@ -1019,6 +1019,45 @@ public class Main {
     }
   }
 
+  @RequestMapping("/viewReview/{pid}")
+  public String viewReviewFromRestID(Map<String, Object> model, @PathVariable int pid, @ModelAttribute("userID") int userID) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      if(userID ==-1){
+        return "redirect:/login";
+      }
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Reviews WHERE RestaurantID=" + pid);
+
+      ArrayList<Reviews> output = new ArrayList<Reviews>();
+      while(rs.next()==true) {
+        Integer id = rs.getInt("ID");
+        Integer userId = rs.getInt("UserID");
+        String restaurant = rs.getString("Restaurant");
+        Integer restaurantID = rs.getInt("RestaurantID");
+        String name = rs.getString("FullName");
+        String time = rs.getString("Time");
+        String comment = rs.getString("Comment");
+        Integer rating = rs.getInt("Rating");
+        Reviews review = new Reviews();
+        review.setID(id);
+        review.setUserID(userId);
+        review.setRestaurant(restaurant);
+        review.setRestaurantID(restaurantID);
+        review.setFullName(name);
+        review.setTime(time);
+        review.setComment(comment);
+        review.setRating(rating);
+        output.add(review);
+      }
+      
+      model.put("records", output);
+      return "viewreview";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   // @RequestMapping("/favorites")
   // String getFavoriteForm(Map<String, Object> model) {
   //   Favorites favorite = new Favorites();
