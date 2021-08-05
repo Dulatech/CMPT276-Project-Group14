@@ -667,7 +667,18 @@ public class Main {
           output2.add(favorite);
         }
 
+        ResultSet rs3 = stmt.executeQuery("SELECT UserType FROM Users WHERE id=" + userID);
+
+        String uT = "";
+        while (rs3.next()) {
+          uT = rs3.getString("UserType");
+        }
+        
+   
+        
+
         Favorites favorite = new Favorites();
+        model.put("userType", uT);
         model.put("favorite", favorite);
         model.put("userFavorites", output2);
         model.put("restaurants", output);
@@ -684,7 +695,7 @@ public class Main {
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
 
-  public String test(Map<String, Object> model, Favorites favorite, @ModelAttribute("userID") Integer userID) throws Exception {
+  public String MapFavorite(Map<String, Object> model, Favorites favorite, @ModelAttribute("userID") Integer userID) throws Exception {
      try (Connection connection = dataSource.getConnection()) { 
       if(userID ==-1){
         return "redirect:/login";

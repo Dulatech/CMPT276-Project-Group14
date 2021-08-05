@@ -5,10 +5,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login page</title>
+    <title>map page</title>
 </head>
 
-<body th:onload="storeRestaurants([[${restaurants}]]), storeUserID([[${id}]]), storeUserFavorites([[${userFavorites}]])" >
+<body
+    th:onload="storeRestaurants([[${restaurants}]]), storeUserID([[${id}]]), storeUserFavorites([[${userFavorites}]]) , storeUserType([[${userType}]])">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwuntRUPBHuV3QvQid630HLhUxWf0ykZw&callback=initMap&libraries=places&v=weekly"
@@ -21,7 +22,6 @@
             <div class="logo">
                 <img src="/images/logoAlt.png" alt="logo" />
             </div>
-
             <p id="name"></p>
             <p id="description"></p>
             <p id="start"></p>
@@ -30,19 +30,29 @@
             <p id="email"></p>
             <p id="phone"></p>
             <p id="address"></p>
-            <a id="link" href="/addreservation"></a>
+            <div class="anchorCenter" >
+                <a id="link" href="/addreservation"></a>
+            </div>
+            <div class="anchorCenter">
+                <a id="addReview" href="/addreviews">Add a review</a>
+            </div>
+            <div class="anchorCenter">
+                <a id="viewReview" href="/viewReviews">View reviews</a>
+            </div>
+          
+           
             <form action="#" method="post" th:action="@{/map}" th:object="${favorite}">
                 <div id="buttonCenter">
                     <input id="fsubmit" type="submit" value="Add to Favorite" />
                 </div>
-               
-                <input id="uid" required type="text" th:field="*{userID}"   /><br>
+
+                <input id="uid" required type="text" th:field="*{userID}" /><br>
                 <input id="rid" required type="text" th:field="*{restaurantID}" autocomplete="off" /><br>
             </form>
         </div>
 
 
-        
+
 
         <div class="userInput">
             <div class="center">
@@ -54,12 +64,12 @@
             <div class="center">
                 <input id="submit" type="button" value="Find my Location" />
             </div>
-            
-           
+
+
         </div>
         <div id="map" width="300" height="300"></div>
 
-        
+
 
     </div>
 

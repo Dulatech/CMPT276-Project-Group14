@@ -8,10 +8,11 @@ var id,
   restaurants,
   userMarker,
   userLocation,
-  userID;
+  userID,
+  userFavorites,
+  userType;
 let markers = [];
-var userFavorites;
-
+//var userFavorites;
 var test1 = 0;
 let rgeo;
 
@@ -39,7 +40,6 @@ const mapStyle = {
 //store restaurants to global variable
 function storeRestaurants(r) {
   restaurants = r.slice();
-  console.log(restaurants);
   geoSetup();
 }
 
@@ -51,6 +51,11 @@ function storeUserID(i) {
 //store user's favorite
 function storeUserFavorites(userFavoriteAL) {
   userFavorites = userFavoriteAL.slice();
+}
+
+//store userType
+function storeUserType(uT) {
+  userType = uT;
 }
 
 //check if geolocation is supported. If supported, create map
@@ -120,7 +125,6 @@ function populateRestaurants() {
     }
 
     if (isFavorite) {
-      console.log("hi");
       geocodeAddress(restaurants[i].address, 2, i);
     } else {
       geocodeAddress(restaurants[i].address, 0, i);
@@ -170,6 +174,12 @@ function markerFunctionality(marker, option) {
     //default restaurant
     marker.addListener("click", () => {
       var i = parseInt(marker.getTitle());
+      var anchors = document.getElementsByClassName("anchorCenter");
+      if (userType == "C") {
+        anchors[0].style.visibility = "visible";
+        anchors[1].style.visibility = "visible";
+      }
+      anchors[2].style.visibility = "visible";
 
       document.getElementById("name").innerHTML = restaurants[i].name;
       document.getElementById("description").innerHTML =
@@ -180,23 +190,34 @@ function markerFunctionality(marker, option) {
         "Phone: " + restaurants[i].phone;
       document.getElementById("address").innerHTML =
         "Address " + restaurants[i].address;
-      document.getElementById("link").innerHTML = "make a reservation";
+      document.getElementById("link").innerHTML = "Make a reservation";
       document.getElementById("link").href =
         "/addreservation/" + restaurants[i].id;
       document.getElementById("start").innerHTML =
         "Open from: " + restaurants[i].startTime;
       document.getElementById("end").innerHTML =
         "Close at: " + restaurants[i].endTime;
-
+      
+      document.getElementById("addReview").href = "/addreview/" + restaurants[i].id;
+      document.getElementById("addReview").innerHTML = "Add a review";
+      document.getElementById("viewReview").href = "/viewReview/" + restaurants[i].id;
+      document.getElementById("viewReview").innerHTML = "View reviews";
       document.getElementById("uid").value = userID;
       document.getElementById("rid").value = restaurants[i].id;
       document.getElementById("buttonCenter").style.visibility = "visible";
-      document.getElementById("fsubmit").value = "favorite";
+      document.getElementById("fsubmit").value = "Favorite";
     });
   } else if (option == 2) {
     //favorite
     marker.addListener("click", () => {
       var i = parseInt(marker.getTitle());
+      var anchors = document.getElementsByClassName("anchorCenter");
+      if (userType == "C") {
+        anchors[0].style.visibility = "visible";
+        anchors[1].style.visibility = "visible";
+      }
+      anchors[2].style.visibility = "visible";
+
       document.getElementById("name").innerHTML = restaurants[i].name;
       document.getElementById("description").innerHTML =
         restaurants[i].description;
@@ -206,7 +227,7 @@ function markerFunctionality(marker, option) {
         "Phone: " + restaurants[i].phone;
       document.getElementById("address").innerHTML =
         "Address " + restaurants[i].address;
-      document.getElementById("link").innerHTML = "make a reservation";
+      document.getElementById("link").innerHTML = "Make a reservation";
       document.getElementById("link").href =
         "/addreservation/" + restaurants[i].id;
       document.getElementById("start").innerHTML =
@@ -214,10 +235,14 @@ function markerFunctionality(marker, option) {
       document.getElementById("end").innerHTML =
         "Close at: " + restaurants[i].endTime;
 
+      document.getElementById("addReview").href = "/addreview/" + restaurants[i].id;
+      document.getElementById("addReview").innerHTML = "Add a review";
+      document.getElementById("viewReview").href = "/viewReview/" + restaurants[i].id;
+      document.getElementById("viewReview").innerHTML = "View reviews";
       document.getElementById("uid").value = userID;
       document.getElementById("rid").value = restaurants[i].id;
       document.getElementById("buttonCenter").style.visibility = "visible";
-      document.getElementById("fsubmit").value = "unfavorite";
+      document.getElementById("fsubmit").value = "Unfavorite";
     });
   } else {
     //user
@@ -245,6 +270,11 @@ function userMarkerInfoHelper() {
   document.getElementById("start").innerHTML = "";
   document.getElementById("end").innerHTML = "";
   document.getElementById("buttonCenter").style.visibility = "hidden";
+ 
+  var anchors = document.getElementsByClassName("anchorCenter");
+  anchors[0].style.visibility = "hidden";
+  anchors[1].style.visibility = "hidden";
+  anchors[2].style.visibility = "hidden";
 }
 
 //geocoder messes up with indexes so global var that represents index is needed
