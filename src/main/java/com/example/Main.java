@@ -831,7 +831,8 @@ public class Main {
       String sql = "INSERT INTO Reservations2 (UserID, Restaurant, FullName, Time, Phone, TableType) VALUES ('" + id + "','" + reservation.getRestaurant() + "','" + reservation.getFullName() + "','" + reservation.getTime() + "','"  + reservation.getPhone() + "','" + reservation.getTableType()  + "')";
       stmt.executeUpdate(sql);
       // model.put("reservation", reservation);
-      return "redirect:/user=" + id;
+      
+      return "redirect:/user";
       
     } catch (Exception e) {
       model.put("message", e.getMessage());
