@@ -1086,12 +1086,13 @@ public class Main {
       System.out.println(pid);
        ResultSet rs = stmt.executeQuery("SELECT * FROM Favorites WHERE UserID=" + pid);
        ArrayList<Favorites> output = new ArrayList<Favorites>();
-       Favorites favorite = new Favorites();
-       while(rs.next()==true) {
+       
+       while(rs.next()) {
        Integer id = rs.getInt("ID");
        Integer UserID = rs.getInt("UserID");
        Integer RestaurentID = rs.getInt("RestaurantID");
 
+        Favorites favorite = new Favorites();
         favorite.setID(id);
         favorite.setUserID(UserID);
         favorite.setRestaurantID(RestaurentID);
