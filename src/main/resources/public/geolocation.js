@@ -8,9 +8,12 @@ var id,
   restaurants,
   userMarker,
   userLocation,
-  userID;
+  userID,
+  userFavorites,
+  reviews; 
 let markers = [];
-var userFavorites;
+//var userFavorites;
+    
 
 var test1 = 0;
 let rgeo;
@@ -39,8 +42,15 @@ const mapStyle = {
 //store restaurants to global variable
 function storeRestaurants(r) {
   restaurants = r.slice();
-  console.log(restaurants);
   geoSetup();
+}
+
+//store reviews as global variable
+function test(r) {
+  console.log(r);
+ // reviews = r.slice();
+ // console.log(reviews);
+  
 }
 
 //store userID

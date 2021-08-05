@@ -461,7 +461,7 @@ public class Main {
         return "error";
       }
       
-      return "redirect:/success";
+      return "redirect:/userInfo";
     } catch (Exception e) {
       return "error";
     }
@@ -572,9 +572,11 @@ public class Main {
         if(userID ==-1){
           return "redirect:/login";
         }
+
         Statement stmt = connection.createStatement();
         ArrayList<Restaurants> output = new ArrayList<Restaurants>();
         ArrayList<Favorites> output2 = new ArrayList<Favorites>();
+        ArrayList<Reviews> output3 = new ArrayList<Reviews>();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Restaurants");
         while (rs.next()) {
           Integer id = rs.getInt("ID");
@@ -622,11 +624,50 @@ public class Main {
           output2.add(favorite);
         }
 
+      ResultSet rs3 = stmt.executeQuery("SELECT * FROM Reviews");
+        while (rs3.next()) {
+          
+          Integer id = rs3.getInt("ID");
+          Integer userId = rs3.getInt("UserID");
+          String restaurant = rs3.getString("Restaurant");
+          String name = rs3.getString("FullName");
+          String time = rs3.getString("Time");
+          String comment = rs3.getString("Comment");
+          Integer rating = rs3.getInt("Rating");
+          String date = rs3.getString("date");
+          Reviews review = new Reviews();
+          review.setID(id);
+          review.setUserID(userId);
+          review.setRestaurant(restaurant);
+          review.setFullName(name);
+          review.setTime(time);
+          review.setComment(comment);
+          review.setRating(rating);
+          review.setDate();
+          output3.add(review);
+
+/** 
+          private Integer id;
+    private Integer UserId;
+    private Integer RestaurantID;
+    private String FullName;
+    private String Restaurant;
+    private String Time;
+    private Date date;
+    private String comment;
+    private Integer rating;
+    */
+        }
+
+      
+
         Favorites favorite = new Favorites();
+        model.put("reviews", output3);
         model.put("favorite", favorite);
         model.put("userFavorites", output2);
         model.put("restaurants", output);
         model.put("id", userID);
+        
         return "map";
       } catch (Exception e) {
         model.put("message", e.getMessage());
@@ -639,7 +680,7 @@ public class Main {
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
 
-  public String test(Map<String, Object> model, Favorites favorite, @ModelAttribute("userID") Integer userID) throws Exception {
+  public String InsertFavoriteOnMap(Map<String, Object> model, Favorites favorite, @ModelAttribute("userID") Integer userID) throws Exception {
      try (Connection connection = dataSource.getConnection()) { 
       if(userID ==-1){
         return "redirect:/login";
