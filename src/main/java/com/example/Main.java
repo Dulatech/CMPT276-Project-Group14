@@ -376,9 +376,49 @@ public class Main {
         reservation.setPhone(phone);
         output3.add(reservation);
       }
+
+
+      // GET LASTEST REVIEWS
+      ArrayList<Reviews> output4 = new ArrayList<Reviews>();
+      ResultSet rs4 = stmt.executeQuery("SELECT * FROM Reviews");
+
+      while (rs4.next()) {
+        Integer id = rs4.getInt("ID");
+        Integer userId = rs4.getInt("UserID");
+        String restaurant = rs4.getString("Restaurant");
+        Integer restaurantId = rs4.getInt("RestaurantID");
+        String name = rs4.getString("FullName");
+        String time = rs4.getString("Time");
+        String comment = rs4.getString("Comment");
+        Integer rating = rs4.getInt("Rating");
+        Reviews review = new Reviews();
+        review.setID(id);
+        review.setUserID(userId);
+        review.setRestaurant(restaurant);
+        review.setRestaurantID(restaurantId);
+        review.setFullName(name);
+        review.setTime(time);
+        review.setComment(comment);
+        review.setRating(rating);
+        output4.add(review);
+      }
+
+      Reviews review1 = null;
+      Reviews review2 = null;
+      Reviews review3 = null;
+      if (output4.size() >= 3) {
+        review1 = output4.get(output4.size()-1); // lastest review
+        review2 = output4.get(output4.size()-2);
+        review3 = output4.get(output4.size()-3);
+      }
+
+
       Search search = new Search();
       model.put("search", search);
       model.put("records3", output3);
+      model.put("review1", review1);
+      model.put("review2", review2);
+      model.put("review3", review3);
       return "userHome";
     } catch (Exception e) {
       model.put("message", e.getMessage());
