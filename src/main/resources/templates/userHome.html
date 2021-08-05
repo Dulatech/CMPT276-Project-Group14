@@ -29,7 +29,7 @@
             class="dropbtn"
           />
           <div id="myDropdown" class="dropdown-content">
-            <a href="/userInfo">Edit Profile</a>
+            <a href="/userInfo">My Info</a>
             <a th:href="@{/addrestaurant}" th:if="${userType == 'R'}"
               >Add Restaurant</a
             >
@@ -72,7 +72,7 @@
               th:if="${userType == 'C'}"
               >Favorites</a
             >
-            <a class="searchBarItems" href="#">Reviews</a>
+            <a class="searchBarItems" href="/reviewHome">Reviews</a>
             <a class="searchBarItems" href="#" th:if="${userType == 'C'}"
               >Discover</a
             >
@@ -141,14 +141,39 @@
       <div class="bottom">
         <div class="reviews">
           <div class="reviewHeader">
-            <img src="/images/user_review.png" class="reviewIcon" />
-            <span class="reviewName"> John Doe </span>
-            <img src="/images/5_stars.png" class="stars" />
+
+            <div th:if="${review1 != null}">
+              <img src="/images/user_review.png" class="reviewIcon" />
+              <span class="reviewName" th:text="${review1.FullName}"></span>
+              <img th:if="${review1.Rating == 1}" src="/images/starOne.png" class="stars1" />
+              <img th:if="${review1.Rating == 2}" src="/images/starTwo.png" class="stars2" />
+              <img th:if="${review1.Rating == 3}" src="/images/starThree.png" class="stars3" />
+              <img th:if="${review1.Rating == 4}" src="/images/starFour.png" class="stars4" />
+              <img th:if="${review1.Rating == 5}" src="/images/5_stars.png" class="stars5" />
+            </div>
+            <div th:if="${review1 == null}">
+              <img src="/images/user_review.png" class="reviewIcon" />
+              <span class="reviewName"> John Doe </span>
+              <img src="/images/5_stars.png" class="stars" />
+            </div>
+            
           </div>
+
           <br class="reviewHeaderNameSpace" />
-          <h1>Restaurant Name</h1>
+
+          <div th:if="${review1 != null}">
+            <h1 th:text="${review1.Restaurant}"></h1>
+          </div>
+          <div th:if="${review1 == null}">
+            <h1>Restaurant Name</h1>
+          </div>
+
           <br class="reviewNameBodySpace" />
-          <div class="placeHolderText">
+
+          <div class="placeHolderText" th:if="${review1 != null}">
+            <p th:text="${review1.Comment}"></p>
+          </div>
+          <div class="placeHolderText" th:if="${review1 == null}">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porta
             consectetur semper. Suspendisse accumsan nec purus at rutrum.
             Curabitur convallis venenatis massa at euismod. Maecenas vestibulum
@@ -161,14 +186,39 @@
 
         <div class="reviews">
           <div class="reviewHeader">
-            <img src="/images/user_review.png" class="reviewIcon" />
-            <span class="reviewName"> John Doe </span>
-            <img src="/images/5_stars.png" class="stars" />
+
+            <div th:if="${review2 != null}">
+              <img src="/images/user_review.png" class="reviewIcon" />
+              <span class="reviewName" th:text="${review2.FullName}"></span>
+              <img th:if="${review2.Rating == 1}" src="/images/starOne.png" class="stars1" />
+              <img th:if="${review2.Rating == 2}" src="/images/starTwo.png" class="stars2" />
+              <img th:if="${review2.Rating == 3}" src="/images/starThree.png" class="stars3" />
+              <img th:if="${review2.Rating == 4}" src="/images/starFour.png" class="stars4" />
+              <img th:if="${review2.Rating == 5}" src="/images/5_stars.png" class="stars5" />
+            </div>
+            <div th:if="${review2 == null}">
+              <img src="/images/user_review.png" class="reviewIcon" />
+              <span class="reviewName"> John Doe </span>
+              <img src="/images/5_stars.png" class="stars" />
+            </div>
+            
           </div>
+
           <br class="reviewHeaderNameSpace" />
-          <h1>Restaurant Name</h1>
+
+          <div th:if="${review2 != null}">
+            <h1 th:text="${review2.Restaurant}"></h1>
+          </div>
+          <div th:if="${review2 == null}">
+            <h1>Restaurant Name</h1>
+          </div>
+
           <br class="reviewNameBodySpace" />
-          <div class="placeHolderText">
+
+          <div class="placeHolderText" th:if="${review2 != null}">
+            <p th:text="${review2.Comment}"></p>
+          </div>
+          <div class="placeHolderText" th:if="${review2 == null}">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porta
             consectetur semper. Suspendisse accumsan nec purus at rutrum.
             Curabitur convallis venenatis massa at euismod. Maecenas vestibulum
@@ -181,14 +231,39 @@
 
         <div class="reviews">
           <div class="reviewHeader">
-            <img src="/images/user_review.png" class="reviewIcon" />
-            <span class="reviewName"> John Doe </span>
-            <img src="/images/5_stars.png" class="stars" />
+
+            <div th:if="${review3 != null}">
+              <img src="/images/user_review.png" class="reviewIcon" />
+              <span class="reviewName" th:text="${review3.FullName}"></span>
+              <img th:if="${review3.Rating == 1}" src="/images/starOne.png" class="stars1" />
+              <img th:if="${review3.Rating == 2}" src="/images/starTwo.png" class="stars2" />
+              <img th:if="${review3.Rating == 3}" src="/images/starThree.png" class="stars3" />
+              <img th:if="${review3.Rating == 4}" src="/images/starFour.png" class="stars4" />
+              <img th:if="${review3.Rating == 5}" src="/images/5_stars.png" class="stars5" />
+            </div>
+            <div th:if="${review3 == null}">
+              <img src="/images/user_review.png" class="reviewIcon" />
+              <span class="reviewName"> John Doe </span>
+              <img src="/images/5_stars.png" class="stars" />
+            </div>
+            
           </div>
+
           <br class="reviewHeaderNameSpace" />
-          <h1>Restaurant Name</h1>
+
+          <div th:if="${review3 != null}">
+            <h1 th:text="${review3.Restaurant}"></h1>
+          </div>
+          <div th:if="${review3 == null}">
+            <h1>Restaurant Name</h1>
+          </div>
+
           <br class="reviewNameBodySpace" />
-          <div class="placeHolderText">
+
+          <div class="placeHolderText" th:if="${review3 != null}">
+            <p th:text="${review3.Comment}"></p>
+          </div>
+          <div class="placeHolderText" th:if="${review3 == null}">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porta
             consectetur semper. Suspendisse accumsan nec purus at rutrum.
             Curabitur convallis venenatis massa at euismod. Maecenas vestibulum
@@ -201,7 +276,6 @@
       </div>
     </div>
 
-    <a href="/userInfo">My Info</a>
     <script src="/userHome.js"></script>
   </body>
 </html>

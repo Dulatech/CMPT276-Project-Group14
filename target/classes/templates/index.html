@@ -226,8 +226,28 @@
           </tr>
         </table>
 
-        <form action="#" method="get" th:action="@{/adduser}">
-          <input class="blue-button" type="submit" value="Register User" />
+        <div th:if="${not #lists.isEmpty(records)}">
+          <table style="margin-top: 20px; margin-bottom: 10px">
+            <tr>
+              <th>Name</th>
+              <th>Comment</th>
+              <th>Rating</th>
+            </tr>
+            <tr th:each="record : ${records}">
+              <td>
+                <p th:text="${record.Name}"></p>
+              </td>
+              <td>
+                <p th:text="${record.Comment}"></p>
+              </td>
+              <td>
+                <p th:text="${record.Rating}"></p>
+              </td>
+            </tr>
+          </table>
+
+        <form action="#" method="get" th:action="@{/reviewHome}">
+          <input class="blue-button" type="submit" value="Review Home" />
         </form>
       </div>
 </body>

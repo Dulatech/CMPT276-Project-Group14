@@ -17,6 +17,32 @@
       <form  id="addreview-form" action="#" method="post" th:action="@{/addreview}" th:object="${review}" >
 
       <div class="item">
+        <label class="userid">User ID</label><br />
+        <input
+        class="input-box"
+          required
+          type="text"
+          maxlength="10"
+          th:field="*{UserID}"
+          placeholder="UserID"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="item">
+        <label class="restaurantid">Restaurant ID</label><br />
+        <input
+        class="input-box"
+          required
+          type="text"
+          maxlength="10"
+          th:field="*{RestaurantID}"
+          placeholder="RestaurantID"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="item">
         <label class="restaurant">Restaurant</label><br />
         <input
         class="input-box"
@@ -42,10 +68,18 @@
       />
       </div>
 
-      <div class="time">
+      <div class="item">
         <label>Time</label><br />
-        <input type="datetime-local" required th:field="*{Time}" name="Time" id="time">
-      </div>
+        <input
+        class="input-box"
+          required
+          type="text"
+          maxlength="50"
+          th:field="*{Time}"
+          placeholder="Time"
+          autocomplete="off"
+        />
+        </div>
 
       <div class="comment-box">
         <label>Comment</label><br />

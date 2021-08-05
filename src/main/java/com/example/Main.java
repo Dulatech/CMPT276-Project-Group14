@@ -35,8 +35,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 
 import org.springframework.web.bind.annotation.SessionAttributes; 
@@ -305,7 +308,9 @@ public class Main {
       String userType = rs.getString("UserType");
       return "redirect:/user";
       } else {
-        return "redirect:/loginError";
+        model.put("user", user);
+        model.put("error", "The Username or Password you've entered is incorrect.");
+        return "login";
       } 
     } catch (Exception e) {
       return "error";
@@ -371,9 +376,49 @@ public class Main {
         reservation.setPhone(phone);
         output3.add(reservation);
       }
+
+
+      // GET LASTEST REVIEWS
+      ArrayList<Reviews> output4 = new ArrayList<Reviews>();
+      ResultSet rs4 = stmt.executeQuery("SELECT * FROM Reviews");
+
+      while (rs4.next()) {
+        Integer id = rs4.getInt("ID");
+        Integer userId = rs4.getInt("UserID");
+        String restaurant = rs4.getString("Restaurant");
+        Integer restaurantId = rs4.getInt("RestaurantID");
+        String name = rs4.getString("FullName");
+        String time = rs4.getString("Time");
+        String comment = rs4.getString("Comment");
+        Integer rating = rs4.getInt("Rating");
+        Reviews review = new Reviews();
+        review.setID(id);
+        review.setUserID(userId);
+        review.setRestaurant(restaurant);
+        review.setRestaurantID(restaurantId);
+        review.setFullName(name);
+        review.setTime(time);
+        review.setComment(comment);
+        review.setRating(rating);
+        output4.add(review);
+      }
+
+      Reviews review1 = null;
+      Reviews review2 = null;
+      Reviews review3 = null;
+      if (output4.size() >= 3) {
+        review1 = output4.get(output4.size()-1); // lastest review
+        review2 = output4.get(output4.size()-2);
+        review3 = output4.get(output4.size()-3);
+      }
+
+
       Search search = new Search();
       model.put("search", search);
       model.put("records3", output3);
+      model.put("review1", review1);
+      model.put("review2", review2);
+      model.put("review3", review3);
       return "userHome";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -918,8 +963,15 @@ public class Main {
         model.put("id", id);
         model.put("name", name);
 
+        Date currentTime = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm");
+        String time = dateFormat.format(currentTime);
+        model.put("time", time);
+
+        review.setUserID(userID);
         review.setRestaurantID(id);
         review.setRestaurant(name);
+        review.setTime(time);
       } 
       
       model.put("review", review);
@@ -928,7 +980,6 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
     }
-    
   }
 
   @PostMapping(
@@ -943,13 +994,105 @@ public class Main {
       }
       Statement stmt = connection.createStatement();
       
-      stmt.executeUpdate("DROP TABLE IF EXISTS Reviews");
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reviews (ID serial, UserID numeric, Restaurant varchar(225), FullName varchar(225), Time varchar(255), Comment text, Rating numeric)");
-      String sql = "INSERT INTO Reviews (UserID, Restaurant, FullName, Time, Comment, Rating) VALUES ('" + id + "','" + reviews.getRestaurant() + "','" + reviews.getFullName() + "','" + reviews.getTime() + "','"  + reviews.getComment() + "','" + reviews.getRating()  + "')";
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Reviews (ID serial, UserID numeric, Restaurant varchar(225), RestaurantID numeric, FullName varchar(225), Time varchar(255), Comment text, Rating numeric)");
+      String sql = "INSERT INTO Reviews (UserID, Restaurant, RestaurantID, FullName, Time, Comment, Rating) VALUES ('" + id + "','" + reviews.getRestaurant() + "','" + reviews.getRestaurantID() + "','" + reviews.getFullName() + "','" + reviews.getTime() + "','"  + reviews.getComment() + "','" + reviews.getRating()  + "')";
       stmt.executeUpdate(sql);
-      // model.put("reservation", reservation);
-      return "redirect:/user=" + id;
+      return "redirect:/user";
       
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @RequestMapping("/reviewHome")
+  public String getReviewHome(Map<String, Object> model, @ModelAttribute("userID") int userID) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      if(userID ==-1){
+        return "redirect:/login";
+      }
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Reviews WHERE UserID=" + userID);
+
+      ArrayList<Reviews> output = new ArrayList<Reviews>();
+      while(rs.next()) {
+        Integer id = rs.getInt("ID");
+        Integer userId = rs.getInt("UserID");
+        String restaurant = rs.getString("Restaurant");
+        Integer restaurantID = rs.getInt("RestaurantID");
+        String name = rs.getString("FullName");
+        String time = rs.getString("Time");
+        String comment = rs.getString("Comment");
+        Integer rating = rs.getInt("Rating");
+        Reviews review = new Reviews();
+        review.setID(id);
+        review.setUserID(userId);
+        review.setRestaurant(restaurant);
+        review.setRestaurantID(restaurantID);
+        review.setFullName(name);
+        review.setTime(time);
+        review.setComment(comment);
+        review.setRating(rating);
+        output.add(review);
+      } 
+      
+      model.put("records", output);
+      return "reviewHome";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @GetMapping("/deleteReview/{pid}")
+  public String deleteReview(Map<String, Object> model, @PathVariable int pid, @ModelAttribute("userID") int id) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      if(id ==-1){
+        return "redirect:/login";
+      }
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("DELETE FROM Reviews WHERE ID =" + pid);
+      
+      return "redirect:/reviewHome";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @RequestMapping("/viewReview/{pid}")
+  public String viewReviewFromRestID(Map<String, Object> model, @PathVariable int pid, @ModelAttribute("userID") int userID) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      if(userID ==-1){
+        return "redirect:/login";
+      }
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Reviews WHERE RestaurantID=" + pid);
+
+      ArrayList<Reviews> output = new ArrayList<Reviews>();
+      while(rs.next()==true) {
+        Integer id = rs.getInt("ID");
+        Integer userId = rs.getInt("UserID");
+        String restaurant = rs.getString("Restaurant");
+        Integer restaurantID = rs.getInt("RestaurantID");
+        String name = rs.getString("FullName");
+        String time = rs.getString("Time");
+        String comment = rs.getString("Comment");
+        Integer rating = rs.getInt("Rating");
+        Reviews review = new Reviews();
+        review.setID(id);
+        review.setUserID(userId);
+        review.setRestaurant(restaurant);
+        review.setRestaurantID(restaurantID);
+        review.setFullName(name);
+        review.setTime(time);
+        review.setComment(comment);
+        review.setRating(rating);
+        output.add(review);
+      }
+      
+      model.put("records", output);
+      return "viewreview";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -1423,5 +1566,4 @@ public String restTerminal(Map<String, Object> model, @ModelAttribute("userID") 
       return new HikariDataSource(config);
     // }
   }
-
 }

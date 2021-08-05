@@ -128,6 +128,7 @@ form.searchBarInner::after {
   padding-left: 2em;
   padding-right: 2em;
   margin: auto;
+  width: 450px;
   height: 350px;
   background-color: #e7f6e1;
   padding: 25px 50px 25px 50px;
@@ -148,6 +149,39 @@ form.searchBarInner::after {
   font-size: 20px;
 }
 
+.stars1 {
+  float: right;
+  position: relative;
+  top: 10px;
+}
+
+.stars2 {
+  float: right;
+  width: 60px;
+  position: relative;
+  top: 10px;
+}
+
+.stars3 {
+  float: right;
+  width: 90px;
+  position: relative;
+  top: 10px;
+}
+
+.stars4 {
+  float: right;
+  width: 120px;
+  position: relative;
+  top: 10px;
+}
+
+.stars5 {
+  float: right;
+  width: 150px;
+  position: relative;
+  top: 10px;
+}
 .stars {
   float: right;
   width: 150px;
@@ -262,6 +296,8 @@ img {
 .ReservationTable th,
 .ReservationTable td {
   padding: 12px 15px;
+  text-align: center;
+  border: 1px solid rgb(52, 136, 101);
 }
 
 .ReservationTable tbody tr {
@@ -279,4 +315,10 @@ img {
 .ReservationTable tbody tr.active-row {
   font-weight: bold;
   color: #009879;
+}
+
+.ReservationTable {
+margin-left: auto;
+margin-right: auto;
+border-radius: 15px;
 }
