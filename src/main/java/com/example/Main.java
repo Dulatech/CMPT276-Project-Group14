@@ -1003,6 +1003,22 @@ public class Main {
     }
   }
 
+  @GetMapping("/deleteReview/{pid}")
+  public String deleteReview(Map<String, Object> model, @PathVariable int pid, @ModelAttribute("userID") int id) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      if(id ==-1){
+        return "redirect:/login";
+      }
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("DELETE FROM Reviews WHERE ID =" + pid);
+      
+      return "redirect:/reviewHome";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   // @RequestMapping("/favorites")
   // String getFavoriteForm(Map<String, Object> model) {
   //   Favorites favorite = new Favorites();
