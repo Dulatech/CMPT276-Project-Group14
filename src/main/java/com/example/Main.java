@@ -506,7 +506,7 @@ public class Main {
         return "error";
       }
       
-      return "redirect:/success";
+      return "redirect:/userInfo";
     } catch (Exception e) {
       return "error";
     }
