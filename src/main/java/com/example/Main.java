@@ -225,7 +225,7 @@ public class Main {
         return "redirect:/login";
       }
         
-        return "redirect:/user=" + id;
+      return "redirect:/user";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -763,7 +763,7 @@ public class Main {
       + "','"  + restaurant.getCuisine() + "','"  + restaurant.getDescription() + "','"  + restaurant.getStartTime() + "','" + restaurant.getEndTime()  + "','"  + restaurant.getEmail() + "','" + restaurant.getPhone() + "','"   + restaurant.getAddress() + "'," + restaurant.getSingleTables() + "," +  restaurant.getDoubleTables() + "," +  restaurant.getFourPersonTables() + "," +  restaurant.getPartyTables() + ")";
       stmt.executeUpdate(sql);
       model.put("restaurant", restaurant);
-      return "redirect:/user=" + userID;
+      return "redirect:/user";
       
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -900,7 +900,7 @@ public class Main {
       String sql = "UPDATE Reservations2 SET FullName ='" + reservation.getFullName() + "', Time ='" + reservation.getTime() + "', Phone = '"  + reservation.getPhone() + "', TableType ='" + reservation.getTableType()  + "' WHERE ID = " + reservation.getID();
       stmt.executeUpdate(sql);
       // model.put("reservation", reservation);
-      return "redirect:/user=" + id;
+      return "redirect:/user";
       
     } catch (Exception e) {
       model.put("message", e.getMessage());
