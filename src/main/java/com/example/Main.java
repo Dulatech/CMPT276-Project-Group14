@@ -1117,7 +1117,22 @@ public class Main {
       }
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("DELETE FROM Favorites WHERE ID =" + pid);
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Favorites WHERE UserID=" + userID);
+       ArrayList<Favorites> output = new ArrayList<Favorites>();
+       
+       while(rs.next()) {
+       Integer id = rs.getInt("ID");
+       Integer UserID = rs.getInt("UserID");
+       Integer RestaurentID = rs.getInt("RestaurantID");
+
+        Favorites favorite = new Favorites();
+        favorite.setID(id);
+        favorite.setUserID(UserID);
+        favorite.setRestaurantID(RestaurentID);
+        output.add(favorite);
+       } 
       
+      model.put("records", output);
       return "favorites";
     } catch (Exception e) {
       model.put("message", e.getMessage());
